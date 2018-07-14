@@ -14,7 +14,7 @@ public class Main {
 	public static PostDao postDao = new PostDao();
 
 	public static void main(String[] args) {
-		System.out.println("hi");
+		System.out.println("hi THIS IS A MAIN METHOD CALL");
 		insertInitialValues();
 
 		System.out.println("First the Comment");

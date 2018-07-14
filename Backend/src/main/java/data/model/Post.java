@@ -35,13 +35,13 @@ public class Post {
 	private String youtubeLink;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
-	@JoinColumn(name="userEmail")
+	@JoinColumn(name="email")
 	private User user;
 	
 	@OneToMany(mappedBy="commentId", fetch=FetchType.LAZY)
 	private List<Comment> comments;
 	
-	@OneToMany(mappedBy="userEmail", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="email", fetch=FetchType.LAZY)
 	private List<User> likes;
 
 	public Post() {

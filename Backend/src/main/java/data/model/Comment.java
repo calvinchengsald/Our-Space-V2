@@ -27,7 +27,7 @@ public class Comment {
 	private Post post;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
-	@JoinColumn(name="userEmail")
+	@JoinColumn(name="email")
 	private User user;
 
 	public Comment() {

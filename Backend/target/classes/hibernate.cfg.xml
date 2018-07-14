@@ -19,10 +19,9 @@
         validate     just checks to make sure the schema is as expected
         update        it will not delete, only add to your schema
         none         well.... it means it won't do anything automatically -->
-        <!-- <mapping class="com.example.model.Movie"/>
-        <mapping class="com.example.model.Character"/>
-        <mapping class="com.example.model.Director"/>
-        <mapping class="com.example.model.Soundtrack"/> -->
+        <mapping class="data.model.Post"/>
+        <mapping class="data.model.User"/>
+        <mapping class="data.model.Comment"/>
         <!-- <mapping resource="Character.hbm.xml" /> -->
         
     </session-factory>
