@@ -2,7 +2,6 @@ package data.model;
 
 import javax.persistence.Table;
 
-import com.example.model.Movie;
 
 import java.util.List;
 
