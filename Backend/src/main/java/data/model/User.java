@@ -9,9 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+
 
 @Entity
 @Table(name="Users")
@@ -30,9 +33,16 @@ public class User {
 	@Column(name="password", nullable=false)
 	private String password;
 	
-	@OneToMany(mappedBy="postId", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
 	private List<Post> posts;
 	
+	
+
+	
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+	@JoinColumn(name="postId")
+	private List<Post> likes;
 	
 	public User() {
 		super();
@@ -44,6 +54,7 @@ public class User {
 		super();
 		this.email = email;
 	}
+	
 
 
 	public User(String firstName, String lastName, String password, List<Post> posts) {
@@ -112,6 +123,17 @@ public class User {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	
+
+	public List<Post> getLikes() {
+		return likes;
+	}
+
+
+	public void setLikes(List<Post> likes) {
+		this.likes = likes;
 	}
 
 

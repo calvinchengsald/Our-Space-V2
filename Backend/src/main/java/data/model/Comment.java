@@ -1,6 +1,5 @@
 package data.model;
 
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,7 +19,7 @@ public class Comment {
 	@Id
 	@Column(name="commentId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private String commentId;
+	private int commentId;
 	
 	@Column(name="body", nullable=false)
 	private String body;
@@ -37,7 +36,7 @@ public class Comment {
 		super();
 	}
 
-	public Comment(String commentId, String body, Post post, User user) {
+	public Comment(int commentId, String body, Post post, User user) {
 		super();
 		this.commentId = commentId;
 		this.body = body;
@@ -52,16 +51,16 @@ public class Comment {
 		this.user = user;
 	}
 
-	public Comment(String commentId) {
+	public Comment(int commentId) {
 		super();
 		this.commentId = commentId;
 	}
 
-	public String getCommentId() {
+	public int getCommentId() {
 		return commentId;
 	}
 
-	public void setCommentId(String commentId) {
+	public void setCommentId(int commentId) {
 		this.commentId = commentId;
 	}
 

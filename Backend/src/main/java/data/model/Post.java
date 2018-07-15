@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -38,11 +39,14 @@ public class Post {
 	@JoinColumn(name="email")
 	private User user;
 	
-	@OneToMany(mappedBy="commentId", fetch=FetchType.LAZY)
-	private List<Comment> comments;
 	
-	@OneToMany(mappedBy="email", fetch=FetchType.LAZY)
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER, mappedBy="likes")
 	private List<User> likes;
+	
+	
+	@OneToMany(mappedBy="post", fetch=FetchType.LAZY)
+	private List<Comment> comments;
 
 	public Post() {
 		super();
