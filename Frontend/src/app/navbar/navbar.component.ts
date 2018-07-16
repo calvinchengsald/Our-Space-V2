@@ -7,13 +7,13 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  title:string = 'Our Space';
+  title: 'Our Space';
 
-  get loginService(){
+  get loginService() {
     return this._loginService;
   }
 
-  constructor(private _loginService :LoginService) { }
+  constructor(private _loginService: LoginService) { }
 
   ngOnInit() {
   }

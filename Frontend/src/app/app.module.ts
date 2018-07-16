@@ -1,8 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-import { FormsModule }   from '@angular/forms';
-import {RouterModule, Router} from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatInputModule, MatSelectModule, MatCardModule, MatButtonModule, MatFormFieldModule} from '@angular/material';
+
 
 import { LoginService } from './services/login.service';
 
@@ -24,15 +28,20 @@ import { RegisterComponent } from './register/register.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    BrowserAnimationsModule,
+    MatInputModule, MatSelectModule,
+    MatCardModule, MatButtonModule,
+    MatFormFieldModule,
+
     RouterModule.forRoot([
-      {path: 'login', component:LoginPageComponent},
-      {path: 'register', component:RegisterComponent},
-      {path: '', component:HomeComponent,pathMatch:'full'},
-      {path: '**', component:HomeComponent,pathMatch:'full'},
+      { path: 'login', component: LoginPageComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '**', component: HomeComponent, pathMatch: 'full' },
     ])
   ],
   providers: [LoginService],
   bootstrap: [AppComponent],
-  
+
 })
 export class AppModule { }
