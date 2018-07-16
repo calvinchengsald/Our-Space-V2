@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import data.model.Post;
+import data.model.User;
 import util.HibernateUtil;
 
 public class PostDao {
@@ -72,11 +73,50 @@ public class PostDao {
 	public List<Post> selectAll() {
 		Session ses = HibernateUtil.getSession();
 
-		List<Post> PostList = ses.createQuery("from Posts").list();
+		List<Post> PostList = ses.createQuery("from Post").list();
 		// List<Character> charList = ses.createCriteria(Character.class).list();
 
 		// ses.close();
 		return PostList;
+	}
+	public List<Post> selectAllByUser(String email) {
+		Session ses = HibernateUtil.getSession();
+
+		List<Post> PostList = ses.createQuery("from Post where email='"+email+"'", Post.class).list();
+		// List<Character> charList = ses.createCriteria(Character.class).list();
+
+		// ses.close();
+		return PostList;
+	}
+	
+	//true if liked it, false if unliked it
+	public boolean likePost(String email, int postId) {
+		Session ses = HibernateUtil.getSession();
+		Transaction tx = ses.beginTransaction();
+		Post post = ses.get(Post.class, postId);
+		User user = ses.get(User.class, email);
+		if(post == null) {
+			System.out.println("Post is null");
+			tx.commit();
+			return false;
+		}
+		if(user == null) {
+			System.out.println("User is null");
+			tx.commit();
+			return false;
+		}
+		if(!post.getLikes().contains(user)) {
+			post.getLikes().add(user);
+			tx.commit();
+			return true;
+			//like it
+		}
+		else {
+			post.getLikes().remove(user);
+			tx.commit();
+			return false;
+		}
+		
 	}
 
 }

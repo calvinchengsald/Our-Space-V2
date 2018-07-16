@@ -72,7 +72,7 @@ public class CommentDao {
 	public List<Comment> selectAll() {
 		Session ses = HibernateUtil.getSession();
 
-		List<Comment> commentList = ses.createQuery("from Comments").list();
+		List<Comment> commentList = ses.createQuery("from Comment").list();
 		// List<Character> charList = ses.createCriteria(Character.class).list();
 
 		// ses.close();

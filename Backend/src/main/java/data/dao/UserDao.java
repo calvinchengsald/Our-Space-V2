@@ -72,7 +72,7 @@ public class UserDao {
 	public List<User> selectAll() {
 		Session ses = HibernateUtil.getSession();
 
-		List<User> UserList = ses.createQuery("from Users").list();
+		List<User> UserList = ses.createQuery("from User").list();
 		// List<Character> charList = ses.createCriteria(Character.class).list();
 
 		// ses.close();

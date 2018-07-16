@@ -24,6 +24,8 @@ public class Main {
 		System.out.println("Now the Post");
 		System.out.println("All the Post: " + postDao.selectAll());
 
+		System.out.println("All the Post by calvin@mail.com: " + postDao.selectAllByUser("calvin@mail.com"));
+
 		// System.out.println("Search for Kylo Ren: " + chardao.selectByName("'Kylo
 		// Ren'"));
 		HibernateUtil.closeSes();
@@ -78,5 +80,9 @@ public class Main {
 
 		commentDao.insert(c1);
 		commentDao.insert(c2);
+		postDao.likePost("calvin@mail.com", 1);
+		postDao.likePost("jerry@mail.com", 2);
+		postDao.likePost("calvin@mail.com", 1);
+		postDao.likePost("calvin@mail.com", 2);
 	}
 }

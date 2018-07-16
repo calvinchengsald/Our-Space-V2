@@ -2,7 +2,7 @@ package data.model;
 
 import javax.persistence.Table;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -54,6 +54,7 @@ public class Post {
 	public Post(int postId) {
 		super();
 		this.postId = postId;
+		likes = new ArrayList<User>();
 	}
 	public Post(int postId, String body, String imgSrc, String youtubeLink, User user, List<Comment> comments,
 			List<User> likes) {
@@ -65,6 +66,7 @@ public class Post {
 		this.user = user;
 		this.comments = comments;
 		this.likes = likes;
+		likes = new ArrayList<User>();
 	}
 	public Post(String body, String imgSrc, String youtubeLink, User user, List<Comment> comments, List<User> likes) {
 		super();
@@ -83,6 +85,7 @@ public class Post {
 		this.imgSrc = imgSrc;
 		this.youtubeLink = youtubeLink;
 		this.user = user;
+		likes = new ArrayList<User>();
 	}
 	public int getPostId() {
 		return postId;
@@ -143,7 +146,7 @@ public class Post {
 	@Override
 	public String toString() {
 		return "Post [postId=" + postId + ", body=" + body + ", imgSrc=" + imgSrc + ", youtubeLink=" + youtubeLink
-				+ ", user=" + user + "]";
+				+ ", likes=" + likes.size() + "]";
 	}
 	
 	
