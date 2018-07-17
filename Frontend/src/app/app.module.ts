@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatInputModule, MatSelectModule, MatCardModule, MatButtonModule, MatFormFieldModule} from '@angular/material';
+import {MatInputModule, MatSelectModule, MatCardModule, MatButtonModule, MatFormFieldModule, MatIconModule} from '@angular/material';
 
 
 import { LoginService } from './services/login.service';
@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterComponent } from './register/register.component';
+import { PostService } from './services/post.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RegisterComponent } from './register/register.component';
     MatInputModule, MatSelectModule,
     MatCardModule, MatButtonModule,
     MatFormFieldModule,
+    MatIconModule,
 
     RouterModule.forRoot([
       { path: 'login', component: LoginPageComponent },
@@ -40,7 +42,7 @@ import { RegisterComponent } from './register/register.component';
       { path: '**', component: HomeComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [LoginService],
+  providers: [LoginService, PostService],
   bootstrap: [AppComponent],
 
 })
