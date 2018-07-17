@@ -4,11 +4,21 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LoginService {
-  isLoggedIn:boolean; // true if is logged in 
+  static isLoggedIn = false; // true if is logged in
 
   constructor() { }
 
-  logout(){
-    //to be implemented
+  logout() {
+    // to be implemented
+    console.log('in logout from service');
+    LoginService.isLoggedIn = false;
+    console.log(LoginService.isLoggedIn);
   }
+
+  login(): void {
+    console.log('in login from service');
+    LoginService.isLoggedIn = true;
+    console.log(LoginService.isLoggedIn);
+  }
+
 }
