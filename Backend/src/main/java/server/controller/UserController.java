@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import data.dao.UserDao;
 import data.model.Error;
-import data.model.Post;
 import data.model.User;
-import data.service.PostService;
 import data.service.UserService;
 
 public class UserController {
 
 	
-	public static void handleLogin(HttpServletRequest req, HttpServletResponse res){
+	public static void handleLogin(HttpServletRequest req, HttpServletResponse res, JSONObject obj){
 		
 		try {
 			System.out.println("in handle login of user controller");
@@ -29,14 +28,15 @@ public class UserController {
 			res.setContentType("application/json");
 			Error err = new Error();
 			
-			String username = req.getParameter("username");
-			String password = req.getParameter("password");
-			if(username==null || password==null ) {
+			if(!obj.has("email") || !obj.has("password")) {
 				System.out.println("Please enter email/password");
 				err.setMessege("Please enter email/password");
 				out.write(new ObjectMapper().writeValueAsString(err));
 				return;
 			}
+			String username = obj.getString("email");
+			String password = obj.getString("password");
+			
 			User u = UserService.selectById(username);
 			if(u==null) {
 				System.out.println("There was no user found with this email");
@@ -69,7 +69,7 @@ public class UserController {
 		
 		
 	}
-	public static void handleLogout(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleLogout(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 		try {
 			HttpSession session = req.getSession();
 			session.setAttribute("user", null);
@@ -91,7 +91,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 	}
-	public static void handleRegister(HttpServletRequest req, HttpServletResponse res){
+	public static void handleRegister(HttpServletRequest req, HttpServletResponse res, JSONObject obj){
 		
 		try {
 			System.out.println("in handle register of user controller");
@@ -139,7 +139,7 @@ public class UserController {
 		}
 	}
 	
-	public static void handleGetUser(HttpServletRequest req, HttpServletResponse res){
+	public static void handleGetUser(HttpServletRequest req, HttpServletResponse res, JSONObject obj){
 		
 		try {
 			System.out.println("in handle get User of user controller");
@@ -172,7 +172,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 	}
-	public static void handleDeleteUser(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleDeleteUser(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 		try {
 			System.out.println("in handle delete User of user Controller");
 			PrintWriter out = res.getWriter();
