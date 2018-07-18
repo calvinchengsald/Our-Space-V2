@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatInputModule, MatSelectModule, MatCardModule, MatButtonModule, MatFormFieldModule, MatIconModule} from '@angular/material';
@@ -34,6 +35,7 @@ import { PostService } from './services/post.service';
     MatCardModule, MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
+    HttpClientModule,
 
     RouterModule.forRoot([
       { path: 'login', component: LoginPageComponent },

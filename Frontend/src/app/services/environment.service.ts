@@ -5,6 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class EnvironmentService {
 
-  static APIpath = '';
+  static APIpath = 'http://localhost:9001/OurSpace/';
   constructor() { }
 }
