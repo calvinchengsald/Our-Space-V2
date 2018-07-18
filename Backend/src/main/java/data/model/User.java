@@ -10,9 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -33,7 +34,8 @@ public class User {
 	@Column(name="password", nullable=false)
 	private String password;
 	
-	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade= CascadeType.ALL)
+	@JsonIgnore
 	private List<Post> posts;
 	
 	
@@ -42,6 +44,7 @@ public class User {
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
 	@JoinColumn(name="postId")
+	@JsonIgnore
 	private List<Post> likes;
 	
 	public User() {

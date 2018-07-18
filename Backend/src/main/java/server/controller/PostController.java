@@ -11,34 +11,33 @@ import javax.servlet.http.HttpSession;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import data.model.Comment;
 import data.model.Error;
 import data.model.Post;
 import data.model.User;
-import data.service.CommentService;
 import data.service.PostService;
 
-public class CommentController {
+public class PostController {
 
-	public static void handleGetComment(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleGetPost(HttpServletRequest req, HttpServletResponse res) {
 
 		try {
-			System.out.println("in handle get Comment of Comment Controller");
+			System.out.println("in handle get Post of post Controller");
 			PrintWriter out = res.getWriter();
 			res.setContentType("application/json");
 			Error err = new Error();
 
-			int CommentId = Integer.parseInt(req.getParameter("commentId"));
-			if (CommentId == 0) {
-				err.setMessege("invalid Comment ID");
+			int postId = Integer.parseInt(req.getParameter("postId"));
+			System.out.println(postId + " is this");
+			if (postId == 0) {
+				err.setMessege("invalid post ID");
 				out.write(new ObjectMapper().writeValueAsString(err));
 				return;
 			}
-			Comment u = CommentService.selectById(CommentId);
+			Post u = PostService.selectById(postId);
 			System.out.println(u);
 			if (u == null) {
-				System.out.println("This Comment does not exist");
-				err.setMessege("This Comment does not exist");
+				System.out.println("This post does not exist");
+				err.setMessege("This post does not exist");
 				out.write(new ObjectMapper().writeValueAsString(err));
 				return;
 			}
@@ -54,72 +53,72 @@ public class CommentController {
 		}
 	}
 
-	public static void handleGetCommentFromPost(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleGetPostFromUser(HttpServletRequest req, HttpServletResponse res) {
 
 		try {
-			System.out.println("in handle get Comment from user of Comment Controller");
+			System.out.println("in handle get Post from user of post Controller");
+			PrintWriter out = res.getWriter();
+			res.setContentType("application/json");
+			Error err = new Error();
+
+			String email = req.getParameter("email");
+			if (email == null) {
+				err.setMessege("invalid user email");
+				out.write(new ObjectMapper().writeValueAsString(err));
+				return;
+			}
+			List<Post> p = PostService.selectAllPostFromUser(email);
+			if (p == null || p.size() == 0) {
+				err.setMessege("There are no posts from this user");
+				err.setError(false);
+				out.write(new ObjectMapper().writeValueAsString(err));
+				return;
+			}
+			out.write(new ObjectMapper().writeValueAsString(p));
+
+			return;
+
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void handleGetPostFromAll(HttpServletRequest req, HttpServletResponse res) {
+
+		try {
+			System.out.println("in handle get Post from all of post Controller");
+			PrintWriter out = res.getWriter();
+			res.setContentType("application/json");
+			Error err = new Error();
+
+			List<Post> p = PostService.selectAllPostFromAll();
+			if (p == null || p.size() == 0) {
+				err.setMessege("There are no posts at all");
+				err.setError(false);
+				out.write(new ObjectMapper().writeValueAsString(err));
+				return;
+			}
+			out.write(new ObjectMapper().writeValueAsString(p));
+
+			return;
+
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void handleDeletePost(HttpServletRequest req, HttpServletResponse res) {
+		try {
+			System.out.println("in handle delete Post of post Controller");
 			PrintWriter out = res.getWriter();
 			res.setContentType("application/json");
 			Error err = new Error();
 
 			int postId = Integer.parseInt(req.getParameter("postId"));
-			if (postId == 0) {
-				err.setMessege("invalid post id");
-				out.write(new ObjectMapper().writeValueAsString(err));
-				return;
-			}
-			List<Comment> p = CommentService.selectAllCommentFromPost(postId);
-			if (p == null || p.size() == 0) {
-				err.setMessege("There are no Comments from this post");
-				err.setError(false);
-				out.write(new ObjectMapper().writeValueAsString(err));
-				return;
-			}
-			out.write(new ObjectMapper().writeValueAsString(p));
-
-			return;
-
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void handleGetCommentFromAll(HttpServletRequest req, HttpServletResponse res) {
-
-		try {
-			System.out.println("in handle get Comment from all of Comment Controller");
-			PrintWriter out = res.getWriter();
-			res.setContentType("application/json");
-			Error err = new Error();
-
-			List<Comment> p = CommentService.selectAllCommentFromAll();
-			if (p == null || p.size() == 0) {
-				err.setMessege("There are no Comments at all");
-				err.setError(false);
-				out.write(new ObjectMapper().writeValueAsString(err));
-				return;
-			}
-			out.write(new ObjectMapper().writeValueAsString(p));
-
-			return;
-
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void handleDeleteComment(HttpServletRequest req, HttpServletResponse res) {
-		try {
-			System.out.println("in handle delete Comment of Comment Controller");
-			PrintWriter out = res.getWriter();
-			res.setContentType("application/json");
-			Error err = new Error();
-
-			int CommentId = Integer.parseInt(req.getParameter("commentId"));
 			HttpSession session = req.getSession();
 			User user = (User) session.getAttribute("user");
 			if (user == null) {
@@ -127,14 +126,14 @@ public class CommentController {
 				out.write(new ObjectMapper().writeValueAsString(err));
 				return;
 			}
-			Comment p = CommentService.selectById(CommentId);
+			Post p = PostService.selectById(postId);
 			if (p == null) {
-				err.setMessege("this Comment does not exist");
+				err.setMessege("this post does not exist");
 				out.write(new ObjectMapper().writeValueAsString(err));
 				return;
 			}
-			CommentService.delete(p);
-			err.setMessege("deleted Comment");
+			PostService.delete(p);
+			err.setMessege("deleted post");
 			err.setError(false);
 			out.write(new ObjectMapper().writeValueAsString(err));
 
@@ -148,36 +147,28 @@ public class CommentController {
 
 	}
 
-	public static void handleInsertComment(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleInsertPost(HttpServletRequest req, HttpServletResponse res) {
 		try {
-			System.out.println("in handle insert Comment of Comment Controller");
+			System.out.println("in handle insert Post of post Controller");
 			PrintWriter out = res.getWriter();
 			res.setContentType("application/json");
 			Error err = new Error();
 
-			System.out.println("read post id id is " + req.getParameter("postId"));
 			String body = req.getParameter("body");
-			
-			int postId = Integer.parseInt(req.getParameter("postId"));
+			String imgsrc = req.getParameter("imgsrc");
+			String youtubelink = req.getParameter("youtubelink");
 			HttpSession session = req.getSession();
-			
 			User user = (User) session.getAttribute("user");
 			if (user == null) {
 				err.setMessege("please log in");
 				out.write(new ObjectMapper().writeValueAsString(err));
 				return;
 			}
-			Post p = PostService.selectById(postId);
-			if (p == null) {
-				err.setMessege("This post does not exist");
-				out.write(new ObjectMapper().writeValueAsString(err));
-				return;
-			}
-			Comment comment = new Comment(body, p, user);
+			Post p = new Post(body, imgsrc, youtubelink, user);
 			// if(body!=null) u.setBody(body);
 			// if(imgsrc!=null) u.setImgSrc(imgsrc);
 			// if(youtubelink!=null) u.setYoutubeLink(youtubelink);
-			CommentService.insert(comment);
+			PostService.insert(p);
 			out.write(new ObjectMapper().writeValueAsString(p));
 
 			return;
@@ -189,31 +180,37 @@ public class CommentController {
 		}
 	}
 
-	public static void handleUpdateComment(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleUpdatePost(HttpServletRequest req, HttpServletResponse res) {
 
 		try {
-			System.out.println("in handle update Comment of Comment Controller");
+			System.out.println("in handle update Post of post Controller");
 			PrintWriter out = res.getWriter();
 			res.setContentType("application/json");
 			Error err = new Error();
 
-			int CommentId = Integer.parseInt(req.getParameter("commentId"));
+			int postId = Integer.parseInt(req.getParameter("postId"));
 			String body = req.getParameter("body");
-			if (CommentId == 0) {
-				err.setMessege("invalid Comment ID");
+			String imgsrc = req.getParameter("imgsrc");
+			String youtubelink = req.getParameter("youtubelink");
+			if (postId == 0) {
+				err.setMessege("invalid post ID");
 				out.write(new ObjectMapper().writeValueAsString(err));
 				return;
 			}
-			Comment u = CommentService.selectById(CommentId);
+			Post u = PostService.selectById(postId);
 			if (u == null) {
-				System.out.println("This Comment does not exist");
-				err.setMessege("This Comment does not exist");
+				System.out.println("This post does not exist");
+				err.setMessege("This post does not exist");
 				out.write(new ObjectMapper().writeValueAsString(err));
 				return;
 			}
 			if (body != null)
 				u.setBody(body);
-			CommentService.update(u);
+			if (imgsrc != null)
+				u.setImgSrc(imgsrc);
+			if (youtubelink != null)
+				u.setYoutubeLink(youtubelink);
+			PostService.update(u);
 			out.write(new ObjectMapper().writeValueAsString(u));
 
 			return;
