@@ -10,7 +10,7 @@ width: 100%;
 }
 
 .center{
-margin: auto;
-width: 50%;
-top: 20vh;
+  margin: auto;
+  margin-top: 5%;
+  width: 50%;
 }
