@@ -1,15 +1,19 @@
-<nav class='navbar navbar-default'>
-  <div class='container fluid'>
-    <a class='navbar-brand'>{{title}}</a>
-    <ul class='nav navbar-nav'>
-      <li><a routerLink="/">Home</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right" *ngIf="!loginService.isLoggedIn">
-      <li><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      <li><a routerLink="/register"><span class="glyphicon glyphicon-log-in"></span> Register</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right" *ngIf="loginService.isLoggedIn">
-      <li><a (click)="loginService.logout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-    </ul>
+
+
+<div class='row bg-dark text-light '>
+  <div class='col-1 offset-1'>
+    <div routerLink='/'> 
+      <mat-icon>home</mat-icon>
+    </div>
   </div>
-</nav>
+  <div class='col-1 offset-6 ' *ngIf="!isLoggedIn">
+    <div routerLink='/login'> Login</div>
+  </div>
+  <div class='col-1 ' *ngIf="!isLoggedIn">
+    <div routerLink='/register'> Register</div>
+  </div>
+  <div class='col-1 offset-6' *ngIf="isLoggedIn">
+    <div (click)="loginService.logout()" > Logout</div>
+  </div>
+
+</div>
