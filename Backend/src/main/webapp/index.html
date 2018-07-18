@@ -5,9 +5,140 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1> HI I AM TEST </h1>
-	<form method="POST" action="test.test">
-		<input type="submit" value="test"/>
+	<h1> User </h1>
+	<form method="POST" action="login.action">
+		<input type="text" name="username" value="a" />
+		<input type="text" name="password" value="a" />
+		<input type="submit" value="login"/>
+	</form>
+	
+	<br>
+	<form method="POST" action="register.action">
+		<input type="text" name="username" value="username" />
+		<input type="text" name="password" value="pass" />
+		<input type="text" name="first_name" value="fadmin" />
+		<input type="text" name="last_name" value="ladmin" />
+		<input type="submit" value="register"/>
+	</form>
+	<br>
+	<form method="POST" action="logout.action">
+		<input type="submit" value="logout"/>
+	</form>
+	<br>
+	<form method="POST" action="deleteUser.action">
+		<input type="text" name="email" value="a" />
+		<input type="submit" value="delete"/>
+	</form>
+	
+	<br>
+	
+	<form method="POST" action="getUser.action">
+		<input type="text" name="username" value="username" />
+		<input type="submit" value="get user by email"/>
+	</form>
+	
+	<br>
+	<br>
+	<br>
+	<br>
+	<h1> Post </h1>
+	<form method="POST" action="getPost.action">
+		<input type="text" name="postId" value="1" />
+		<input type="submit" value="get post by id"/>
+	</form>
+	
+	<br>
+	
+	<form method="POST" action="deletePost.action">
+		<input type="text" name="postId" value="8" />
+		<input type="submit" value="delete Post by Id"/>
+	</form>
+	
+	<br>
+	<form method="POST" action="updatePost.action">
+		postId
+		<input type="text" name="postId" value="1" />
+		body
+		<input type="text" name="body" value="lsls" />
+		youbue
+		<input type="text" name="imgsrc" value="utubeeimg" />
+		img
+		<input type="text" name="youtubelink" value="utu" />
+		<input type="submit" value="update post by id"/>
+	</form>
+	
+	<br>
+	<form method="POST" action="insertPost.action">
+		body
+		<input type="text" name="body" value="lsls" />
+		img
+		<input type="text" name="imgsrc" value="utubeeimg" />
+		utub
+		<input type="text" name="youtubelink" value="utu" />
+		<input type="submit" value="insert new post "/>
+	</form>
+	
+	<br>
+	<form method="POST" action="getPostFromUser.action">
+		user email
+		<input type="text" name="email" value="1" />
+		<input type="submit" value="get all post by email"/>
+	</form>
+	
+	<br>
+	<form method="POST" action="getPostFromAll.action">
+		<input type="submit" value="get all post"/>
+	</form>
+	
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	
+	<h1> Comment </h1>
+	<form method="POST" action="getComment.action">
+		<input type="text" name="commentId" value="1" />
+		<input type="submit" value="get comment by id"/>
+	</form>
+	
+	<br>
+	
+	<form method="POST" action="deleteComment.action">
+		<input type="text" name="commentId" value="8" />
+		<input type="submit" value="delete Comment by Id"/>
+	</form>
+	
+	<br>
+	<form method="POST" action="updateComment.action">
+		commentId
+		<input type="text" name="commentId" value="1" />
+		body
+		<input type="text" name="body" value="lsls" />
+		<input type="submit" value="update comment by id"/>
+	</form>
+	
+	<br>
+	<form method="POST" action="insertComment.action">
+		body
+		<input type="text" name="body" value="lsls" />
+		postid
+		<input type="text" name="postId" value="1" />
+		user email
+		<input type="text" name="email" value="calvin@mail.com" />
+		<input type="submit" value="insert new comment "/>
+	</form>
+	
+	<br>
+	<form method="POST" action="getCommentFromPost.action">
+		post id
+		<input type="text" name="postId" value="1" />
+		<input type="submit" value="get all comment by post ID"/>
+	</form>
+	
+	<br>
+	<form method="POST" action="getCommentFromAll.action">
+		<input type="submit" value="get all comment"/>
 	</form>
 	
 </body>

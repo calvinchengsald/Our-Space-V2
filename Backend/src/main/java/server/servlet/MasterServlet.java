@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import main.Main;
+import server.controller.RequestController;
 
 public class MasterServlet extends HttpServlet {
 
@@ -35,7 +36,8 @@ public class MasterServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		Main.test();
+		RequestController.handleRequest(req,res);
+//		Main.test();
 		
 		
 		
