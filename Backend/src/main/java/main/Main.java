@@ -44,7 +44,7 @@ public class Main {
 
 		// System.out.println("Search for Kylo Ren: " + chardao.selectByName("'Kylo
 		// Ren'"));
-		HibernateUtil.closeSes();
+//		HibernateUtil.closeSes();
 	}
 
 	public static void insertInitialValues() {

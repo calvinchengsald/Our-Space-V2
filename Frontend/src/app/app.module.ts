@@ -36,6 +36,7 @@ import { PostService } from './services/post.service';
     MatCardModule, MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
+    HttpClientModule,
 
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
