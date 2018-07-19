@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,7 +22,7 @@ import data.service.PostService;
 
 public class CommentController {
 
-	public static void handleGetComment(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleGetComment(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 
 		try {
 			System.out.println("in handle get Comment of Comment Controller");
@@ -54,7 +56,7 @@ public class CommentController {
 		}
 	}
 
-	public static void handleGetCommentFromPost(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleGetCommentFromPost(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 
 		try {
 			System.out.println("in handle get Comment from user of Comment Controller");
@@ -86,7 +88,7 @@ public class CommentController {
 		}
 	}
 
-	public static void handleGetCommentFromAll(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleGetCommentFromAll(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 
 		try {
 			System.out.println("in handle get Comment from all of Comment Controller");
@@ -112,7 +114,7 @@ public class CommentController {
 		}
 	}
 
-	public static void handleDeleteComment(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleDeleteComment(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 		try {
 			System.out.println("in handle delete Comment of Comment Controller");
 			PrintWriter out = res.getWriter();
@@ -148,7 +150,7 @@ public class CommentController {
 
 	}
 
-	public static void handleInsertComment(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleInsertComment(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 		try {
 			System.out.println("in handle insert Comment of Comment Controller");
 			PrintWriter out = res.getWriter();
@@ -189,7 +191,7 @@ public class CommentController {
 		}
 	}
 
-	public static void handleUpdateComment(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleUpdateComment(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 
 		try {
 			System.out.println("in handle update Comment of Comment Controller");

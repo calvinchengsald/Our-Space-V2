@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,7 +20,7 @@ import data.service.PostService;
 
 public class PostController {
 
-	public static void handleGetPost(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleGetPost(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 
 		try {
 			System.out.println("in handle get Post of post Controller");
@@ -53,7 +55,7 @@ public class PostController {
 		}
 	}
 
-	public static void handleGetPostFromUser(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleGetPostFromUser(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 
 		try {
 			System.out.println("in handle get Post from user of post Controller");
@@ -85,7 +87,7 @@ public class PostController {
 		}
 	}
 
-	public static void handleGetPostFromAll(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleGetPostFromAll(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 
 		try {
 			System.out.println("in handle get Post from all of post Controller");
@@ -111,7 +113,7 @@ public class PostController {
 		}
 	}
 
-	public static void handleDeletePost(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleDeletePost(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 		try {
 			System.out.println("in handle delete Post of post Controller");
 			PrintWriter out = res.getWriter();
@@ -147,7 +149,7 @@ public class PostController {
 
 	}
 
-	public static void handleInsertPost(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleInsertPost(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 		try {
 			System.out.println("in handle insert Post of post Controller");
 			PrintWriter out = res.getWriter();
@@ -180,7 +182,7 @@ public class PostController {
 		}
 	}
 
-	public static void handleUpdatePost(HttpServletRequest req, HttpServletResponse res) {
+	public static void handleUpdatePost(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 
 		try {
 			System.out.println("in handle update Post of post Controller");
