@@ -58,6 +58,11 @@ public class Comment {
 		super();
 		this.commentId = commentId;
 	}
+	
+	public Comment(String body) {
+		super();
+		this.commentId = commentId;
+	}
 
 	public int getCommentId() {
 		return commentId;
