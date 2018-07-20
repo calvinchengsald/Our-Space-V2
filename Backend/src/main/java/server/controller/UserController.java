@@ -15,6 +15,7 @@ import data.dao.UserDao;
 import data.model.Error;
 import data.model.User;
 import data.service.UserService;
+import util.EmailUtil;
 import util.JSONUtil;
 
 @Controller
@@ -128,6 +129,10 @@ public class UserController {
 		Cookie nameCookie = new Cookie("name", u.getFirstName() + "-" + u.getLastName());
 		res.addCookie(userCookie);
 		res.addCookie(nameCookie);
+		
+		String body = "Thank you for registering with our super duper website";
+		
+		EmailUtil.sendEmail(username, "Successful registration", body);
 
 		return u;
 
