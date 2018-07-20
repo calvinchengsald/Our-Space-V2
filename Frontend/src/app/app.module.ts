@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import {CookieModule } from 'ngx-cookie';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatInputModule, MatSelectModule, MatCardModule, MatButtonModule, MatFormFieldModule, MatIconModule} from '@angular/material';
@@ -17,6 +18,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterComponent } from './register/register.component';
 import { PostService } from './services/post.service';
+import { MessegeComponent } from './messege/messege.component';
+import { MessegeModelService } from './services/messege-model.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { PostService } from './services/post.service';
     HomeComponent,
     NavbarComponent,
     LoginPageComponent,
-    RegisterComponent
+    RegisterComponent,
+    MessegeComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +41,8 @@ import { PostService } from './services/post.service';
     MatFormFieldModule,
     MatIconModule,
     HttpClientModule,
+    CookieModule.forRoot(),
+
 
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
@@ -46,7 +52,7 @@ import { PostService } from './services/post.service';
       { path: '**', component: HomeComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [LoginService, PostService],
+  providers: [LoginService, PostService, MessegeModelService],
   bootstrap: [AppComponent],
 
 })

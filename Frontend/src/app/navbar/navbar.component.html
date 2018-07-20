@@ -13,5 +13,8 @@
   <div class='col-1 offset-6' *ngIf="isLoggedIn">
     <div (click)="loginService.logout()"> Logout</div>
   </div>
+  <div class='col-1' *ngIf="isLoggedIn">
+      <div routeRLink='/profile' > {{_loginService.firstName}} {{_loginService.lastName}}</div>
+  </div>
 
 </div>

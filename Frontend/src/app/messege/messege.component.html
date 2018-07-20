@@ -1,0 +1,18 @@
+<div class='messege-board container-fluid {{_messegeService.error?"bg-danger":"bg-success"}}'  *ngIf='_messegeService.show' >
+
+  <!-- messege-board container-fluid bg-success -->
+    <div class='row'>
+        <div class='col-2 offset-10 '>
+          <div class='btn btn-secondary' (click)='clickClose()'>
+            X
+          </div>
+        </div>
+        
+      </div>
+  <div class='row'>
+    <div class='col-12 text-center'>
+        {{messegeMessege}}
+    </div>
+    
+  </div>
+</div>
