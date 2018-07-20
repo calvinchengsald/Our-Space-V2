@@ -8,10 +8,8 @@
   }
 
   .center{
-    position: fixed;
-    left: 20vw;
-    top: 20vh;
-    width: 60vw;
-    height: 40vh;
+    margin: auto;
+    margin-top: 5%;
+    width: 50%;
   }
   

@@ -34,6 +34,7 @@ import { MessegeModelService } from './services/messege-model.service';
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatInputModule, MatSelectModule,
     MatCardModule, MatButtonModule,
@@ -44,6 +45,7 @@ import { MessegeModelService } from './services/messege-model.service';
 
 
     RouterModule.forRoot([
+      { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
