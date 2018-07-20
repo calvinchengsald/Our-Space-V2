@@ -76,6 +76,7 @@ public class CommentDao {
 		// return myComment;
 
 		return sesFact.getCurrentSession().get(Comment.class, id);
+		
 	}
 
 	public List<Comment> selectAllByPost(int postId) {

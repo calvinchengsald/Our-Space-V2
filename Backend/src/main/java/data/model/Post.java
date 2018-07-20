@@ -87,6 +87,10 @@ public class Post {
 		this.user = user;
 		likes = new ArrayList<User>();
 	}
+	public Post( String body) {
+		super();
+		this.body = body;
+	}
 	public int getPostId() {
 		return postId;
 	}

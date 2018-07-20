@@ -10,7 +10,7 @@ import { ProfileService } from '../services/profile.service';
 })
 export class NavbarComponent implements OnInit {
   title: 'Our Space';
-
+  _name: string;
   isLoggedIn = false;
   get loginService() {
     return this._loginService;
@@ -20,6 +20,14 @@ export class NavbarComponent implements OnInit {
 
     this.isLoggedIn = LoginService.isLoggedIn;
   }
+
+  set messegeMessege (pw: string) {
+    this._name = pw;
+  }
+  get messegeMessege() {
+    return this._name;
+  }
+
 
   ngOnInit() {
     this.isLoggedIn = LoginService.isLoggedIn;

@@ -36,7 +36,7 @@ public class MasterServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-		RequestController.handleRequest(req,res);
+//		RequestController.handleRequest(req,res);
 //		Main.test();
 		
 		
