@@ -54,13 +54,13 @@ public class RequestController {
 //			CommentController.handleGetComment(req, res, obj);
 			break;
 		case "getCommentFromPost":
-			CommentController.handleGetCommentFromPost(req, res, obj);
+//			CommentController.handleGetCommentFromPost(req, res, obj);
 			break;
 		case "getCommentFromAll" :
-			CommentController.handleGetCommentFromAll(req, res, obj);
+//			CommentController.handleGetCommentFromAll(req, res, obj);
 			break;
 		case "insertComment":
-			CommentController.handleInsertComment(req, res, obj);
+//			CommentController.handleInsertComment(req, res, obj);
 			break;
 		case "updateComment":
 			CommentController.handleUpdateComment(req, res, obj);

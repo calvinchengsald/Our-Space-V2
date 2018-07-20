@@ -1,5 +1,6 @@
 package server.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -87,8 +88,17 @@ public class UserController {
 	 * Return User information if username and password exists
 	 */
 	@RequestMapping("/login.action")
-	public @ResponseBody User handleLogin(@RequestParam("username") String username,
-			@RequestParam("password") String password, HttpServletRequest req, HttpServletResponse res) {
+	public @ResponseBody User handleLogin(HttpServletRequest req, HttpServletResponse res) {
+		
+		JSONObject obj = getObj(req);
+		
+		if (!obj.has("email") || !obj.has("password")) {
+			System.out.println("Please enter email/password");
+			return new User("Please enter email/password");			
+		}
+		
+		 String username = obj.getString("email");
+		 String password = obj.getString("password");
 
 		// get user by email
 		User user = userDao.selectById(username);
@@ -372,4 +382,24 @@ public class UserController {
 		err.setError(false);
 		return err;
 	}/* handleDeleteUser() */
+	
+	
+	public static JSONObject getObj(HttpServletRequest req) {
+
+		StringBuffer jb = new StringBuffer();
+		String line = null;
+		try {
+		    BufferedReader reader = req.getReader();
+		    while ((line = reader.readLine()) != null)
+		    jb.append(line);
+		} catch (Exception e) { e.printStackTrace(); }
+		 	
+		JSONObject obj = null;
+		try {
+			obj = new JSONObject(jb.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return obj;
+	}
 }
