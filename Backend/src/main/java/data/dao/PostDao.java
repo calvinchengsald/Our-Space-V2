@@ -2,54 +2,75 @@ package data.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import data.model.Post;
 import data.model.User;
 import util.HibernateUtil;
 
+@Repository("postDao")
+@Transactional
 public class PostDao {
 
+	
+	@Autowired
+	private SessionFactory sesFact;
+
+	
 	public PostDao() {
 		super();
 	}
 
-	public static void insert(Post myPost) {
-		Session ses = HibernateUtil.getSession();
-		Transaction tx = ses.beginTransaction();
+	
+	public void insert(Post myPost) {
+//		Session ses = HibernateUtil.getSession();
+//		Transaction tx = ses.beginTransaction();
+//
+//		ses.save(myPost);
+//
+//		tx.commit();
 
-		ses.save(myPost);
-
-		tx.commit();
-
-	}
-
-	public static void delete(Post myPost) {
-		Session ses = HibernateUtil.getSession();
-		Transaction tx = ses.beginTransaction();
-
-		ses.delete(myPost);
-
-		tx.commit();
+		sesFact.getCurrentSession().save(myPost);
 
 	}
 
-	public static void update(Post myPost) {
-		Session ses = HibernateUtil.getSession();
-		Transaction tx = ses.beginTransaction();
+	public  void delete(Post myPost) {
+//		Session ses = HibernateUtil.getSession();
+//		Transaction tx = ses.beginTransaction();
+//
+//		ses.delete(myPost);
+//
+//		tx.commit();
 
-		ses.update(myPost);
 
-		tx.commit();
-
+		sesFact.getCurrentSession().delete(myPost);
 	}
 
-	public static Post selectbyId(int id) {
-		Session ses = HibernateUtil.getSession();
+	public  void update(Post myPost) {
+//		Session ses = HibernateUtil.getSession();
+//		Transaction tx = ses.beginTransaction();
+//
+//		ses.update(myPost);
+//
+//		tx.commit();
 
-		Post myPost = ses.get(Post.class, id);
-		return myPost;
+
+		sesFact.getCurrentSession().update(myPost);
+	}
+
+	public Post selectbyId(int id) {
+//		Session ses = HibernateUtil.getSession();
+//
+//		Post myPost = ses.get(Post.class, id);
+//		return myPost;
+		
+		return sesFact.getCurrentSession().get(Post.class, id);
 	}
 
 	// public Post selectByName(String name) {
@@ -83,24 +104,30 @@ public class PostDao {
 	// return charList.get(0);
 	// }
 
-	public static List<Post> selectAll() {
-		Session ses = HibernateUtil.getSession();
+	public  List<Post> selectAll() {
+//		Session ses = HibernateUtil.getSession();
+//
+//		List<Post> PostList = ses.createQuery("from Post").list();
+//		// List<Character> charList = ses.createCriteria(Character.class).list();
+//
+//		// ses.close();
+//		return PostList;
+		List<Post> pList = sesFact.getCurrentSession().createQuery("from Post", Post.class).list();
 
-		List<Post> PostList = ses.createQuery("from Post").list();
-		// List<Character> charList = ses.createCriteria(Character.class).list();
-
-		// ses.close();
-		return PostList;
+		return pList;
 	}
 
-	public static List<Post> selectAllByUser(String email) {
-		Session ses = HibernateUtil.getSession();
-
-		List<Post> PostList = ses.createQuery("from Post where email='" + email + "'", Post.class).list();
+	public List<Post> selectAllByUser(String email) {
+//		Session ses = HibernateUtil.getSession();
+//
+//		List<Post> PostList = ses.createQuery("from Post where email='" + email + "'", Post.class).list();
 		// List<Character> charList = ses.createCriteria(Character.class).list();
 
 		// ses.close();
-		return PostList;
+//		return PostList;
+		List<Post> pList = sesFact.getCurrentSession().createQuery("from Post where email='"+email+"'", Post.class).list();
+
+		return pList;
 	}
 
 	// true if liked it, false if unliked it
