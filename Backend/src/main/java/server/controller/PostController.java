@@ -126,7 +126,7 @@ public class PostController {
 		String body = obj.getString("body");
 		String imgsrc = obj.getString("imgsrc");
 		String youtubelink = obj.getString("youtubelink");
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession(false);
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
 			return new Post("Please log in");

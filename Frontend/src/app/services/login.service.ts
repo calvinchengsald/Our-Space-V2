@@ -19,7 +19,8 @@ export class LoginService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type' : 'application/x-www-form-urlencoded'
-    })
+    }),
+    credentials: 'include'
   };
 
   constructor(private httpServ: HttpClient) { }
@@ -27,6 +28,11 @@ export class LoginService {
   logout() {
     // to be implemented
     console.log('in logout from service');
+    const url = EnvironmentService.APIpath + 'logout.action';
+
+    this.httpServ.post(url, null, this.httpOptions ).subscribe(
+      res => console.log(res)
+    );
     LoginService.isLoggedIn = false;
     console.log(LoginService.isLoggedIn);
   }
@@ -68,12 +74,12 @@ export class LoginService {
   getLogin(emailz: string, passwordz: string): Observable<string> {
 
     console.log('in getlogin method with params ' + emailz + '/' + passwordz);
-    this.url = EnvironmentService.APIpath + 'login.action';
+    const url = EnvironmentService.APIpath + 'login.action';
     const obj = {
       email: emailz,
       password: passwordz
     };
-    return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
+    return this.httpServ.post(url, obj, this.httpOptions ).pipe(
       map(res => res as string)
     );
   }

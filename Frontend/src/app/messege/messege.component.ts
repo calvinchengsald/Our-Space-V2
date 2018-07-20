@@ -20,6 +20,10 @@ export class MessegeComponent implements OnInit {
   ngOnInit() {
   }
 
+  get messegeService() {
+    return this._messegeService;
+  }
+
   set messegeMessege (pw: string) {
     this._messegeMessege = pw;
   }
