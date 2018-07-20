@@ -37,7 +37,10 @@ export class LoginPageComponent implements OnInit {
 
   clickLogin(): void {
     console.log('we clicked login');
-    this._loginService.login();
+    this._loginService.getLogin(this.email, this.password).subscribe(data => {
+      console.log(data);
+    });
   }
+
 
 }

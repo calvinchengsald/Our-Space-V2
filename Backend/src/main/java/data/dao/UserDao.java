@@ -2,55 +2,99 @@ package data.dao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import javax.transaction.Transactional;
 
-import data.model.Post;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import data.model.User;
 import util.HibernateUtil;
 
+/**
+ * 
+ * @author Calvin Cheng, Jerry Affricot
+ *
+ */
+@Repository("userDao")
+@Transactional
 public class UserDao {
 
+	static {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Autowired
+	private SessionFactory sesFact;
+
+	/*
+	 * public constructor
+	 */
 	public UserDao() {
 		super();
-	}
+	}/* UserDao() */
 
-	public static void insert(User myUser) {
-		Session ses = HibernateUtil.getSession();
-		Transaction tx = ses.beginTransaction();
+	/*
+	 * insert new User object into the database
+	 */
+	public void insert(User myUser) {
+		// Session ses = HibernateUtil.getSession();
+		// Transaction tx = ses.beginTransaction();
+		//
+		// ses.save(myUser);
+		//
+		// tx.commit();
 
-		ses.save(myUser);
+		sesFact.getCurrentSession().save(myUser);
 
-		tx.commit();
+	}/* insert() */
 
-	}
+	/*
+	 * Update User object
+	 */
+	public void update(User myUser) {
+		// Session ses = HibernateUtil.getSession();
+		// Transaction tx = ses.beginTransaction();
+		//
+		// ses.update(myUser);
+		//
+		// tx.commit();
 
-	public static void update(User myUser) {
-		Session ses = HibernateUtil.getSession();
-		Transaction tx = ses.beginTransaction();
+		sesFact.getCurrentSession().update(myUser);
 
-		ses.update(myUser);
+	}/* update()*/
 
-		tx.commit();
+	/*
+	 * Delete User object from database
+	 */
+	public void delete(User myUser) {
+		// Session ses = HibernateUtil.getSession();
+		// Transaction tx = ses.beginTransaction();
+		//
+		// ses.delete(myUser);
+		//
+		// tx.commit();
+		sesFact.getCurrentSession().delete(myUser);
 
-	}
+	}/* delete() */
 
-	public static void delete(User myUser) {
-		Session ses = HibernateUtil.getSession();
-		Transaction tx = ses.beginTransaction();
+	/*
+	 * Select User object by email
+	 */
+	public User selectById(String email) {
+		// Session ses = HibernateUtil.getSession();
+		//
+		// User myUser = ses.get(User.class, email);
+		// return myUser;
 
-		ses.delete(myUser);
-
-		tx.commit();
-
-	}
-
-	public static User selectbyId(String email) {
-		Session ses = HibernateUtil.getSession();
-
-		User myUser = ses.get(User.class, email);
-		return myUser;
-	}
+		return sesFact.getCurrentSession().get(User.class, email);
+	}/* selectById()*/
 
 	// public User selectByName(String name) {
 	// Session ses = HibernateUtil.getSession();
@@ -83,14 +127,17 @@ public class UserDao {
 	// return charList.get(0);
 	// }
 
-	public static List<User> selectAll() {
-		Session ses = HibernateUtil.getSession();
+	/*
+	 * Select all user records
+	 */
+	public List<User> selectAll() {
+		// Session ses = HibernateUtil.getSession();
 
-		List<User> UserList = ses.createQuery("from User").list();
-		// List<Character> charList = ses.createCriteria(Character.class).list();
+		// List<User> UserList = ses.createQuery("from User").list();
 
-		// ses.close();
+		List<User> UserList = sesFact.getCurrentSession().createQuery("from User", User.class).list();
+
 		return UserList;
-	}
+	}/* selectAll() */
 
 }
