@@ -1,0 +1,9 @@
+
+.messege-board {
+    position: fixed;
+    top: 5vh;
+    left: 10vw;
+    width: 80vw;
+    height: 10vh;
+    z-index: 2;
+}

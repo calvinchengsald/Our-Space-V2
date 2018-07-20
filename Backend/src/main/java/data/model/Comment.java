@@ -46,6 +46,12 @@ public class Comment {
 		this.post = post;
 		this.user = user;
 	}
+	
+	public Comment(int commentId, String body) {
+		super();
+		this.commentId = commentId;
+		this.body = body;
+	}
 
 	public Comment(String body, Post post, User user) {
 		super();
