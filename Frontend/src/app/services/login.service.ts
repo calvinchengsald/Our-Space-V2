@@ -10,9 +10,15 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class LoginService {
   static isLoggedIn = false; // true if is logged in
+  static _email: string;
+  static _firstName: string;
+  static _lastName: string;
+  static _password = 'dummy pass';
+
   url: string;
   httpOptions = {
     headers: new HttpHeaders({
+      'Content-Type' : 'application/x-www-form-urlencoded'
     })
   };
 
@@ -29,6 +35,31 @@ export class LoginService {
     console.log('in login from service');
     LoginService.isLoggedIn = true;
     console.log(LoginService.isLoggedIn);
+  }
+
+  set email(mes: string) {
+    LoginService._email = mes;
+  }
+  get email(): string {
+    return LoginService._email;
+  }
+  set firstName(mes: string) {
+    LoginService._firstName = mes;
+  }
+  get firstName(): string {
+    return LoginService._firstName;
+  }
+  set lastName(mes: string) {
+    LoginService._lastName = mes;
+  }
+  get lastName(): string {
+    return LoginService._lastName;
+  }
+  set password(mes: string) {
+    LoginService._password = mes;
+  }
+  get password(): string {
+    return LoginService._password;
   }
 
 
