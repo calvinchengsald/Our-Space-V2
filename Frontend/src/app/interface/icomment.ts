@@ -1,4 +1,4 @@
-import { IPost } from './iPost';
+import { IPost } from './ipost';
 import { IUser } from './iuser';
 
 export interface IComment {

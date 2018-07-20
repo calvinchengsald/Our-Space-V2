@@ -18,19 +18,19 @@ public class RequestController {
 		// System.out.println("we inside universal post with path: " + path);
 		switch (path) {
 		case "login":
-			UserController.handleLogin(req, res, obj);
+//			UserController.handleLogin(req, res, obj);
 			break;
 		case "register":
-			UserController.handleRegister(req, res,obj );
+//			UserController.handleRegister(req, res,obj );
 			break;
 		case "logout":
-			UserController.handleLogout(req, res, obj);
+//			UserController.handleLogout(req, res, obj);
 			break;
 		case "getUser":
-			UserController.handleGetUser(req, res, obj);
+//			UserController.handleGetUser(req, res, obj);
 			break;
 		case "deleteUser":
-			UserController.handleDeleteUser(req, res, obj);
+//			UserController.handleDeleteUser(req, res, obj);
 			break;
 		case "getPost":
 			PostController.handleGetPost(req, res, obj);
@@ -51,16 +51,16 @@ public class RequestController {
 			PostController.handleDeletePost(req, res, obj);
 			break;
 		case "getComment":
-			CommentController.handleGetComment(req, res, obj);
+//			CommentController.handleGetComment(req, res, obj);
 			break;
 		case "getCommentFromPost":
-			CommentController.handleGetCommentFromPost(req, res, obj);
+//			CommentController.handleGetCommentFromPost(req, res, obj);
 			break;
 		case "getCommentFromAll" :
-			CommentController.handleGetCommentFromAll(req, res, obj);
+//			CommentController.handleGetCommentFromAll(req, res, obj);
 			break;
 		case "insertComment":
-			CommentController.handleInsertComment(req, res, obj);
+//			CommentController.handleInsertComment(req, res, obj);
 			break;
 		case "updateComment":
 			CommentController.handleUpdateComment(req, res, obj);
