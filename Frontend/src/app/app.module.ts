@@ -17,6 +17,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterComponent } from './register/register.component';
 import { PostService } from './services/post.service';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileService } from './services/profile.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { PostService } from './services/post.service';
     HomeComponent,
     NavbarComponent,
     LoginPageComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -40,11 +43,12 @@ import { PostService } from './services/post.service';
     RouterModule.forRoot([
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'profile', component: ProfileComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: '**', component: HomeComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [LoginService, PostService],
+  providers: [LoginService, PostService, ProfileService],
   bootstrap: [AppComponent],
 
 })
