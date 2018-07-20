@@ -25,7 +25,7 @@ export class LoginService {
     console.log(LoginService.isLoggedIn);
   }
 
-  login(): void {
+  checkLogin(): void {
     console.log('in login from service');
     LoginService.isLoggedIn = true;
     console.log(LoginService.isLoggedIn);
