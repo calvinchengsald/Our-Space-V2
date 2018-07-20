@@ -1,33 +1,30 @@
 package server.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import data.dao.CommentDao;
 import data.model.Comment;
-import data.model.Error;
-import data.model.Post;
-import data.model.User;
 import data.service.CommentService;
-import data.service.PostService;
 
+@Controller
 public class CommentController {
 	@Autowired
 	private CommentDao commentDao;
+	
+		
 
 	// public static void handleGetComment(HttpServletRequest req,
 	// HttpServletResponse res, JSONObject obj) {
@@ -65,8 +62,7 @@ public class CommentController {
 	// }
 
 	// no argument constructor
-	public CommentController() {
-	}
+	public CommentController() {}
 
 	/*
 	 * Return the comment if it exists
@@ -81,13 +77,15 @@ public class CommentController {
 		} /* if() */
 
 		Comment u = commentDao.selectById(CommentId);
-		System.out.println(u);
+		
 
 		// verify that the comment exists
 		if (u == null) {
 			System.out.println("This Comment does not exist");
 			return new Comment("This Comment does not exist");
 		} /* if (null) */
+		
+		System.out.println(u);
 
 		// return comment
 		return u;
@@ -95,8 +93,8 @@ public class CommentController {
 
 	
 	
-	public static void handleGetCommentFromPost(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
-
+//	public static void handleGetCommentFromPost(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
+//
 //		try {
 //			System.out.println("in handle get Comment from user of Comment Controller");
 //			PrintWriter out = res.getWriter();
@@ -125,10 +123,33 @@ public class CommentController {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-	}
+//	}
+	
+	@RequestMapping("/getCommentFromPost.action")
+	public @ResponseBody List<Comment> handleGetCommentFromPost(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("Comment Controller: in get comment from post");		
+		
 
-	public static void handleGetCommentFromAll(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
+		int postId = Integer.parseInt(req.getParameter("postId"));
+		if (postId == 0) {
+			ArrayList<Comment> al = new ArrayList<Comment>();
+			al.add(new Comment("invalid id"));
+			return al;			
+		}
+		
+		List<Comment> p = commentDao.selectAllByPost(postId);
+		
+		if (p == null || p.size() == 0) {
+			ArrayList<Comment> al = new ArrayList<Comment>();
+			al.add(new Comment("invalid id"));
+			return al;
+		}
+		
+		return p;	
+	}/* getCommentByPost()*/
 
+//	public static void handleGetCommentFromAll(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
+//
 //		try {
 //			System.out.println("in handle get Comment from all of Comment Controller");
 //			PrintWriter out = res.getWriter();
@@ -151,7 +172,23 @@ public class CommentController {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-	}
+//	}
+	
+	/*
+	 * Get all comments
+	 */
+	@RequestMapping("/getCommentFromAll.action")
+	public @ResponseBody List<Comment> handleGetCommentFromAll(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("Comment Controller: in get comment from all");
+		List<Comment> p = commentDao.selectAll();
+		if (p == null || p.size() == 0) {
+			ArrayList<Comment> al = new ArrayList<Comment>();
+			al.add(new Comment("There are no comments at all"));
+			return al;
+		}
+
+		return p;
+	}/*handleGetCommentFromAll()*/
 
 	public static void handleDeleteComment(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 //		try {
@@ -189,7 +226,7 @@ public class CommentController {
 
 	}
 
-	public static void handleInsertComment(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
+//	public static void handleInsertComment(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
 //		try {
 //			System.out.println("in handle insert Comment of Comment Controller");
 //			PrintWriter out = res.getWriter();
@@ -228,6 +265,10 @@ public class CommentController {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
+//	}
+	@RequestMapping("")
+	public static void handleInsertComment(HttpServletRequest req, HttpServletResponse res) {
+
 	}
 
 	public static void handleUpdateComment(HttpServletRequest req, HttpServletResponse res, JSONObject obj) {
