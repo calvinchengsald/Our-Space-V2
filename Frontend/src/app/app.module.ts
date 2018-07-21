@@ -36,6 +36,7 @@ import { PostComponent } from './components/post/post.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatInputModule, MatSelectModule,
     MatCardModule, MatButtonModule,
@@ -46,6 +47,7 @@ import { PostComponent } from './components/post/post.component';
 
 
     RouterModule.forRoot([
+      { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
