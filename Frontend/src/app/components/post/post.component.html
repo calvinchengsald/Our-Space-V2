@@ -1,0 +1,29 @@
+<div class='row border border-primary m-2 bg-light'>
+        
+    <div class='col-4 text-left' >
+        {{post.owner.first_name}} {{post.owner.last_name}}
+    </div>
+    <div class='col-8'></div>
+    <div class='col-12 text-left ' >{{post.body}}</div>
+    <div class='col-12'  *ngIf='post.imageSrc'>
+      <img [src]='post.imageSrc' />
+    </div>
+    <div class='col-12' *ngIf='post.youtubeLink' > {{post.youtubeLink}} </div>
+    <div class='col-12 border border-secondary bg-warning'>
+      <div class='row' *ngIf='post.comments'>
+        <div class='col-12' *ngFor='let comment of post.comments'>
+          <div class='row'>
+            <div class='col-3 text-left'>{{comment.user.firstName}} {{comment.user.lastName}}:</div>
+            <div class='col-9 text-left'>
+              <div class='row'>
+                <div class='col-12'> {{comment.body}} </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='row'> 
+        <input class='col-12' type='text' [(ngModel)]='newCommentBody' placeholder='New Comment Here!' (keyup.enter)="onInsertComment()" />
+      </div>
+    </div>
+  </div>

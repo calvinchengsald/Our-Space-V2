@@ -13,13 +13,14 @@ import {MatInputModule, MatSelectModule, MatCardModule, MatButtonModule, MatForm
 import { LoginService } from './services/login.service';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './pages/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { PostService } from './services/post.service';
-import { MessegeComponent } from './messege/messege.component';
+import { MessegeComponent } from './components/messege/messege.component';
 import { MessegeModelService } from './services/messege-model.service';
+import { PostComponent } from './components/post/post.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MessegeModelService } from './services/messege-model.service';
     NavbarComponent,
     LoginPageComponent,
     RegisterComponent,
-    MessegeComponent
+    MessegeComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

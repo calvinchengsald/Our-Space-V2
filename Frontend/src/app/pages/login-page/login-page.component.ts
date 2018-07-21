@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import { LoginService } from '../services/login.service';
-import { MessegeModelService } from '../services/messege-model.service';
+import { LoginService } from '../../services/login.service';
+import { MessegeModelService } from '../../services/messege-model.service';
 import { Router } from '@angular/router';
 
 @Component({
