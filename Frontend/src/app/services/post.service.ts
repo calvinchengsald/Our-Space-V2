@@ -39,6 +39,17 @@ export class PostService {
     );
   }
 
+  getAllUserPost(em: string): Observable<string> {
+
+    this.url = EnvironmentService.APIpath + 'getPostFromUser.action';
+    const obj = {
+      email: em
+    };
+    return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
+      map(res => res as string)
+    );
+  }
+
   getPost(id: number): Observable<string> {
 
     this.url = EnvironmentService.APIpath + 'getPost.action';

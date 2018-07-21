@@ -18,13 +18,9 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { PostService } from './services/post.service';
-<<<<<<< HEAD
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileService } from './services/profile.service';
-import { MessegeComponent } from './messege/messege.component';
-=======
 import { MessegeComponent } from './components/messege/messege.component';
->>>>>>> develop
 import { MessegeModelService } from './services/messege-model.service';
 import { PostComponent } from './components/post/post.component';
 
@@ -35,13 +31,9 @@ import { PostComponent } from './components/post/post.component';
     NavbarComponent,
     LoginPageComponent,
     RegisterComponent,
-<<<<<<< HEAD
     ProfileComponent,
-    MessegeComponent
-=======
     MessegeComponent,
     PostComponent
->>>>>>> develop
   ],
   imports: [
     BrowserModule,

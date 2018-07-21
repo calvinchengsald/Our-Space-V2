@@ -63,29 +63,13 @@ public class UserController {
 		} /* if (invalid password) */
 
 		// set cookies and session parameters
-<<<<<<< HEAD
-<<<<<<< HEAD
-		Cookie userCookie = new Cookie("username", username);
-		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
-		res.addCookie(userCookie);
-		res.addCookie(nameCookie);
-		req.getSession().setAttribute("user", user);
-=======
 //		Cookie userCookie = new Cookie("username", username);
 //		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
 //		res.addCookie(userCookie);
 //		res.addCookie(nameCookie);
 //		System.out.println(user);
 		req.getSession().setAttribute("user", user);	
-=======
 
-		HttpSession session = req.getSession();
-		session.setAttribute("user", user);		
-
->>>>>>> 775f1e6803518e171db0a778d95dbb732f76f27d
-		
-		
->>>>>>> df6949f867ed1d54115fd77d6351a376bc8e0716
 
 		return user;
 	}/* handleLogin() */
