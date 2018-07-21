@@ -9,10 +9,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-<<<<<<< HEAD
-=======
 import org.springframework.web.bind.annotation.ModelAttribute;
->>>>>>> develop
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -67,18 +64,11 @@ public class UserController {
 		} /* if (invalid password) */
 
 		// set cookies and session parameters
-<<<<<<< HEAD
+
 		HttpSession session = req.getSession();
 		session.setAttribute("user", user);		
-=======
-//		Cookie userCookie = new Cookie("username", username);
-//		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
-//		res.addCookie(userCookie);
-//		res.addCookie(nameCookie);
-//		System.out.println(user);
-		req.getSession().setAttribute("user", user);	
+
 		
->>>>>>> develop
 		
 
 		return user;
