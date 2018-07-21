@@ -33,6 +33,7 @@ public class UserController {
 	/*
 	 * Return User information if username and password exists
 	 */
+	@CrossOrigin
 	@RequestMapping("/login.action")
 	public @ResponseBody User handleLogin(HttpServletRequest req, HttpServletResponse res) {
 
@@ -63,6 +64,7 @@ public class UserController {
 
 		// set cookies and session parameters
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Cookie userCookie = new Cookie("username", username);
 		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
 		res.addCookie(userCookie);
@@ -75,6 +77,12 @@ public class UserController {
 //		res.addCookie(nameCookie);
 //		System.out.println(user);
 		req.getSession().setAttribute("user", user);	
+=======
+
+		HttpSession session = req.getSession();
+		session.setAttribute("user", user);		
+
+>>>>>>> 775f1e6803518e171db0a778d95dbb732f76f27d
 		
 		
 >>>>>>> df6949f867ed1d54115fd77d6351a376bc8e0716
@@ -85,26 +93,18 @@ public class UserController {
 	/*
 	 * Log the user out
 	 */
+	@CrossOrigin
 	@RequestMapping("/logout.action")
-	public @ResponseBody Error handleLogout(HttpServletRequest req, HttpServletResponse res) {
+	public @ResponseBody String handleLogout(HttpServletRequest req, HttpServletResponse res) {
 
-		HttpSession session = req.getSession();
-		System.out.println("User: " + session.getAttribute("user"));
-		session.setAttribute("user", null);
-		Cookie[] cookies = req.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				cookie.setValue("");
-				cookie.setPath("/");
-				cookie.setMaxAge(0);
-				res.addCookie(cookie);
-			}
+		HttpSession session = req.getSession(false);
+		if(session == null) {
+			System.out.println("session is null");
+			return "{info: 'session is null'}";
 		}
-		Error err = new Error();
-		err.setError(false);
-		err.setMessege("Successfully Logout");
-
-		return err;
+		System.out.println("User: " + session.getAttribute("user"));
+		session.invalidate();
+		return "{info: 'Successfully Logout'}";
 	}/* logout() */
 
 	/*
