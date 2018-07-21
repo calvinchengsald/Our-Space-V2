@@ -68,19 +68,8 @@ public class UserController {
 			return new User("Incorrect Password");
 		} /* if (invalid password) */
 
-<<<<<<< HEAD
-		// set cookies and session parameters
-//		Cookie userCookie = new Cookie("username", username);
-//		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
-//		res.addCookie(userCookie);
-//		res.addCookie(nameCookie);
-//		System.out.println(user);
-		req.getSession().setAttribute("user", user);	
-=======
-
 		HttpSession session = req.getSession();
 		session.setAttribute("user", user);		
->>>>>>> develop
 
 
 		return user;
