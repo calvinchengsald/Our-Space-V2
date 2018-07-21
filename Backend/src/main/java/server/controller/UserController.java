@@ -62,21 +62,13 @@ public class UserController {
 			return new User("Incorrect Password");
 		} /* if (invalid password) */
 
-		// set cookies and session parameters
-		Cookie userCookie = new Cookie("username", username);
-		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
-		res.addCookie(userCookie);
-		res.addCookie(nameCookie);
-		req.getSession().setAttribute("user", user);
+
 //		Cookie userCookie = new Cookie("username", username);
 //		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
 //		res.addCookie(userCookie);
 //		res.addCookie(nameCookie);
 //		System.out.println(user);
-		req.getSession().setAttribute("user", user);	
-
-		HttpSession session = req.getSession();
-		session.setAttribute("user", user);		
+		req.getSession().setAttribute("user", user);
 
 
 		return user;
