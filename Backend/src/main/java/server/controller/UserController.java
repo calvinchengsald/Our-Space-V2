@@ -9,10 +9,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import data.dao.UserDao;
 import data.model.Error;
@@ -135,6 +133,46 @@ public class UserController {
 		return u;
 
 	}/* handleRegister() */
+	
+	@RequestMapping("/updateUser.action")
+	public @ResponseBody User handleUpdateUser(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("In register Handle");
+
+		JSONObject obj = JSONUtil.getObj(request);
+		String username = obj.getString("username");
+		String password = obj.getString("password");
+		String first_name = obj.getString("first_name");
+		String last_name = obj.getString("last_name");
+		
+		// validate input
+		if (username == null || first_name == null || last_name == null) {
+			System.out.println("Please fill out all fields");
+			return new User("Please fill out all fields");
+		}
+
+		User u = UserService.selectById(username);
+		
+		// validate email
+		if (u == null) {
+			return new User("Invalid username!!!");
+		}
+		
+		// update  first name
+		u.setFirstName(first_name);
+		
+		// update last name
+		u.setLastName(last_name);
+		
+		// update password if not null
+		if ((password != null) | !(password.equals(""))) {
+			u.setPassword(password);
+		}
+
+		// update database
+		userDao.update(u);	
+		
+		return u;
+	}/* updateUser() */
 
 	/*
 	 * Return user specified by the email

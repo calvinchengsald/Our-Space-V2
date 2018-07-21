@@ -4,14 +4,11 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import data.model.User;
-import util.HibernateUtil;
 
 /**
  * 
@@ -44,13 +41,6 @@ public class UserDao {
 	 * insert new User object into the database
 	 */
 	public void insert(User myUser) {
-		// Session ses = HibernateUtil.getSession();
-		// Transaction tx = ses.beginTransaction();
-		//
-		// ses.save(myUser);
-		//
-		// tx.commit();
-
 		sesFact.getCurrentSession().save(myUser);
 
 	}/* insert() */
@@ -59,13 +49,6 @@ public class UserDao {
 	 * Update User object
 	 */
 	public void update(User myUser) {
-		// Session ses = HibernateUtil.getSession();
-		// Transaction tx = ses.beginTransaction();
-		//
-		// ses.update(myUser);
-		//
-		// tx.commit();
-
 		sesFact.getCurrentSession().update(myUser);
 
 	}/* update()*/
