@@ -4,17 +4,17 @@
       <mat-icon>home</mat-icon>
     </div>
   </div>
-  <div class='col-1 offset-6 ' *ngIf="!isLoggedIn">
+  <div class='col-1 offset-6 ' *ngIf="!loginService.isLoggedIn">
     <div routerLink='/login'> Login</div>
   </div>
-  <div class='col-1 ' *ngIf="!isLoggedIn">
+  <div class='col-1 ' *ngIf="!loginService.isLoggedIn">
     <div routerLink='/register'> Register</div>
   </div>
-  <div class='col-1 offset-6' *ngIf="isLoggedIn">
+  <div class='col-1 offset-6' *ngIf="loginService.isLoggedIn">
     <div (click)="clickLogout()" > Logout</div>
   </div>
-  <div class='col-1' *ngIf="isLoggedIn">
-      <div routeRLink='/profile' > {{_loginService.firstName}} {{_loginService.lastName}}</div>
+  <div class='col-1' *ngIf="loginService.isLoggedIn">
+      <div routeRLink='/profile' > {{loginService.firstName}} {{loginService.lastName}}</div>
   </div>
 
 </div>

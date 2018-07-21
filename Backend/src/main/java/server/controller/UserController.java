@@ -20,7 +20,7 @@ import util.EmailUtil;
 import util.JSONUtil;
 
 @Controller
-@CrossOrigin(origins= "http://localhost:4200")
+@CrossOrigin(origins= "http://localhost:4200", allowCredentials="true")
 public class UserController {
 	@Autowired
 	private UserDao userDao;
@@ -31,6 +31,14 @@ public class UserController {
 	/*
 	 * Return User information if username and password exists
 	 */
+	
+	@CrossOrigin
+	@RequestMapping("/checkLogin.action")
+	public @ResponseBody User handleCheckLogin(HttpServletRequest req, HttpServletResponse res) {
+		return null;
+		
+	}
+	
 	@CrossOrigin
 	@RequestMapping("/login.action")
 	public @ResponseBody User handleLogin(HttpServletRequest req, HttpServletResponse res) {
@@ -61,12 +69,8 @@ public class UserController {
 		} /* if (invalid password) */
 
 
-//		Cookie userCookie = new Cookie("username", username);
-//		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
-//		res.addCookie(userCookie);
-//		res.addCookie(nameCookie);
-//		System.out.println(user);
-		req.getSession().setAttribute("user", user);
+		HttpSession session = req.getSession();
+		session.setAttribute("user", user);		
 
 
 		return user;
@@ -77,16 +81,16 @@ public class UserController {
 	 */
 	@CrossOrigin
 	@RequestMapping("/logout.action")
-	public @ResponseBody String handleLogout(HttpServletRequest req, HttpServletResponse res) {
+	public @ResponseBody User handleLogout(HttpServletRequest req, HttpServletResponse res) {
 
 		HttpSession session = req.getSession(false);
 		if(session == null) {
 			System.out.println("session is null");
-			return "{info: 'session is null'}";
+			return new User("no");
 		}
 		System.out.println("User: " + session.getAttribute("user"));
 		session.invalidate();
-		return "{info: 'Successfully Logout'}";
+		return new User("yes");
 	}/* logout() */
 
 	/*
