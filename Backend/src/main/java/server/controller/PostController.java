@@ -13,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import data.dao.PostDao;
 import data.dao.UserDao;
@@ -103,7 +101,11 @@ public class PostController {
 
 		return p;
 	}
+	
 
+	/*
+	 * Remove post object from database
+	 */
 	@RequestMapping("/deletePost.action")
 	public @ResponseBody Post handleDeletePost(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("in handle delete Post of post Controller");
@@ -126,6 +128,9 @@ public class PostController {
 
 	}
 
+	/*
+	 * insert new post object into the database
+	 */
 	@RequestMapping("/insertPost.action")
 	public @ResponseBody Post handleInsertPost(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("in handle insert Post of post Controller");
@@ -138,19 +143,23 @@ public class PostController {
 		
 		User user = userDao.selectById(email);
 		
-//		System.out.println(user);
+		// check if user exists
 		if (user == null) {
 			return new Post("Please log in");
 		}
+		
 		Post p = new Post(body, imgsrc, youtubelink, user);
-		// if(body!=null) u.setBody(body);
-		// if(imgsrc!=null) u.setImgSrc(imgsrc);
-		// if(youtubelink!=null) u.setYoutubeLink(youtubelink);
+
 		postDao.insert(p);
 
 		return p;
 	}
+	
+	
 
+	/*
+	 * Update post object into the database
+	 */
 	@RequestMapping("/updatePost.action")
 	public @ResponseBody Post handleUpdatePost(HttpServletRequest req, HttpServletResponse res) {
 
