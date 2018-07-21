@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
+import { MessegeModelService } from './messege-model.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class LoginService {
     withCredentials: true
   };
 
-  constructor(private httpServ: HttpClient) { }
+  constructor(private httpServ: HttpClient, private _MessegeModelService: MessegeModelService) { }
 
   logout(): Observable<any> {
     // to be implemented
@@ -59,19 +60,41 @@ export class LoginService {
   }
 
 
+  checkLogin(): Observable<string> {
+    const url: string = EnvironmentService.APIpath + 'checkLogin.action';
+    return this.httpServ.post(url, null, this.httpOptions ).pipe(
+      map(res => res as string)
+    );
+  }
 
-
-  getLogin(emailz: string, passwordz: string): Observable<string> {
-
+  getLogin(emailz: string, passwordz: string): void {
     console.log('in getlogin method with params ' + emailz + '/' + passwordz);
     const url: string = EnvironmentService.APIpath + 'login.action';
     const obj = {
       email: emailz,
       password: passwordz
     };
-    return this.httpServ.post(url, obj, this.httpOptions ).pipe(
+    this.httpServ.post(url, obj, this.httpOptions ).pipe(
       map(res => res as string)
-    );
+    ).subscribe(data => {
+      if (!data['password'] ) {
+        this._MessegeModelService.error = true;
+        this._MessegeModelService.show = true;
+        this._MessegeModelService.messege = data['email'];
+        console.log('in pass');
+      } else if (data['email'] ) {
+        this._MessegeModelService.error = false;
+        this._MessegeModelService.show = false;
+        this._MessegeModelService.messege = data['email'];
+        this.firstName = data['firstName'];
+        this.lastName = data['lastName'];
+        this.email = data['email'];
+        console.log('logged in ');
+        this.isLoggedIn = true;
+      } else {
+
+      }
+    });
   }
 
 }
