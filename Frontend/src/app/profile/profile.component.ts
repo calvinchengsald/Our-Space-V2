@@ -20,7 +20,6 @@ export class ProfileComponent implements OnInit {
   _email: string;
   showUpdate = false;
   userPost: IPost[];
-  isLoggedIn = false;
 
   // post stuff for user will be in here somewhere or something
   constructor(private _profileService: ProfileService, private _loginService: LoginService, private _postService: PostService,
@@ -71,10 +70,6 @@ export class ProfileComponent implements OnInit {
     this.getAllUserPost();
   }
 
-  ngAfterContentChecked() {
-    this.isLoggedIn = LoginService.isLoggedIn;
-  }
-
   clickProfile(): void {
 
   }
@@ -105,7 +100,6 @@ export class ProfileComponent implements OnInit {
         PostService.allPostUser = [];
       }
       this.userPost = PostService.allPostUser;
-      this.isLoggedIn = LoginService.isLoggedIn;
       console.log(this.userPost);
     });
   }
