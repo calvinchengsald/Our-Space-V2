@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
-  providers: [LoginService],
 })
 export class LoginPageComponent implements OnInit {
 
@@ -34,8 +33,6 @@ export class LoginPageComponent implements OnInit {
   }
 
 
-
-
   ngOnInit() {
   }
 
@@ -55,7 +52,9 @@ export class LoginPageComponent implements OnInit {
         this._loginService.lastName = data['lastName'];
         this._loginService.email = data['email'];
         this._loginService.password = data['password'];
-        LoginService.isLoggedIn = true;
+        console.log('logged in ');
+        this._loginService.isLoggedIn = true;
+        console.log('logged in ');
         this._router.navigateByUrl('/');
       } else {
 

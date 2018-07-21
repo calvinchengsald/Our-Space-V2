@@ -9,63 +9,53 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class LoginService {
-  static isLoggedIn = false; // true if is logged in
-  static _email: string;
-  static _firstName: string;
-  static _lastName: string;
-  static _password = 'dummy pass';
+  isLoggedIn: boolean; // true if is logged in
+  _email: string;
+  _firstName: string;
+  _lastName: string;
+  _password = 'dummy pass';
 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type' : 'application/x-www-form-urlencoded'
     }),
-    credentials: 'include'
+    withCredentials: true
   };
 
   constructor(private httpServ: HttpClient) { }
 
-  logout() {
+  logout(): Observable<any> {
     // to be implemented
     console.log('in logout from service');
     const url: string = EnvironmentService.APIpath + 'logout.action';
-    this.httpServ.post(url, null, this.httpOptions ).subscribe(
-      res => {
-        console.log(res);
-        LoginService.isLoggedIn = false;
-        console.log(LoginService.isLoggedIn);
-      }
+    return this.httpServ.post(url, null, this.httpOptions ).pipe(
+      map(res => res as string)
     );
   }
 
-  login(): void {
-    console.log('in login from service');
-    LoginService.isLoggedIn = true;
-    console.log(LoginService.isLoggedIn);
-  }
-
   set email(mes: string) {
-    LoginService._email = mes;
+    this._email = mes;
   }
   get email(): string {
-    return LoginService._email;
+    return this._email;
   }
   set firstName(mes: string) {
-    LoginService._firstName = mes;
+    this._firstName = mes;
   }
   get firstName(): string {
-    return LoginService._firstName;
+    return this._firstName;
   }
   set lastName(mes: string) {
-    LoginService._lastName = mes;
+    this._lastName = mes;
   }
   get lastName(): string {
-    return LoginService._lastName;
+    return this._lastName;
   }
   set password(mes: string) {
-    LoginService._password = mes;
+    this._password = mes;
   }
   get password(): string {
-    return LoginService._password;
+    return this._password;
   }
 
 

@@ -9,10 +9,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import data.dao.UserDao;
 import data.model.Error;
@@ -22,7 +20,7 @@ import util.EmailUtil;
 import util.JSONUtil;
 
 @Controller
-@CrossOrigin(origins= "http://localhost:4200")
+@CrossOrigin(origins= "http://localhost:4200", allowCredentials="true")
 public class UserController {
 	@Autowired
 	private UserDao userDao;
@@ -33,6 +31,14 @@ public class UserController {
 	/*
 	 * Return User information if username and password exists
 	 */
+	
+	@CrossOrigin
+	@RequestMapping("/checkLogin.action")
+	public @ResponseBody User handleCheckLogin(HttpServletRequest req, HttpServletResponse res) {
+		return null;
+		
+	}
+	
 	@CrossOrigin
 	@RequestMapping("/login.action")
 	public @ResponseBody User handleLogin(HttpServletRequest req, HttpServletResponse res) {
@@ -62,6 +68,7 @@ public class UserController {
 			return new User("Incorrect Password");
 		} /* if (invalid password) */
 
+<<<<<<< HEAD
 		// set cookies and session parameters
 //		Cookie userCookie = new Cookie("username", username);
 //		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
@@ -69,6 +76,11 @@ public class UserController {
 //		res.addCookie(nameCookie);
 //		System.out.println(user);
 		req.getSession().setAttribute("user", user);	
+=======
+
+		HttpSession session = req.getSession();
+		session.setAttribute("user", user);		
+>>>>>>> develop
 
 
 		return user;
@@ -79,16 +91,16 @@ public class UserController {
 	 */
 	@CrossOrigin
 	@RequestMapping("/logout.action")
-	public @ResponseBody String handleLogout(HttpServletRequest req, HttpServletResponse res) {
+	public @ResponseBody User handleLogout(HttpServletRequest req, HttpServletResponse res) {
 
 		HttpSession session = req.getSession(false);
 		if(session == null) {
 			System.out.println("session is null");
-			return "{info: 'session is null'}";
+			return new User("no");
 		}
 		System.out.println("User: " + session.getAttribute("user"));
 		session.invalidate();
-		return "{info: 'Successfully Logout'}";
+		return new User("yes");
 	}/* logout() */
 
 	/*
@@ -131,6 +143,46 @@ public class UserController {
 		return u;
 
 	}/* handleRegister() */
+	
+	@RequestMapping("/updateUser.action")
+	public @ResponseBody User handleUpdateUser(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("In register Handle");
+
+		JSONObject obj = JSONUtil.getObj(request);
+		String username = obj.getString("username");
+		String password = obj.getString("password");
+		String first_name = obj.getString("first_name");
+		String last_name = obj.getString("last_name");
+		
+		// validate input
+		if (username == null || first_name == null || last_name == null) {
+			System.out.println("Please fill out all fields");
+			return new User("Please fill out all fields");
+		}
+
+		User u = UserService.selectById(username);
+		
+		// validate email
+		if (u == null) {
+			return new User("Invalid username!!!");
+		}
+		
+		// update  first name
+		u.setFirstName(first_name);
+		
+		// update last name
+		u.setLastName(last_name);
+		
+		// update password if not null
+		if ((password != null) | !(password.equals(""))) {
+			u.setPassword(password);
+		}
+
+		// update database
+		userDao.update(u);	
+		
+		return u;
+	}/* updateUser() */
 
 	/*
 	 * Return user specified by the email

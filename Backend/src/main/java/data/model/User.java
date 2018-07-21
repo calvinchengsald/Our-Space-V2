@@ -13,9 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 

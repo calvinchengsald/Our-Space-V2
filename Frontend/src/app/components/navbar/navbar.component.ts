@@ -1,23 +1,21 @@
 import { Component, OnInit,  AfterContentChecked } from '@angular/core';
 import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  providers: [LoginService],
 })
 export class NavbarComponent implements OnInit {
   title: 'Our Space';
   _name: string;
-  isLoggedIn = false;
-  get loginService() {
-    return this._loginService;
+
+  constructor(private _loginService: LoginService, private _router: Router) {
   }
 
-  constructor(private _loginService: LoginService) {
-
-    this.isLoggedIn = LoginService.isLoggedIn;
+  get loginService() {
+    return this._loginService;
   }
 
   set messegeMessege (pw: string) {
@@ -29,17 +27,20 @@ export class NavbarComponent implements OnInit {
 
 
   ngOnInit() {
-    this.isLoggedIn = LoginService.isLoggedIn;
+
   }
 
-  ngAfterContentChecked() {
-    this.isLoggedIn = LoginService.isLoggedIn;
-  }
 
   clickLogout(): void {
     console.log('we clicked logout');
     // need to do a req, but for now just set vars client side
-    LoginService.isLoggedIn = false;
+    this._loginService.logout().subscribe(  // code inside of subscribe not executing
+      res => {
+        console.log('logged out');
+      }
+    );
+    this._loginService.isLoggedIn = false;
+    this._router.navigateByUrl('/');
     // this._loginService.getLogin(this.email, this.password).subscribe(data => {
     //   if (!data['password'] ) {
     //     this._messegeService.error = true;
