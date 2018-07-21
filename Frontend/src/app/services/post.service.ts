@@ -24,7 +24,7 @@ export class PostService {
     })
   };
 
-  constructor(private httpServ: HttpClient) { }
+  constructor(private httpServ: HttpClient, private _loginService: LoginService) { }
 
 
 
@@ -57,7 +57,7 @@ export class PostService {
       body: bodyz,
       imgsrc: image,
       youtubelink: youtube,
-      email: LoginService.isLoggedIn ? LoginService._email : '',
+      email: this._loginService.isLoggedIn ? this._loginService._email : '',
     };
     return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
