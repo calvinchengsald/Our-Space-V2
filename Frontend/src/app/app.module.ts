@@ -18,13 +18,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterComponent } from './register/register.component';
 import { PostService } from './services/post.service';
-<<<<<<< HEAD
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileService } from './services/profile.service';
-=======
 import { MessegeComponent } from './messege/messege.component';
 import { MessegeModelService } from './services/messege-model.service';
->>>>>>> develop
 
 @NgModule({
   declarations: [
@@ -33,11 +30,8 @@ import { MessegeModelService } from './services/messege-model.service';
     NavbarComponent,
     LoginPageComponent,
     RegisterComponent,
-<<<<<<< HEAD
-    ProfileComponent
-=======
+    ProfileComponent,
     MessegeComponent
->>>>>>> develop
   ],
   imports: [
     BrowserModule,
@@ -60,11 +54,7 @@ import { MessegeModelService } from './services/messege-model.service';
       { path: '**', component: HomeComponent, pathMatch: 'full' },
     ])
   ],
-<<<<<<< HEAD
-  providers: [LoginService, PostService, ProfileService],
-=======
-  providers: [LoginService, PostService, MessegeModelService],
->>>>>>> develop
+  providers: [LoginService, PostService, MessegeModelService, ProfileService],
   bootstrap: [AppComponent],
 
 })

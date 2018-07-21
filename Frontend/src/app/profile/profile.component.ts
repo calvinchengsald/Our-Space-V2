@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IUser } from '../interface/iuser';
 import { ProfileService } from '../services/profile.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,9 @@ export class ProfileComponent implements OnInit {
   _email: string;
 
   // post stuff for user will be in here somewhere or something
-  constructor(private _profileService: ProfileService) { }
+  constructor(private _profileService: ProfileService, private _loginService: LoginService) {
+
+   }
 
   set firstName (fn: string) {
     this._firstName = fn;
@@ -31,7 +34,9 @@ export class ProfileComponent implements OnInit {
   }
 
   get firstName () {
-    return this._firstName;
+    console.log('in first name');
+    console.log('Name = ' + this._profileService.firstName );
+    return this._profileService.firstName;
   }
 
   get lastName () {
@@ -42,14 +47,23 @@ export class ProfileComponent implements OnInit {
     return this._email;
   }
 
+
+  setValues(user: string) {
+    this._firstName = user['firstName'];
+    console.log(this._firstName);
+    this._lastName = user['lastName'];
+    this._email = user['email'];
+
+  }
+
   ngOnInit() {
+    console.log('we clicked profile');
+    this._profileService.getProfile(this._loginService.firstName, this._loginService.lastName,
+      this._loginService.email).subscribe(data => this.setValues(data));
   }
 
   clickProfile(): void {
-    console.log('we clicked login');
-    this._profileService.getProfile(this.firstName, this.lastName, this.email).subscribe(data => {
-      console.log(data);
-    });
+
   }
 
 }

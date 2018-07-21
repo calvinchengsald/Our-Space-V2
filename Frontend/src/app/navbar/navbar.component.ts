@@ -6,7 +6,7 @@ import { ProfileService } from '../services/profile.service';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
-  providers: [LoginService, ProfileService],
+  providers: [LoginService],
 })
 export class NavbarComponent implements OnInit {
   title: 'Our Space';
