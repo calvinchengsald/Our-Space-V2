@@ -10,16 +10,20 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import data.dao.PostDao;
+import data.dao.UserDao;
 import data.model.Post;
 import data.model.User;
-import data.service.PostService;
 import util.JSONUtil;
 
 @Controller
+@CrossOrigin(origins= "http://localhost:4200")
 public class PostController {
 
 	
@@ -33,6 +37,9 @@ public class PostController {
 
 	@Autowired
 	private PostDao postDao;
+
+	@Autowired
+	private UserDao userDao;
 	
 
 	@RequestMapping("/getPost.action")
@@ -80,11 +87,12 @@ public class PostController {
 
 	}
 
-	@RequestMapping("/getPostFromAll")
+	@RequestMapping("/getPostFromAll.action")
 	public @ResponseBody List<Post> handleGetPostFromAll(HttpServletRequest req, HttpServletResponse res) {
 
 		System.out.println("in handle get Post from all of post Controller");
 
+	//	System.out.println("User from sesion is: " + req.getSession().getAttribute("user"));
 		List<Post> p = postDao.selectAll();
 		if (p == null || p.size() == 0) {
 
@@ -96,7 +104,7 @@ public class PostController {
 		return p;
 	}
 
-	@RequestMapping("/deletePost")
+	@RequestMapping("/deletePost.action")
 	public @ResponseBody Post handleDeletePost(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("in handle delete Post of post Controller");
 
@@ -118,16 +126,19 @@ public class PostController {
 
 	}
 
-	@RequestMapping("/insertPost")
+	@RequestMapping("/insertPost.action")
 	public @ResponseBody Post handleInsertPost(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("in handle insert Post of post Controller");
 
 		JSONObject obj = JSONUtil.getObj(req);
-		String body = obj.getString("body");
-		String imgsrc = obj.getString("imgsrc");
-		String youtubelink = obj.getString("youtubelink");
-		HttpSession session = req.getSession();
-		User user = (User) session.getAttribute("user");
+		String imgsrc = (obj.has("imgsrc")?obj.getString("imgsrc"):"");
+		String youtubelink = (obj.has("youtubelink")?obj.getString("youtubelink"):"");
+		String body = (obj.has("body")?obj.getString("body"):"");
+		String email = (obj.has("email")?obj.getString("email"):"");
+		
+		User user = userDao.selectById(email);
+		
+//		System.out.println(user);
 		if (user == null) {
 			return new Post("Please log in");
 		}
@@ -140,7 +151,7 @@ public class PostController {
 		return p;
 	}
 
-	@RequestMapping("/updatePost")
+	@RequestMapping("/updatePost.action")
 	public @ResponseBody Post handleUpdatePost(HttpServletRequest req, HttpServletResponse res) {
 
 		System.out.println("in handle update Post of post Controller");

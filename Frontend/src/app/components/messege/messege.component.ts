@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessegeModelService } from '../services/messege-model.service';
+import { MessegeModelService } from '../../services/messege-model.service';
 
 @Component({
   selector: 'app-messege',
@@ -23,7 +23,6 @@ export class MessegeComponent implements OnInit {
   set messegeMessege (pw: string) {
     this._messegeMessege = pw;
   }
-
   get messegeMessege() {
     return this._messegeMessege;
   }

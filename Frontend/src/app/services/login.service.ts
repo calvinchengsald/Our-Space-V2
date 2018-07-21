@@ -14,6 +14,7 @@ export class LoginService {
   static _firstName: string;
   static _lastName: string;
   static _password = 'dummy pass';
+  
 
   url: string;
   httpOptions = {

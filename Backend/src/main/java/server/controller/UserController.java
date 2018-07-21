@@ -8,8 +8,11 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import data.dao.UserDao;
 import data.model.Error;
@@ -19,6 +22,7 @@ import util.EmailUtil;
 import util.JSONUtil;
 
 @Controller
+@CrossOrigin(origins= "http://localhost:4200")
 public class UserController {
 	@Autowired
 	private UserDao userDao;
@@ -58,11 +62,22 @@ public class UserController {
 		} /* if (invalid password) */
 
 		// set cookies and session parameters
+<<<<<<< HEAD
 		Cookie userCookie = new Cookie("username", username);
 		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
 		res.addCookie(userCookie);
 		res.addCookie(nameCookie);
 		req.getSession().setAttribute("user", user);
+=======
+//		Cookie userCookie = new Cookie("username", username);
+//		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
+//		res.addCookie(userCookie);
+//		res.addCookie(nameCookie);
+//		System.out.println(user);
+		req.getSession().setAttribute("user", user);	
+		
+		
+>>>>>>> df6949f867ed1d54115fd77d6351a376bc8e0716
 
 		return user;
 	}/* handleLogin() */
