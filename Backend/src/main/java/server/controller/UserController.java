@@ -18,6 +18,7 @@ import data.dao.UserDao;
 import data.model.Error;
 import data.model.User;
 import data.service.UserService;
+import util.EmailUtil;
 import util.JSONUtil;
 
 @Controller
@@ -28,8 +29,6 @@ public class UserController {
 
 	public UserController() {
 	}
-
-	
 
 	/*
 	 * Return User information if username and password exists
@@ -45,16 +44,16 @@ public class UserController {
 	@CrossOrigin
 	@RequestMapping("/login.action")
 	public @ResponseBody User handleLogin(HttpServletRequest req, HttpServletResponse res) {
-		
+
 		JSONObject obj = JSONUtil.getObj(req);
-		
+
 		if (!obj.has("email") || !obj.has("password")) {
 			System.out.println("Please enter email/password");
-			return new User("Please enter email/password");			
+			return new User("Please enter email/password");
 		}
-		
-		 String username = obj.getString("email");
-		 String password = obj.getString("password");
+
+		String username = obj.getString("email");
+		String password = obj.getString("password");
 
 		// get user by email
 		User user = userDao.selectById(username);
@@ -71,13 +70,22 @@ public class UserController {
 			return new User("Incorrect Password");
 		} /* if (invalid password) */
 
-		// set cookies and session parameters
 
+<<<<<<< HEAD
 		HttpSession session = req.getSession();
 		session.setAttribute("user", user);		
 		
 		
 		
+=======
+//		Cookie userCookie = new Cookie("username", username);
+//		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
+//		res.addCookie(userCookie);
+//		res.addCookie(nameCookie);
+//		System.out.println(user);
+		req.getSession().setAttribute("user", user);
+
+>>>>>>> develop
 
 		return user;
 	}/* handleLogin() */
@@ -98,8 +106,6 @@ public class UserController {
 		session.invalidate();
 		return new User("yes");
 	}/* logout() */
-
-	
 
 	/*
 	 * Register user
@@ -134,11 +140,14 @@ public class UserController {
 		res.addCookie(userCookie);
 		res.addCookie(nameCookie);
 
+		String body = "Thank you for registering with our super duper website";
+
+		EmailUtil.sendEmail(username, "Successful registration", body);
+
 		return u;
 
 	}/* handleRegister() */
 
-	
 	/*
 	 * Return user specified by the email
 	 */
@@ -159,41 +168,58 @@ public class UserController {
 		return u;
 	}/* handleGetUser() */
 
-	
-
-	
 	@RequestMapping("/deleteUser.action")
 	public @ResponseBody Error handleDeleteUser(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("User Controller: in delete user");
-		
+
 		// create new error object
 		Error err = new Error();
 
 		// get email of user
 		JSONObject obj = JSONUtil.getObj(req);
 		String email = obj.getString("email");
-		
+
 		// verify email
 		if (email == null) {
 			err.setMessege("please enter valid email");
 			return err;
 		}
-		
+
 		// get user object
 		User user = userDao.selectById(email);
-		
+
 		// verify that user exist
 		if (user == null) {
 			err.setMessege("No account exist with this email");
 			return err;
 		}
-		
+
 		userDao.delete(user);
 		err.setMessege("deleted user");
 		err.setError(false);
 		return err;
 	}/* handleDeleteUser() */
-	
-	
+
+	/*
+	 * Reset password of user
+	 */
+	@RequestMapping("/reset.action")
+	public @ResponseBody Error resetPassword(HttpServletRequest req, HttpServletResponse resp) {
+		String subject = "OurSpace: Reset your password";
+		String body = "Please reset your password";
+		// get email of user
+		JSONObject obj = JSONUtil.getObj(req);
+		String email = obj.getString("email");
+		Error err = new Error();
+
+		if (EmailUtil.sendEmail(email, subject, body) == 1) {
+			err.setMessege("Email sent succesfully");
+			err.setError(false);
+		} else {
+			err.setMessege("Email not sent");
+		}
+
+		return err;
+	}/* resetPassword()*/
 
 }
