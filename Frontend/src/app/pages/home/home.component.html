@@ -1,0 +1,41 @@
+
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-10 offset-1'>
+      THIS WILL BE A POST FOR HOME
+
+    </div>
+
+  </div>
+  <div class='row'>
+    <div class='col-10 offset-1' >
+      <div class='row border border-primary m-2 bg-light' *ngIf='isLoggedIn'>
+        <div class='col-3'>Body</div>
+        <div class='col-9'></div>
+        <div class='col-12'>
+          <input [(ngModel)]='newPostBody' type='text' class='' />
+        </div>
+        <div class='col-3'>Image url: </div>
+        <div class='col-9'>
+            <input [(ngModel)]='newPostImage' type='text' class='' />
+        </div>
+        <div class='col-3'>Youtube url: </div>
+        <div class='col-9'>
+            <input [(ngModel)]='newPostYoutube' type='text' class='' />
+        </div>
+        <div class='col-3 offset-9'>
+          <div class='btn btn-primary' (click)='clickPost()'>Post</div>
+        </div>
+       
+            
+      </div>
+    </div>
+    <div class='col-8 offset-2' *ngFor='let temp of homePost' >
+      
+      <app-post [post]='temp'></app-post>
+
+      
+    </div>
+  </div>
+
+</div>

@@ -13,15 +13,20 @@ import {MatInputModule, MatSelectModule, MatCardModule, MatButtonModule, MatForm
 import { LoginService } from './services/login.service';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './pages/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { PostService } from './services/post.service';
+<<<<<<< HEAD
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileService } from './services/profile.service';
 import { MessegeComponent } from './messege/messege.component';
+=======
+import { MessegeComponent } from './components/messege/messege.component';
+>>>>>>> develop
 import { MessegeModelService } from './services/messege-model.service';
+import { PostComponent } from './components/post/post.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +35,19 @@ import { MessegeModelService } from './services/messege-model.service';
     NavbarComponent,
     LoginPageComponent,
     RegisterComponent,
+<<<<<<< HEAD
     ProfileComponent,
     MessegeComponent
+=======
+    MessegeComponent,
+    PostComponent
+>>>>>>> develop
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatInputModule, MatSelectModule,
     MatCardModule, MatButtonModule,
@@ -47,6 +58,7 @@ import { MessegeModelService } from './services/messege-model.service';
 
 
     RouterModule.forRoot([
+      { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'profile', component: ProfileComponent },
