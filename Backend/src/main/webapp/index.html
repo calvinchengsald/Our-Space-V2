@@ -1,148 +1,39 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+  <meta charset="utf-8">
+  <title>Frontend</title>
+  <base href="/OurSpace">
+
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<<<<<<< HEAD
+<link rel="stylesheet" href="/OurSpace/styles.cec2df18acf7cdeee207.css"></head>
+=======
+<link rel="stylesheet" href="/OurSpace/styles.c9cd3c468bd1cf0554fb.css"></head>
+>>>>>>> 3312ea8bbcbacd4f4c42c8825574f78b684bcb49
 <body>
-<script>
-location.href = "/public/index.html";
-</script>
-	<h1> User </h1>
-	<form method="POST" action="login.action">
-		<input type="text" name="username" value="a" />
-		<input type="text" name="password" value="a" />
-		<input type="submit" value="login"/>
-	</form>
-	
-	<br>
-	<form method="POST" action="register.action">
-		<input type="text" name="username" value="username" />
-		<input type="text" name="password" value="pass" />
-		<input type="text" name="first_name" value="fadmin" />
-		<input type="text" name="last_name" value="ladmin" />
-		<input type="submit" value="register"/>
-	</form>
-	<br>
-	<form method="POST" action="logout.action">
-		<input type="submit" value="logout"/>
-	</form>
-	<br>
-	<form method="POST" action="deleteUser.action">
-		<input type="text" name="email" value="a" />
-		<input type="submit" value="delete"/>
-	</form>
-	
-	<br>
-	
-	<form method="POST" action="getUser.action">
-		<input type="text" name="username" value="username" />
-		<input type="submit" value="get user by email"/>
-	</form>
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<h1> Post </h1>
-	<form method="POST" action="getPost.action">
-		<input type="text" name="postId" value="1" />
-		<input type="submit" value="get post by id"/>
-	</form>
-	
-	<br>
-	
-	<form method="POST" action="deletePost.action">
-		<input type="text" name="postId" value="8" />
-		<input type="submit" value="delete Post by Id"/>
-	</form>
-	
-	<br>
-	<form method="POST" action="updatePost.action">
-		postId
-		<input type="text" name="postId" value="1" />
-		body
-		<input type="text" name="body" value="lsls" />
-		youbue
-		<input type="text" name="imgsrc" value="utubeeimg" />
-		img
-		<input type="text" name="youtubelink" value="utu" />
-		<input type="submit" value="update post by id"/>
-	</form>
-	
-	<br>
-	<form method="POST" action="insertPost.action">
-		body
-		<input type="text" name="body" value="lsls" />
-		img
-		<input type="text" name="imgsrc" value="utubeeimg" />
-		utub
-		<input type="text" name="youtubelink" value="utu" />
-		<input type="submit" value="insert new post "/>
-	</form>
-	
-	<br>
-	<form method="POST" action="getPostFromUser.action">
-		user email
-		<input type="text" name="email" value="1" />
-		<input type="submit" value="get all post by email"/>
-	</form>
-	
-	<br>
-	<form method="POST" action="getPostFromAll.action">
-		<input type="submit" value="get all post"/>
-	</form>
-	
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	
-	<h1> Comment </h1>
-	<form method="POST" action="getComment.action">
-		<input type="text" name="commentId" value="1" />
-		<input type="submit" value="get comment by id"/>
-	</form>
-	
-	<br>
-	
-	<form method="POST" action="deleteComment.action">
-		<input type="text" name="commentId" value="8" />
-		<input type="submit" value="delete Comment by Id"/>
-	</form>
-	
-	<br>
-	<form method="POST" action="updateComment.action">
-		commentId
-		<input type="text" name="commentId" value="1" />
-		body
-		<input type="text" name="body" value="lsls" />
-		<input type="submit" value="update comment by id"/>
-	</form>
-	
-	<br>
-	<form method="POST" action="insertComment.action">
-		body
-		<input type="text" name="body" value="lsls" />
-		postid
-		<input type="text" name="postId" value="1" />
-		user email
-		<input type="text" name="email" value="calvin@mail.com" />
-		<input type="submit" value="insert new comment "/>
-	</form>
-	
-	<br>
-	<form method="POST" action="getCommentFromPost.action">
-		post id
-		<input type="text" name="postId" value="1" />
-		<input type="submit" value="get all comment by post ID"/>
-	</form>
-	
-	<br>
-	<form method="POST" action="getCommentFromAll.action">
-		<input type="submit" value="get all comment"/>
-	</form>
-	
-</body>
+  <app-root></app-root>
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<<<<<<< HEAD
+<<<<<<< HEAD:Backend/src/main/webapp/index.html
+<script type="text/javascript" src="/OurSpace/runtime.a66f828dca56eeb90e02.js"></script><script type="text/javascript" src="/OurSpace/polyfills.2f4a59095805af02bd79.js"></script><script type="text/javascript" src="/OurSpace/main.6c3289f491185bd42071.js"></script></body>
+=======
+<script type="text/javascript" src="runtime.a66f828dca56eeb90e02.js"></script><script type="text/javascript" src="polyfills.2f4a59095805af02bd79.js"></script><script type="text/javascript" src="main.6acad728119d93341bc5.js"></script></body>
+>>>>>>> 785ac51ef16e2a1b473faad131dfe5327f148e0d:Backend/src/main/webapp/index.html
+=======
+<<<<<<< HEAD
+<script type="text/javascript" src="/OurSpace/runtime.a66f828dca56eeb90e02.js"></script><script type="text/javascript" src="/OurSpace/polyfills.2f4a59095805af02bd79.js"></script><script type="text/javascript" src="/OurSpace/main.3b2b0c9011c7520e6e14.js"></script></body>
+=======
+<script type="text/javascript" src="runtime.a66f828dca56eeb90e02.js"></script><script type="text/javascript" src="polyfills.2f4a59095805af02bd79.js"></script><script type="text/javascript" src="main.6acad728119d93341bc5.js"></script></body>
+>>>>>>> 286a9e9e48cd28c04064ebf0a5c21390b19ca76c
+>>>>>>> 3312ea8bbcbacd4f4c42c8825574f78b684bcb49
 </html>

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import data.model.Post;
 import data.model.User;
+import util.ComparisonUtil;
 import util.HibernateUtil;
 
 @Repository("postDao")
@@ -128,6 +129,37 @@ public class PostDao {
 		List<Post> pList = sesFact.getCurrentSession().createQuery("from Post where email='"+email+"'", Post.class).list();
 
 		return pList;
+	}
+	
+	public boolean updateLike(User u, Post p) {
+		System.out.println(u.getLikes());
+		System.out.println("---");
+		System.out.println(p.getLikes());
+		System.out.println("---");
+		boolean hasPost = ComparisonUtil.userHasPostLike(p,	 u);
+		boolean hasUser = ComparisonUtil.postHasUserLike(p,	 u);
+		System.out.println(hasPost + " && " + hasUser);
+		if(hasPost && hasUser) {
+			
+			ComparisonUtil.removeUser(p,u);
+			ComparisonUtil.removePost(p,u);
+			System.out.println("removed");
+		}
+		else if (!hasPost && !hasUser) {
+			u.getLikes().add(p);
+			p.getLikes().add(u);
+			System.out.println("added");
+		}
+		else {
+			System.out.println("There was a mismatch with the table data");
+			return false;
+		}
+		
+		Session s = sesFact.getCurrentSession();
+		s.update(u);
+		s.update(p);
+		return true;
+		
 	}
 
 	// true if liked it, false if unliked it

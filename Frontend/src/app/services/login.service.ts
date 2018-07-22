@@ -4,89 +4,95 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
+import { MessegeModelService } from './messege-model.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  static isLoggedIn = false; // true if is logged in
-  static _email: string;
-  static _firstName: string;
-  static _lastName: string;
-  static _password = 'dummy pass';
+  isLoggedIn: boolean; // true if is logged in
+  email: string;
+  firstName: string;
+  lastName: string;
+  password = 'dummy pass';
 
-  url: string;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
-    })
+    }),
+    withCredentials: true
   };
 
-  constructor(private httpServ: HttpClient) { }
+  constructor(private httpServ: HttpClient, private _MessegeModelService: MessegeModelService,
+    private _router: Router) { }
 
-  logout() {
+  logout(): Observable<any> {
     // to be implemented
     console.log('in logout from service');
-    LoginService.isLoggedIn = false;
-    console.log(LoginService.isLoggedIn);
+    const url: string = EnvironmentService.APIpath + 'logout.action';
+    return this.httpServ.post(url, null, this.httpOptions).pipe(
+      map(res => res as string)
+    );
   }
 
-  login(): void {
-    console.log('in login from service');
-    LoginService.isLoggedIn = true;
-    console.log(LoginService.isLoggedIn);
+  checkLogin() {
+    const url: string = EnvironmentService.APIpath + 'checkLogin.action';
+    const obs = this.httpServ.post(url, null, this.httpOptions).pipe(
+      map(res => res as string));
+    obs.subscribe(data => {
+      if (data['email'] !== 'null') {
+        this._MessegeModelService.error = false;
+        this._MessegeModelService.show = false;
+        this._MessegeModelService.messege = data['email'];
+        this.firstName = data['firstName'];
+        this.lastName = data['lastName'];
+        this.email = data['email'];
+        console.log('logged in1 ');
+        this.isLoggedIn = true;
+      }
+    });
+    return obs;
   }
 
-  set email(mes: string) {
-    LoginService._email = mes;
-  }
-  get email(): string {
-    return LoginService._email;
-  }
-  set firstName(mes: string) {
-    LoginService._firstName = mes;
-  }
-  get firstName(): string {
-    return LoginService._firstName;
-  }
-  set lastName(mes: string) {
-    LoginService._lastName = mes;
-  }
-  get lastName(): string {
-    return LoginService._lastName;
-  }
-  set password(mes: string) {
-    LoginService._password = mes;
-  }
-  get password(): string {
-    return LoginService._password;
-  }
-
-
-
-
-  getLogin(emailz: string, passwordz: string): Observable<string> {
-
+  getLogin(emailz: string, passwordz: string) {
     console.log('in getlogin method with params ' + emailz + '/' + passwordz);
-    this.url = EnvironmentService.APIpath + 'login.action';
+    const url: string = EnvironmentService.APIpath + 'login.action';
     const obj = {
       email: emailz,
       password: passwordz
     };
-    return this.httpServ.post(this.url, obj, this.httpOptions).pipe(
+    const obs = this.httpServ.post(url, obj, this.httpOptions).pipe(
       map(res => res as string)
     );
+    obs.subscribe(data => {
+      if (!data['password']) {
+        this._MessegeModelService.error = true;
+        this._MessegeModelService.show = true;
+        this._MessegeModelService.messege = data['email'];
+        console.log('in pass');
+      } else if (data['email']) {
+        this._MessegeModelService.error = false;
+        this._MessegeModelService.show = false;
+        this._MessegeModelService.messege = data['email'];
+        this.firstName = data['firstName'];
+        this.lastName = data['lastName'];
+        this.email = data['email'];
+        console.log('logged in ');
+        this.isLoggedIn = true;
+      }
+    });
+    return obs;
   }
-
   changePass(emailz: string): Observable<string> {
     console.log('sending reset email');
-    this.url = EnvironmentService.APIpath + 'reset.action';
+    const url = EnvironmentService.APIpath + 'reset.action';
     const obj = {
       email: emailz
     };
-    return this.httpServ.post(this.url, obj, this.httpOptions).pipe(
+    return this.httpServ.post(url, obj, this.httpOptions).pipe(
       map(res => res as string)
     );
-  }
 
+  }
 }

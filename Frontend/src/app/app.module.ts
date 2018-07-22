@@ -13,14 +13,17 @@ import { MatInputModule, MatSelectModule, MatCardModule, MatButtonModule, MatFor
 import { LoginService } from './services/login.service';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './pages/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { PostService } from './services/post.service';
-import { MessegeComponent } from './messege/messege.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileService } from './services/profile.service';
+import { MessegeComponent } from './components/messege/messege.component';
 import { MessegeModelService } from './services/messege-model.service';
 import { ResetPageComponent } from './reset-page/reset-page.component';
+import { PostComponent } from './components/post/post.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { ResetPageComponent } from './reset-page/reset-page.component';
     NavbarComponent,
     LoginPageComponent,
     RegisterComponent,
+    ProfileComponent,
     MessegeComponent,
+    PostComponent,
     ResetPageComponent
   ],
   imports: [
@@ -51,11 +56,12 @@ import { ResetPageComponent } from './reset-page/reset-page.component';
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'reset', component: ResetPageComponent },
+      { path: 'profile', component: ProfileComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: '**', component: HomeComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [LoginService, PostService, MessegeModelService],
+  providers: [LoginService, PostService, MessegeModelService, ProfileService],
   bootstrap: [AppComponent],
 
 })

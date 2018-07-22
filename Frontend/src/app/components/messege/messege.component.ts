@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessegeModelService } from '../services/messege-model.service';
+import { MessegeModelService } from '../../services/messege-model.service';
 
 @Component({
   selector: 'app-messege',
@@ -9,10 +9,6 @@ import { MessegeModelService } from '../services/messege-model.service';
 export class MessegeComponent implements OnInit {
 
 
-
-  _messegeMessege: string;
-
-
   constructor(private _messegeService: MessegeModelService) {
 
   }
@@ -20,16 +16,8 @@ export class MessegeComponent implements OnInit {
   ngOnInit() {
   }
 
-  set messegeMessege (pw: string) {
-    this._messegeMessege = pw;
-  }
-
-  get messegeMessege() {
-    return this._messegeMessege;
-  }
-
-  ngAfterContentChecked() {
-    this.messegeMessege = this._messegeService.messege;
+  get messegeService() {
+    return this._messegeService;
   }
 
 

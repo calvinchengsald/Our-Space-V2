@@ -27,4 +27,5 @@ public class PostService {
 //	public static List<Post> selectAllPostFromUser(String email){
 //		return PostDao.selectAllByUser(email);
 //	}
+	
 }

@@ -1,4 +1,4 @@
-<div class='messege-board container-fluid {{_messegeService.error?"bg-danger":"bg-success"}}'  *ngIf='_messegeService.show' >
+<div class='messege-board container-fluid {{messegeService.error?"bg-danger":"bg-success"}}'  *ngIf='messegeService.show' >
 
   <!-- messege-board container-fluid bg-success -->
     <div class='row'>
@@ -11,7 +11,7 @@
       </div>
   <div class='row'>
     <div class='col-12 text-center'>
-        {{messegeMessege}}
+        {{messegeService.messege}}
     </div>
     
   </div>
