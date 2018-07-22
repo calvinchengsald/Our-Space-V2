@@ -92,11 +92,7 @@ export class ProfileComponent implements OnInit {
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
             likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
-<<<<<<< HEAD
-            , created: dataEle['created'] };
-=======
             };
->>>>>>> mac_frontend
           postList.push(p);
         }
         PostService.allPostUser = postList;
