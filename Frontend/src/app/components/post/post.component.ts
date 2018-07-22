@@ -35,7 +35,7 @@ export class PostComponent implements OnInit {
   ngOnInit() {  }
 
   ngAfterContentChecked() {
-    if (this.likedByUser(this.post, LoginService._email )) {
+    if (this.likedByUser(this.post, this._loginService._email )) {
       this.likeSrc = this.likeLinkLiked;
     } else {
       this.likeSrc = this.likeLinkDefault;
@@ -96,7 +96,7 @@ export class PostComponent implements OnInit {
 
   clickLike(): void {
     console.log('i click like');
-    if (!LoginService.isLoggedIn) {
+    if (!this._loginService.isLoggedIn) {
       this._messegeService.show = true;
       this._messegeService.messege = 'Please log in for this action';
       this._messegeService.error = true;
@@ -112,7 +112,7 @@ export class PostComponent implements OnInit {
     //   this.post.likes.push(u);
     //   this.likeSrc = this.likeLinkLiked;
     // }
-    this._postService.updatePost(this.post.postId, LoginService._email).subscribe(data => {
+    this._postService.updatePost(this.post.postId, this._loginService._email).subscribe(data => {
       console.log(data);
       if (data && data['postId'] !== 0) {
         const l = [];

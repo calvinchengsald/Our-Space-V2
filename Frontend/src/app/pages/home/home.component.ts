@@ -10,7 +10,6 @@ import { LoginService } from '../../services/login.service';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [PostService],
 })
 export class HomeComponent implements OnInit {
 
@@ -27,9 +26,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getAllPost();
-  }
-  ngAfterContentChecked() {
-    this.isLoggedIn = LoginService.isLoggedIn;
   }
 
 
@@ -64,7 +60,7 @@ export class HomeComponent implements OnInit {
         PostService.allPostList = [];
       }
       this.homePost = PostService.allPostList;
-      this.isLoggedIn = LoginService.isLoggedIn;
+      this.isLoggedIn = this._loginService.isLoggedIn;
       console.log(this.homePost);
     });
   }

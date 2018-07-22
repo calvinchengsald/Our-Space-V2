@@ -9,19 +9,18 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import data.dao.UserDao;
 import data.model.Error;
 import data.model.User;
 import data.service.UserService;
+import util.EmailUtil;
 import util.JSONUtil;
 
 @Controller
-@CrossOrigin(origins= "http://localhost:4200")
+@CrossOrigin(origins= "http://localhost:4200", allowCredentials="true")
 public class UserController {
 	@Autowired
 	private UserDao userDao;
@@ -29,23 +28,30 @@ public class UserController {
 	public UserController() {
 	}
 
-	
-
 	/*
 	 * Return User information if username and password exists
 	 */
+	
+	@CrossOrigin
+	@RequestMapping("/checkLogin.action")
+	public @ResponseBody User handleCheckLogin(HttpServletRequest req, HttpServletResponse res) {
+		return null;
+		
+	}
+	
+	@CrossOrigin
 	@RequestMapping("/login.action")
 	public @ResponseBody User handleLogin(HttpServletRequest req, HttpServletResponse res) {
-		
+
 		JSONObject obj = JSONUtil.getObj(req);
-		
+
 		if (!obj.has("email") || !obj.has("password")) {
 			System.out.println("Please enter email/password");
-			return new User("Please enter email/password");			
+			return new User("Please enter email/password");
 		}
-		
-		 String username = obj.getString("email");
-		 String password = obj.getString("password");
+
+		String username = obj.getString("email");
+		String password = obj.getString("password");
 
 		// get user by email
 		User user = userDao.selectById(username);
@@ -62,15 +68,10 @@ public class UserController {
 			return new User("Incorrect Password");
 		} /* if (invalid password) */
 
-		// set cookies and session parameters
-//		Cookie userCookie = new Cookie("username", username);
-//		Cookie nameCookie = new Cookie("name", user.getFirstName() + "-" + user.getLastName());
-//		res.addCookie(userCookie);
-//		res.addCookie(nameCookie);
-//		System.out.println(user);
-		req.getSession().setAttribute("user", user);	
-		
-		
+
+		HttpSession session = req.getSession();
+		session.setAttribute("user", user);		
+
 
 		return user;
 	}/* handleLogin() */
@@ -78,29 +79,19 @@ public class UserController {
 	/*
 	 * Log the user out
 	 */
+	@CrossOrigin
 	@RequestMapping("/logout.action")
-	public @ResponseBody Error handleLogout(HttpServletRequest req, HttpServletResponse res) {
+	public @ResponseBody User handleLogout(HttpServletRequest req, HttpServletResponse res) {
 
-		HttpSession session = req.getSession();
-		System.out.println("User: " + session.getAttribute("user"));
-		session.setAttribute("user", null);
-		Cookie[] cookies = req.getCookies();
-		if (cookies != null) {
-			for (Cookie cookie : cookies) {
-				cookie.setValue("");
-				cookie.setPath("/");
-				cookie.setMaxAge(0);
-				res.addCookie(cookie);
-			}
+		HttpSession session = req.getSession(false);
+		if(session == null) {
+			System.out.println("session is null");
+			return new User("no");
 		}
-		Error err = new Error();
-		err.setError(false);
-		err.setMessege("Successfully Logout");
-
-		return err;
+		System.out.println("User: " + session.getAttribute("user"));
+		session.invalidate();
+		return new User("yes");
 	}/* logout() */
-
-	
 
 	/*
 	 * Register user
@@ -135,11 +126,54 @@ public class UserController {
 		res.addCookie(userCookie);
 		res.addCookie(nameCookie);
 
+		String body = "Thank you for registering with our super duper website";
+
+		EmailUtil.sendEmail(username, "Successful registration", body);
+
 		return u;
 
 	}/* handleRegister() */
-
 	
+	@RequestMapping("/updateUser.action")
+	public @ResponseBody User handleUpdateUser(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("In register Handle");
+
+		JSONObject obj = JSONUtil.getObj(request);
+		String username = obj.getString("username");
+		String password = obj.getString("password");
+		String first_name = obj.getString("first_name");
+		String last_name = obj.getString("last_name");
+		
+		// validate input
+		if (username == null || first_name == null || last_name == null) {
+			System.out.println("Please fill out all fields");
+			return new User("Please fill out all fields");
+		}
+
+		User u = UserService.selectById(username);
+		
+		// validate email
+		if (u == null) {
+			return new User("Invalid username!!!");
+		}
+		
+		// update  first name
+		u.setFirstName(first_name);
+		
+		// update last name
+		u.setLastName(last_name);
+		
+		// update password if not null
+		if ((password != null) | !(password.equals(""))) {
+			u.setPassword(password);
+		}
+
+		// update database
+		userDao.update(u);	
+		
+		return u;
+	}/* updateUser() */
+
 	/*
 	 * Return user specified by the email
 	 */
@@ -160,41 +194,58 @@ public class UserController {
 		return u;
 	}/* handleGetUser() */
 
-	
-
-	
 	@RequestMapping("/deleteUser.action")
 	public @ResponseBody Error handleDeleteUser(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("User Controller: in delete user");
-		
+
 		// create new error object
 		Error err = new Error();
 
 		// get email of user
 		JSONObject obj = JSONUtil.getObj(req);
 		String email = obj.getString("email");
-		
+
 		// verify email
 		if (email == null) {
 			err.setMessege("please enter valid email");
 			return err;
 		}
-		
+
 		// get user object
 		User user = userDao.selectById(email);
-		
+
 		// verify that user exist
 		if (user == null) {
 			err.setMessege("No account exist with this email");
 			return err;
 		}
-		
+
 		userDao.delete(user);
 		err.setMessege("deleted user");
 		err.setError(false);
 		return err;
 	}/* handleDeleteUser() */
-	
-	
+
+	/*
+	 * Reset password of user
+	 */
+	@RequestMapping("/reset.action")
+	public @ResponseBody Error resetPassword(HttpServletRequest req, HttpServletResponse resp) {
+		String subject = "OurSpace: Reset your password";
+		String body = "Please reset your password";
+		// get email of user
+		JSONObject obj = JSONUtil.getObj(req);
+		String email = obj.getString("email");
+		Error err = new Error();
+
+		if (EmailUtil.sendEmail(email, subject, body) == 1) {
+			err.setMessege("Email sent succesfully");
+			err.setError(false);
+		} else {
+			err.setMessege("Email not sent");
+		}
+
+		return err;
+	}/* resetPassword()*/
 
 }

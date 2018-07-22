@@ -78,7 +78,7 @@ public class PostController {
 		List<Post> p = postDao.selectAllByUser(email);
 		if (p == null || p.size() == 0) {
 			ArrayList<Post> al = new ArrayList<Post>();
-			al.add(new Post("there are no post for this user"));
+			al.add(new Post("there are no posts for this user"));
 			return al;
 		}
 
@@ -102,7 +102,11 @@ public class PostController {
 
 		return p;
 	}
+	
 
+	/*
+	 * Remove post object from database
+	 */
 	@RequestMapping("/deletePost.action")
 	public @ResponseBody Post handleDeletePost(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("in handle delete Post of post Controller");
@@ -125,6 +129,9 @@ public class PostController {
 
 	}
 
+	/*
+	 * insert new post object into the database
+	 */
 	@RequestMapping("/insertPost.action")
 	public @ResponseBody Post handleInsertPost(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("in handle insert Post of post Controller");
@@ -137,19 +144,23 @@ public class PostController {
 		
 		User user = userDao.selectById(email);
 		
-//		System.out.println(user);
+		// check if user exists
 		if (user == null) {
 			return new Post("Please log in");
 		}
+		
 		Post p = new Post(body, imgsrc, youtubelink, user);
-		// if(body!=null) u.setBody(body);
-		// if(imgsrc!=null) u.setImgSrc(imgsrc);
-		// if(youtubelink!=null) u.setYoutubeLink(youtubelink);
+
 		postDao.insert(p);
 
 		return p;
 	}
+	
+	
 
+	/*
+	 * Update post object into the database
+	 */
 	@RequestMapping("/updatePost.action")
 	public @ResponseBody Post handleUpdatePost(HttpServletRequest req, HttpServletResponse res) {
 

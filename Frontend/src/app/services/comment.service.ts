@@ -18,7 +18,7 @@ export class CommentService {
     })
   };
 
-  constructor(private httpServ: HttpClient) { }
+  constructor(private httpServ: HttpClient, private _loginService: LoginService) { }
 
 
   insertComment(bodyz: string, postIdz: number): Observable<string> {
@@ -28,7 +28,7 @@ export class CommentService {
     const obj = {
       postId: postIdz,
       body: bodyz,
-      email: LoginService.isLoggedIn ? LoginService._email : '',
+      email: this._loginService.isLoggedIn ? this._loginService._email : '',
     };
     return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
