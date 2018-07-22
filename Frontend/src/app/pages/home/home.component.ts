@@ -44,14 +44,25 @@ export class HomeComponent implements OnInit {
         const postList = [];
         for (let i = 0; i < data.length; i++) {
           const dataEle = data[i];
+          const l = [];
+          if (dataEle['likes']) {
+            const likeEle = dataEle['likes'];
+            for (let li = 0; li < likeEle.length; li++) {
+              const uu: IUser = {
+                first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
+                email: likeEle[li]['email'], password: likeEle[li]['password']
+                };
+              l.push(uu);
+            }
+          }
           const o: IUser = {
             first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
-            email: dataEle['user']['email'],
-          };
+            email: dataEle['user']['email'], password: dataEle['user']['password']
+            };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: dataEle['likes'], imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
-          };
+            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] 
+            };
           postList.push(p);
         }
         PostService.allPostList = postList;

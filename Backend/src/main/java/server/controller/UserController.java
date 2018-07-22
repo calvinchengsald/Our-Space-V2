@@ -73,7 +73,6 @@ public class UserController {
 			return new User("Incorrect Password");
 		} /* if (invalid password) */
 
-
 		HttpSession session = req.getSession();
 		session.setAttribute("user", user);		
 
