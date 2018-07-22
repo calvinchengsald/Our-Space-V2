@@ -50,18 +50,19 @@ export class HomeComponent implements OnInit {
             for (let li = 0; li < likeEle.length; li++) {
               const uu: IUser = {
                 first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
-                email: likeEle[li]['email'], password: likeEle[li]['password']
+                email: likeEle[li]['email'], password: likeEle[li]['password'], profilePicture: likeEle[li]['profilePicture']
                 };
               l.push(uu);
             }
           }
           const o: IUser = {
             first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
-            email: dataEle['user']['email'], password: dataEle['user']['password']
+            email: dataEle['user']['email'], password: dataEle['user']['password'], profilePicture: dataEle['user']['profilePicture']
             };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] 
+            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
+            , created: dataEle['created']
             };
           postList.push(p);
         }

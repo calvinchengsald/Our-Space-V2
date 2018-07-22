@@ -1,5 +1,10 @@
 package server.controller;
 
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +22,7 @@ import data.model.Error;
 import data.model.User;
 import data.service.UserService;
 import util.EmailUtil;
+import util.HashedPassword;
 import util.JSONUtil;
 
 @Controller
@@ -57,6 +63,13 @@ public class UserController {
 
 		String username = obj.getString("email");
 		String password = obj.getString("password");
+		try {
+			password = HashedPassword.getHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 		// get user by email
 		User user = userDao.selectById(username);
@@ -107,6 +120,12 @@ public class UserController {
 		JSONObject obj = JSONUtil.getObj(req);
 		String username = obj.getString("username");
 		String password = obj.getString("password");
+		try {
+			password = HashedPassword.getHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String first_name = obj.getString("first_name");
 		String last_name = obj.getString("last_name");
 
@@ -122,7 +141,7 @@ public class UserController {
 			return new User("An account with this email arleady exist!");
 
 		}
-		u = new User(username, password, first_name, last_name);
+		u = new User(username, first_name, last_name, password);
 		userDao.insert(u);
 
 		Cookie userCookie = new Cookie("username", username);
@@ -145,14 +164,22 @@ public class UserController {
 		JSONObject obj = JSONUtil.getObj(request);
 		String username = obj.getString("username");
 		String password = obj.getString("password");
+		try {
+			password = HashedPassword.getHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String first_name = obj.getString("first_name");
 		String last_name = obj.getString("last_name");
+		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
 		
 		// validate input
 		if (username == null || first_name == null || last_name == null) {
 			System.out.println("Please fill out all fields");
 			return new User("Please fill out all fields");
 		}
+		
 
 		User u = UserService.selectById(username);
 		
@@ -160,7 +187,9 @@ public class UserController {
 		if (u == null) {
 			return new User("Invalid username!!!");
 		}
-		
+		if(!profilePicture.equals("")) {
+			u.setProfilePicture(profilePicture);
+		}
 		// update  first name
 		u.setFirstName(first_name);
 		
@@ -236,20 +265,68 @@ public class UserController {
 	@RequestMapping("/reset.action")
 	public @ResponseBody Error resetPassword(HttpServletRequest req, HttpServletResponse resp) {
 		String subject = "OurSpace: Reset your password";
-		String body = "Please reset your password";
+		String body = "Your password has been succesfully reset \n\n";
 		// get email of user
 		JSONObject obj = JSONUtil.getObj(req);
 		String email = obj.getString("email");
 		Error err = new Error();
+		User user = userDao.selectById(email);
+		
+		// check that user exists;
+		if (user == null) {
+			err.setMessege("Invalid email");
+			return err;
+		}
+		
+		// generate character array
+		ArrayList<Character> ch = new ArrayList<Character>();
+		String new_password = "";
+		
+		// lower case
+		for (char cx = 'a'; cx <='z'; cx++) {
+			ch.add(cx);
+		}
+		
+		// upper case
+		for (char cx = 'A'; cx <='Z'; cx++) {
+			ch.add(cx);
+		}
+		
+		// numbers
+		for (char cx = '0'; cx <='9'; cx++) {
+			ch.add(cx);
+		}
+		
+		// generate random password
+		for (int lcv =0; lcv <10; lcv++) {
+			Collections.shuffle(ch);
+			int index = (int) (Math.random() * (ch.size()-1) );
+			new_password += ch.get(index);			
+		}
+		
+		body += "Your new credentials are listed below: \n\n";
+		
+		body += "Email: " + email + "\n";
+		body += "New Password: " + new_password;
 
+		// send email
 		if (EmailUtil.sendEmail(email, subject, body) == 1) {
 			err.setMessege("Email sent succesfully");
 			err.setError(false);
+			
+			// update password in the database
+			user.setPassword(new_password);
+			userDao.update(user);
+			
 		} else {
 			err.setMessege("Email not sent");
 		}
 
 		return err;
 	}/* resetPassword()*/
+	
+	/*
+	 * 
+	 */
 
 }

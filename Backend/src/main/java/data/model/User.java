@@ -38,7 +38,8 @@ public class User {
 	@JsonIgnore
 	private List<Post> posts;
 	
-	
+	@Column(name="profilePicture")
+	private String profilePicture;
 
 	
 	
@@ -83,6 +84,42 @@ public class User {
 		this.lastName = lastName;
 		this.password = password;
 		this.posts = posts;
+	}
+	
+
+
+	public User(String email, String firstName, String lastName, String password, List<Post> posts,
+			String profilePicture, List<Post> likes) {
+		super();
+		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.posts = posts;
+		this.profilePicture = profilePicture;
+		this.likes = likes;
+	}
+
+
+	public User(String firstName, String lastName, String password, List<Post> posts, String profilePicture,
+			List<Post> likes) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.posts = posts;
+		this.profilePicture = profilePicture;
+		this.likes = likes;
+	}
+
+
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
 	}
 
 

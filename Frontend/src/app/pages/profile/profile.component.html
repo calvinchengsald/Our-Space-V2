@@ -1,5 +1,5 @@
-<div *ngIf = '!_loginService.isLoggedIn'>Please Log in</div>
-<div *ngIf = '_loginService.isLoggedIn'>
+<div *ngIf = '!loginService.isLoggedIn'>Please Log in</div>
+<div *ngIf = 'loginService.isLoggedIn'>
 
 <div>
   <h1>Welcome to your profile, {{_firstName}} {{_lastName}}</h1>
@@ -67,7 +67,7 @@
 			<label class="col-md-4 control-label" for="firstName">Enter New
 				First Name</label>
 			<div class="col-md-4">
-				<input id="firstName" name="firstName" type="text" placeholder="{{_firstName}}"
+				<input id="firstName" name="firstName" type="text" placeholder="{{firstName}}"
 					class="form-control input-md">
 
 			</div>
