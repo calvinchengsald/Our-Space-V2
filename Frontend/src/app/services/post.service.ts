@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { EnvironmentService } from './environment.service';
 import { HttpHeaders } from '@angular/common/http';
 import {IPost} from '../interface/ipost';
+import {IUser} from '../interface/iuser';
 import { LoginService } from './login.service';
 
 @Injectable({
@@ -20,7 +21,6 @@ export class PostService {
   url: string;
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type' : 'application/x-www-form-urlencoded'
     })
   };
 
@@ -68,8 +68,30 @@ export class PostService {
       body: bodyz,
       imgsrc: image,
       youtubelink: youtube,
-      email: this._loginService.isLoggedIn ? this._loginService._email : '',
+      email: this._loginService.isLoggedIn ? this._loginService.email : '',
     };
+    return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
+      map(res => res as string)
+    );
+  }
+
+  updatePost(postIdz: number, emailz: string): Observable<string> {
+    this.url = EnvironmentService.APIpath + 'updatePostLikes.action';
+    // const likesObjList = [];
+    // for (let i = 0; i < likes.length; i++) {
+    //   const likesObj = {
+    //     email: likes[i].email,
+    //     password: likes[i].password,
+    //     first_name: likes[i].first_name,
+    //     last_name: likes[i].last_name,
+    //   };
+    //   likesObjList.push(likesObj);
+    // }
+    const obj = {
+      postId: postIdz,
+      email: emailz,
+    };
+
     return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
     );
