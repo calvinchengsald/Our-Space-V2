@@ -18,7 +18,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { PostService } from './services/post.service';
-import { ProfileComponent } from './profile/profile.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { ProfileService } from './services/profile.service';
 import { MessegeComponent } from './components/messege/messege.component';
 import { MessegeModelService } from './services/messege-model.service';
