@@ -9,5 +9,6 @@ export interface IPost {
     imageSrc: string;
     comments: IComment[];
     youtubeLink: string;
+    created: number;
 }
 
