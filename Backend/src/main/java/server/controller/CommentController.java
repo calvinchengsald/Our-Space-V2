@@ -1,5 +1,6 @@
 package server.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -213,6 +214,7 @@ public class CommentController {
 		int postId = (obj.has("postId")?obj.getInt("postId"):0);
 		String body = (obj.has("body")?obj.getString("body"):"");
 		String email = (obj.has("email")?obj.getString("email"):"");
+		Timestamp created = new Timestamp(System.currentTimeMillis());
 
 //		User user = (User) session.getAttribute("user");
 		User user = userDao.selectById(email);
@@ -226,7 +228,7 @@ public class CommentController {
 		if (p == null) {
 			return new Comment("This post does not exist");
 		}
-		Comment comment = new Comment(body, p, user);
+		Comment comment = new Comment(body, p, user, created);
 		// if(body!=null) u.setBody(body);
 		// if(imgsrc!=null) u.setImgSrc(imgsrc);
 		// if(youtubelink!=null) u.setYoutubeLink(youtubelink);

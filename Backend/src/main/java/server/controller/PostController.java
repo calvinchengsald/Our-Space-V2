@@ -1,5 +1,6 @@
 package server.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -141,6 +141,7 @@ public class PostController {
 		String youtubelink = (obj.has("youtubelink")?obj.getString("youtubelink"):"");
 		String body = (obj.has("body")?obj.getString("body"):"");
 		String email = (obj.has("email")?obj.getString("email"):"");
+		Timestamp created = new Timestamp(System.currentTimeMillis());
 		
 		User user = userDao.selectById(email);
 		
@@ -149,7 +150,7 @@ public class PostController {
 			return new Post("Please log in");
 		}
 		
-		Post p = new Post(body, imgsrc, youtubelink, user);
+		Post p = new Post(body, imgsrc, youtubelink, user, created);
 
 		postDao.insert(p);
 

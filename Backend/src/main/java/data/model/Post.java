@@ -2,6 +2,7 @@ package data.model;
 
 import javax.persistence.Table;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,9 @@ public class Post {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="email")
 	private User user;
+	
+	@Column(name="created")
+	private Timestamp created;
 	
 	
 	
@@ -78,13 +82,26 @@ public class Post {
 		this.likes = likes;
 	}
 	
+	
 
-	public Post( String body, String imgSrc, String youtubeLink, User user) {
+	public Post(String body, String imgSrc, String youtubeLink, User user, Timestamp created, List<User> likes,
+			List<Comment> comments) {
 		super();
 		this.body = body;
 		this.imgSrc = imgSrc;
 		this.youtubeLink = youtubeLink;
 		this.user = user;
+		this.created = created;
+		this.likes = likes;
+		this.comments = comments;
+	}
+	public Post( String body, String imgSrc, String youtubeLink, User user, Timestamp created) {
+		super();
+		this.body = body;
+		this.imgSrc = imgSrc;
+		this.youtubeLink = youtubeLink;
+		this.user = user;
+		this.created = created;
 		likes = new ArrayList<User>();
 	}
 	public Post( String body) {
@@ -123,6 +140,13 @@ public class Post {
 		this.youtubeLink = youtubeLink;
 	}
 
+	
+	public Timestamp getCreated() {
+		return created;
+	}
+	public void setCreated(Timestamp created) {
+		this.created = created;
+	}
 	public User getUser() {
 		return user;
 	}
