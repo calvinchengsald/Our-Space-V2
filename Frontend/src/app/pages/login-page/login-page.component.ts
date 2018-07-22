@@ -34,17 +34,14 @@ export class LoginPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this._loginService.checkLogin().subscribe(data => {
-      if (data) {
-        this._loginService.isLoggedIn = true;
-        this._router.navigateByUrl('/');
-      }
-    });
+    this._loginService.checkLogin();
   }
 
   clickLogin(): void {
     console.log('we clicked login');
-    this._loginService.getLogin(this.email, this.password);
+    this._loginService.getLogin(this.email, this.password).subscribe( res => {
+      this._router.navigateByUrl('/');
+    });
   }
 
 

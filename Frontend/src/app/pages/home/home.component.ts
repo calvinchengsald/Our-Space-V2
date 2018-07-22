@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import {PostService } from '../../services/post.service';
+import { PostService } from '../../services/post.service';
 import { Router } from '@angular/router';
 import { IPost } from '../../interface/ipost';
 import { IUser } from '../../interface/iuser';
@@ -19,13 +19,20 @@ export class HomeComponent implements OnInit {
   newPostYoutube: string;
   homePost: IPost[];
   isLoggedIn = false;
+  get loginService() {
+    return this._loginService;
+  }
   constructor(private _postService: PostService, private _messegeService: MessegeModelService, private _loginService: LoginService) {
 
 
-   }
+  }
 
   ngOnInit() {
-    this.getAllPost();
+    this._loginService.checkLogin().subscribe(data => {
+      if (data['email'] !== 'null') {
+        this.getAllPost();
+      }
+    });
   }
 
 
@@ -37,10 +44,14 @@ export class HomeComponent implements OnInit {
         const postList = [];
         for (let i = 0; i < data.length; i++) {
           const dataEle = data[i];
-          const o: IUser = {first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
-              email: dataEle['user']['email'],  };
-          const p: IPost = {postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: dataEle['likes'], imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] };
+          const o: IUser = {
+            first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
+            email: dataEle['user']['email'],
+          };
+          const p: IPost = {
+            postId: dataEle['postId'], body: dataEle['body'], owner: o,
+            likes: dataEle['likes'], imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
+          };
           postList.push(p);
         }
         PostService.allPostList = postList;
@@ -51,7 +62,6 @@ export class HomeComponent implements OnInit {
         PostService.allPostList = [];
       }
       this.homePost = PostService.allPostList;
-      this.isLoggedIn = this._loginService.isLoggedIn;
       console.log(this.homePost);
     });
   }
