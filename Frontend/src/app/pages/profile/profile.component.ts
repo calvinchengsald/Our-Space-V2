@@ -15,9 +15,9 @@ import { IPost } from '../../interface/ipost';
 })
 export class ProfileComponent implements OnInit {
 
-  _firstName: string;
-  _lastName: string;
-  _email: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   showUpdate = false;
   userPost: IPost[];
 
@@ -27,38 +27,15 @@ export class ProfileComponent implements OnInit {
 
    }
 
-  set firstName (fn: string) {
-    this._firstName = fn;
+  get loginService() {
+    return this._loginService;
   }
-
-  set lastName (ln: string) {
-    this._lastName = ln;
-  }
-
-  set email (em: string) {
-    this._email = em;
-  }
-
-  get firstName () {
-    console.log('in first name');
-    console.log('Name = ' + this._profileService.firstName );
-    return this._profileService.firstName;
-  }
-
-  get lastName () {
-    return this._lastName;
-  }
-
-  get email () {
-    return this._email;
-  }
-
 
   setValues(user: string) {
-    this._firstName = user['firstName'];
-    console.log(this._firstName);
-    this._lastName = user['lastName'];
-    this._email = user['email'];
+    this.firstName = user['firstName'];
+    console.log(this.firstName);
+    this.lastName = user['lastName'];
+    this.email = user['email'];
 
   }
 
@@ -103,7 +80,7 @@ export class ProfileComponent implements OnInit {
             };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] 
+            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
             };
           postList.push(p);
         }
