@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   email: string;
   showUpdate = false;
   userPost: IPost[];
+  password: string;
 
   // post stuff for user will be in here somewhere or something
   constructor(private _profileService: ProfileService, private _loginService: LoginService, private _postService: PostService,
@@ -27,26 +28,29 @@ export class ProfileComponent implements OnInit {
 
    }
 
-   
 
   setValues(user: string) {
     this.firstName = user['firstName'];
     console.log(this.firstName);
     this.lastName = user['lastName'];
     this.email = user['email'];
+    this.password = user['password'];
 
   }
 
   ngOnInit() {
     console.log('we clicked profile');
     this._profileService.getProfile(this._loginService.firstName, this._loginService.lastName,
-      this._loginService.email).subscribe(data => this.setValues(data));
+      this._loginService.email, this._loginService.password).subscribe(data => this.setValues(data));
 
     this.getAllUserPost();
   }
 
-  clickProfile(): void {
-
+  clickUpdate(): void {
+    console.log('clicked update password');
+    this._profileService.postUpdate(this.password).subscribe(
+      data => {console.log(data);
+    });
   }
 
   toggleUpdate() {
@@ -78,7 +82,7 @@ export class ProfileComponent implements OnInit {
             };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] 
+            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
             };
           postList.push(p);
         }

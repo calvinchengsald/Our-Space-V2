@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -112,6 +113,7 @@ public class UserController {
 	/*
 	 * Register user
 	 */
+	@CrossOrigin
 	@RequestMapping("/register.action")
 	public @ResponseBody User handleRegister(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("In register Handle");
@@ -149,16 +151,23 @@ public class UserController {
 		return u;
 
 	}/* handleRegister() */
-	
+	@CrossOrigin
 	@RequestMapping("/updateUser.action")
 	public @ResponseBody User handleUpdateUser(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("In register Handle");
-
+		System.out.println("In update Handle");
+		
 		JSONObject obj = JSONUtil.getObj(request);
-		String username = obj.getString("username");
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			System.out.println("not null");
+			System.out.println(session.getAttribute("user"));
+		}
+		User usr = (User) request.getSession().getAttribute("user");
+		String username = usr.getEmail();
 		String password = obj.getString("password");
-		String first_name = obj.getString("first_name");
-		String last_name = obj.getString("last_name");
+		String first_name = usr.getFirstName();
+		String last_name = usr.getLastName();
+		System.out.println("password: " + password);
 		
 		// validate input
 		if (username == null || first_name == null || last_name == null) {
@@ -166,7 +175,8 @@ public class UserController {
 			return new User("Please fill out all fields");
 		}
 
-		User u = UserService.selectById(username);
+		User u = userDao.selectById(username);
+		System.out.println("user = " + u);
 		
 		// validate email
 		if (u == null) {
@@ -180,9 +190,12 @@ public class UserController {
 		u.setLastName(last_name);
 		
 		// update password if not null
-		if ((password != null) | !(password.equals(""))) {
+		if (!(password.equals(""))) {
 			u.setPassword(password);
+			System.out.println("here " + u.getPassword());
 		}
+		
+		System.out.println(u);
 
 		// update database
 		userDao.update(u);	
