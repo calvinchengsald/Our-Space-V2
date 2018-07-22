@@ -9,10 +9,6 @@ import { MessegeModelService } from '../../services/messege-model.service';
 export class MessegeComponent implements OnInit {
 
 
-
-  _messegeMessege: string;
-
-
   constructor(private _messegeService: MessegeModelService) {
 
   }
@@ -22,16 +18,6 @@ export class MessegeComponent implements OnInit {
 
   get messegeService() {
     return this._messegeService;
-  }
-  set messegeMessege (pw: string) {
-    this._messegeMessege = pw;
-  }
-  get messegeMessege() {
-    return this._messegeMessege;
-  }
-
-  ngAfterContentChecked() {
-    this.messegeMessege = this._messegeService.messege;
   }
 
 
