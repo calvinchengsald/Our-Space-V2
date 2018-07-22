@@ -1,0 +1,103 @@
+
+  
+
+<div>
+  <h1>Welcome to your profile, {{_firstName}} {{_lastName}}</h1>
+  <h4>{{_email}}</h4>
+</div>
+
+<!-- <form>
+  <div class="form-group row">
+    <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+    <div class="col-sm-10">
+      <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{_email}}">
+    </div>
+  </div> -->
+  <br/>
+  <br/>
+  <br/>
+
+  <!-- <h5>Change Your Password</h5> -->
+  <!-- <div class="form-group row">
+    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+    </div>
+  </div>
+</form> -->
+<button class='btn btn-primary' (click)='toggleUpdate()'>
+  {{showUpdate ? 'Update Info': 'Update Info'}} 
+</button>
+
+<div class="container" *ngIf="showUpdate">
+  <div class="row">
+  <div class="col-sm-12">
+    <h5>Change Your Password</h5>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+  <!-- <p class="text-center">Use the form below to change your password. Your password cannot be the same as your username.</p> -->
+  <form method="post" id="passwordForm" action="updateUser.action">
+  <input type="password" class="input-lg form-control" name="password1" id="password1" placeholder="New Password" autocomplete="off">
+  <div class="row">
+  <div class="col-sm-6">
+  <!-- <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> 8 Characters Long<br>
+  <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Uppercase Letter -->
+  </div>
+  <div class="col-sm-6">
+  <!-- <span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Lowercase Letter<br>
+  <span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Number -->
+  </div>
+  </div>
+  <input type="password" class="input-md form-control" name="password2" id="password2" placeholder="Repeat Password" autocomplete="off">
+  <div class="row">
+  <div class="col-sm-12">
+  <!-- <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> Passwords Match -->
+  </div>
+  </div>
+  <input type="submit" class="col-xs-12 btn btn-primary btn-load btn" data-loading-text="Changing Password..." value="Change Password">
+  </form>
+  </div><!--/col-sm-6-->
+  </div><!--/row-->
+  </div>
+
+  <form method="post" action="updateUser.action" *ngIf="showUpdate">
+    <div class="form-group">
+			<label class="col-md-4 control-label" for="firstName">Enter New
+				First Name</label>
+			<div class="col-md-4">
+				<input id="firstName" name="firstName" type="text" placeholder="{{_firstName}}"
+					class="form-control input-md">
+
+			</div>
+    </div>
+    
+    <div class="form-group" *ngIf="showUpdate">
+			<label class="col-md-4 control-label" for="lastName">Enter New
+				Last Name</label>
+			<div class="col-md-4">
+				<input id="lastName" name="lastName" type="text" placeholder="{{_lastName}}"
+					class="form-control input-md">
+
+			</div>
+		</div>
+
+  </form>
+
+  <form>
+    <div class="form-group" *ngIf="showUpdate">
+      <label for="exampleFormControlFile1">Change Your Profile Picture</label>
+      <input type="file" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+  </form>
+
+    <div class='col-8 offset-2' *ngFor='let temp of userPost' >
+      
+      <app-post [post]='temp'></app-post>
+
+      
+    </div>
+  
+  <!-- need to have user posts too -->
+
