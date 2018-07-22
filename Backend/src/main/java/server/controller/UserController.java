@@ -41,7 +41,12 @@ public class UserController {
 	@CrossOrigin
 	@RequestMapping("/checkLogin.action")
 	public @ResponseBody User handleCheckLogin(HttpServletRequest req, HttpServletResponse res) {
-		return null;
+		HttpSession session = req.getSession(false);
+		if(session == null) {
+			return new User("null");
+		}else {
+			return (User) session.getAttribute("user");
+		}
 		
 	}
 	
@@ -79,7 +84,6 @@ public class UserController {
 			System.out.println("Invalid password");
 			return new User("Incorrect Password");
 		} /* if (invalid password) */
-
 
 		HttpSession session = req.getSession();
 		session.setAttribute("user", user);		

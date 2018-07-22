@@ -34,31 +34,13 @@ export class LoginPageComponent implements OnInit {
 
 
   ngOnInit() {
+    this._loginService.checkLogin();
   }
 
   clickLogin(): void {
     console.log('we clicked login');
-    this._loginService.getLogin(this.email, this.password).subscribe(data => {
-      if (!data['password'] ) {
-        this._messegeService.error = true;
-        this._messegeService.show = true;
-        this._messegeService.messege = data['email'];
-        console.log('in pass');
-      } else if (data['email'] ) {
-        this._messegeService.error = false;
-        this._messegeService.show = false;
-        this._messegeService.messege = data['email'];
-        this._loginService.firstName = data['firstName'];
-        this._loginService.lastName = data['lastName'];
-        this._loginService.email = data['email'];
-        this._loginService.password = data['password'];
-        console.log('logged in ');
-        this._loginService.isLoggedIn = true;
-        console.log('logged in ');
-        this._router.navigateByUrl('/');
-      } else {
-
-      }
+    this._loginService.getLogin(this.email, this.password).subscribe( res => {
+      this._router.navigateByUrl('/');
     });
   }
 
