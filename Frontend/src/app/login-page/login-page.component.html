@@ -8,12 +8,7 @@
     <mat-form-field>
       <input type="password" matInput placeholder="Password" [(ngModel)]='password' >
     </mat-form-field>
-
-    <mat-form-field>
-      <mat-select placeholder="Select a Stupid Option">
-        <mat-option value="option">Option</mat-option>
-      </mat-select>
-    </mat-form-field>
+      <p routerLink='/reset'>Reset Password</p>
     <button mat-raised-button color="primary" (click) = 'clickLogin()' >Login</button>
   </div>
   <div> Email: {{email}}</div>

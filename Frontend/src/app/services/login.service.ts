@@ -18,7 +18,7 @@ export class LoginService {
   url: string;
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type' : 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded'
     })
   };
 
@@ -73,7 +73,18 @@ export class LoginService {
       email: emailz,
       password: passwordz
     };
-    return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
+    return this.httpServ.post(this.url, obj, this.httpOptions).pipe(
+      map(res => res as string)
+    );
+  }
+
+  changePass(emailz: string): Observable<string> {
+    console.log('sending reset email');
+    this.url = EnvironmentService.APIpath + 'reset.action';
+    const obj = {
+      email: emailz
+    };
+    return this.httpServ.post(this.url, obj, this.httpOptions).pipe(
       map(res => res as string)
     );
   }
