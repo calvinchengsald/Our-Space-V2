@@ -86,13 +86,6 @@ export class ProfileComponent implements OnInit {
         const postList = [];
         for (let i = 0; i < data.length; i++) {
           const dataEle = data[i];
-<<<<<<< HEAD:Frontend/src/app/profile/profile.component.ts
-          const o: IUser = {first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
-              email: dataEle['user']['email'],  password: dataEle['user']['password'],  };
-          const p: IPost = {postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: dataEle['likes'], imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] };
-          postListUser.push(p);
-=======
           const l = [];
           if (dataEle['likes']) {
             const likeEle = dataEle['likes'];
@@ -113,7 +106,6 @@ export class ProfileComponent implements OnInit {
             likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] 
             };
           postList.push(p);
->>>>>>> develop:Frontend/src/app/pages/profile/profile.component.ts
         }
         PostService.allPostUser = postList;
       } else {
