@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import {PostService } from '../../services/post.service';
+import { PostService } from '../../services/post.service';
 import { Router } from '@angular/router';
 import { IPost } from '../../interface/ipost';
 import { IUser } from '../../interface/iuser';
@@ -19,13 +19,20 @@ export class HomeComponent implements OnInit {
   newPostYoutube: string;
   homePost: IPost[];
   isLoggedIn = false;
+  get loginService() {
+    return this._loginService;
+  }
   constructor(private _postService: PostService, private _messegeService: MessegeModelService, private _loginService: LoginService) {
 
 
-   }
+  }
 
   ngOnInit() {
-    this.getAllPost();
+    this._loginService.checkLogin().subscribe(data => {
+      if (data['email'] !== 'null') {
+        this.getAllPost();
+      }
+    });
   }
 
 
@@ -41,15 +48,21 @@ export class HomeComponent implements OnInit {
           if (dataEle['likes']) {
             const likeEle = dataEle['likes'];
             for (let li = 0; li < likeEle.length; li++) {
-              const uu: IUser = {first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
-                email: likeEle[li]['email'], password: likeEle[li]['password'],  };
+              const uu: IUser = {
+                first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
+                email: likeEle[li]['email'], password: likeEle[li]['password']
+                };
               l.push(uu);
             }
           }
-          const o: IUser = {first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
-              email: dataEle['user']['email'], password: dataEle['user']['password']  };
-          const p: IPost = {postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] };
+          const o: IUser = {
+            first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
+            email: dataEle['user']['email'], password: dataEle['user']['password']
+            };
+          const p: IPost = {
+            postId: dataEle['postId'], body: dataEle['body'], owner: o,
+            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] 
+            };
           postList.push(p);
         }
         PostService.allPostList = postList;
@@ -60,7 +73,6 @@ export class HomeComponent implements OnInit {
         PostService.allPostList = [];
       }
       this.homePost = PostService.allPostList;
-      this.isLoggedIn = this._loginService.isLoggedIn;
       console.log(this.homePost);
     });
   }

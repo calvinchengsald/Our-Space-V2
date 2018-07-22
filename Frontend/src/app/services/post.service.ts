@@ -57,7 +57,7 @@ export class PostService {
       body: bodyz,
       imgsrc: image,
       youtubelink: youtube,
-      email: this._loginService.isLoggedIn ? this._loginService._email : '',
+      email: this._loginService.isLoggedIn ? this._loginService.email : '',
     };
     return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
