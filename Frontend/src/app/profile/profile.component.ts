@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
         for (let i = 0; i < data.length; i++) {
           const dataEle = data[i];
           const o: IUser = {first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
-              email: dataEle['user']['email'],  };
+              email: dataEle['user']['email'],  password: dataEle['user']['password'],  };
           const p: IPost = {postId: dataEle['postId'], body: dataEle['body'], owner: o,
             likes: dataEle['likes'], imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] };
           postListUser.push(p);
