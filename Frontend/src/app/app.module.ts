@@ -18,6 +18,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { PostService } from './services/post.service';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileService } from './services/profile.service';
 import { MessegeComponent } from './components/messege/messege.component';
 import { MessegeModelService } from './services/messege-model.service';
 import { PostComponent } from './components/post/post.component';
@@ -29,6 +31,7 @@ import { PostComponent } from './components/post/post.component';
     NavbarComponent,
     LoginPageComponent,
     RegisterComponent,
+    ProfileComponent,
     MessegeComponent,
     PostComponent
   ],
@@ -50,11 +53,12 @@ import { PostComponent } from './components/post/post.component';
       { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'profile', component: ProfileComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: '**', component: HomeComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [LoginService, PostService, MessegeModelService],
+  providers: [LoginService, PostService, MessegeModelService, ProfileService],
   bootstrap: [AppComponent],
 
 })

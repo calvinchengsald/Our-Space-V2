@@ -14,7 +14,11 @@
     <div (click)="clickLogout()" > Logout</div>
   </div>
   <div class='col-1' *ngIf="loginService.isLoggedIn">
+<<<<<<< HEAD
+      <a routerLink='/profile' > {{loginService.firstName}} {{loginService.lastName}}</a>
+=======
       <div routerLink='/profile' > {{loginService.firstName}} {{loginService.lastName}}</div>
+>>>>>>> develop
   </div>
 
 </div>

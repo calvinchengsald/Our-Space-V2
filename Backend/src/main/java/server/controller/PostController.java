@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -77,7 +78,7 @@ public class PostController {
 		List<Post> p = postDao.selectAllByUser(email);
 		if (p == null || p.size() == 0) {
 			ArrayList<Post> al = new ArrayList<Post>();
-			al.add(new Post("there are no post for this user"));
+			al.add(new Post("there are no posts for this user"));
 			return al;
 		}
 
@@ -186,6 +187,47 @@ public class PostController {
 		postDao.update(u);
 
 		return u;
+	}
+	
+	@RequestMapping("/updatePostLikes.action")
+	public @ResponseBody Post handleUpdatePostLikes(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("in handle update Post likes of post Controller");
+
+		JSONObject obj = JSONUtil.getObj(req);
+//		if (!obj.has("likes")) {
+//			return new Post("Invalid paramteres");
+//		}
+//
+//		int postId = (obj.has("postId")?obj.getInt("postId"):0);
+//		JSONArray likes = obj.getJSONArray("likes");
+//		List<User> likesList = new ArrayList<User>();
+//		for( int i = 0; i < likes.length(); i++) {
+//			JSONObject like = likes.getJSONObject(i);
+//			String username = like.getString("email");
+//			String password = like.getString("password");
+//			String first_name = like.getString("first_name");
+//			String last_name = like.getString("last_name");
+//			likesList.add( new User(username, password, first_name, last_name));
+//		}
+		int postId = (obj.has("postId")?obj.getInt("postId"):0);
+		String email = (obj.has("email")?obj.getString("email"):"");
+		
+		if (postId == 0) {
+			return new Post("invalid post ID");
+		}
+		Post u = postDao.selectbyId(postId);
+		if (u == null) {
+			return new Post("this post does not exist");
+		}
+		User uu = userDao.selectById(email);
+		if (uu == null) {
+			return new Post("this user does not exist");
+		}
+		if(postDao.updateLike(uu, u)) {
+			return postDao.selectbyId(postId);
+		}
+
+		return new Post("There was an error with the like update");
 	}
 
 }
