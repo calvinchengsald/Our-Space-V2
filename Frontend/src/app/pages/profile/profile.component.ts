@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IUser } from '../interface/iuser';
-import { ProfileService } from '../services/profile.service';
-import { LoginService } from '../services/login.service';
-import { PostService } from '../services/post.service';
-import { MessegeModelService } from '../services/messege-model.service';
-import { IPost } from '../interface/ipost';
+import { IUser } from '../../interface/iuser';
+import { ProfileService } from '../../services/profile.service';
+import { LoginService } from '../../services/login.service';
+import { PostService } from '../../services/post.service';
+import { MessegeModelService } from '../../services/messege-model.service';
+import { IPost } from '../../interface/ipost';
 
 @Component({
   selector: 'app-profile',
@@ -83,16 +83,31 @@ export class ProfileComponent implements OnInit {
       console.log(data);
       if (data[0] && data[0]['postId'] !== 0) {
 
-        const postListUser = [];
+        const postList = [];
         for (let i = 0; i < data.length; i++) {
           const dataEle = data[i];
-          const o: IUser = {first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
-              email: dataEle['user']['email'],  };
-          const p: IPost = {postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: dataEle['likes'], imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] };
-          postListUser.push(p);
+          const l = [];
+          if (dataEle['likes']) {
+            const likeEle = dataEle['likes'];
+            for (let li = 0; li < likeEle.length; li++) {
+              const uu: IUser = {
+                first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
+                email: likeEle[li]['email'], password: likeEle[li]['password']
+                };
+              l.push(uu);
+            }
+          }
+          const o: IUser = {
+            first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
+            email: dataEle['user']['email'], password: dataEle['user']['password']
+            };
+          const p: IPost = {
+            postId: dataEle['postId'], body: dataEle['body'], owner: o,
+            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] 
+            };
+          postList.push(p);
         }
-        PostService.allPostUser = postListUser;
+        PostService.allPostUser = postList;
       } else {
         this._messegeService.show = true;
         this._messegeService.messege = data['body'];

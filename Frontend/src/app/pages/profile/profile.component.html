@@ -1,5 +1,5 @@
-
-  
+<div *ngIf = '!_loginService.isLoggedIn'>Please Log in</div>
+<div *ngIf = '_loginService.isLoggedIn'>
 
 <div>
   <h1>Welcome to your profile, {{_firstName}} {{_lastName}}</h1>
@@ -100,4 +100,4 @@
     </div>
   
   <!-- need to have user posts too -->
-
+</div>
