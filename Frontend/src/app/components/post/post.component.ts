@@ -55,14 +55,16 @@ export class PostComponent implements OnInit {
               const likeEle = dataEle['likes'];
               for (let li = 0; li < likeEle.length; li++) {
                 const uu: IUser = {first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
-                  email: likeEle[li]['email'],  password: likeEle[li]['password'],  };
+                  email: likeEle[li]['email'],  password: likeEle[li]['password'] , profilePicture: likeEle[li]['profilePicture'] };
                 l.push(uu);
               }
             }
             const o: IUser = {first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
-              email: dataEle['user']['email'], password: dataEle['user']['password'], };
+              email: dataEle['user']['email'], password: dataEle['user']['password'], profilePicture: dataEle['user']['profilePicture']
+               };
             const p: IPost = {postId: dataEle['postId'], body: dataEle['body'], owner: o,
-              likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'] };
+              likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
+              , created: dataEle['created']};
             this.post = p;
           }
           this.newCommentBody = '';
@@ -120,14 +122,15 @@ export class PostComponent implements OnInit {
           const likeEle = data['likes'];
           for (let li = 0; li < likeEle.length; li++) {
             const uu: IUser = {first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
-              email: likeEle[li]['email'],  password: likeEle[li]['password'],  };
+              email: likeEle[li]['email'],  password: likeEle[li]['password'], profilePicture: likeEle[li]['profilePicture'] };
             l.push(uu);
           }
         }
         const o: IUser = {first_name: data['user']['firstName'], last_name: data['user']['lastName'],
-          email: data['user']['email'], password: data['user']['password'], };
+          email: data['user']['email'], password: data['user']['password'], profilePicture: data['user']['profilePicture'] };
         const p: IPost = {postId: data['postId'], body: data['body'], owner: o,
-          likes: l, imageSrc: data['imgSrc'], comments: data['comments'], youtubeLink: data['youtubeLink'] };
+          likes: l, imageSrc: data['imgSrc'], comments: data['comments'], youtubeLink: data['youtubeLink']
+          , created: data['created'] };
         this.post = p;
       } else {
         this._messegeService.show = true;

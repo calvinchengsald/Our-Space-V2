@@ -41,6 +41,11 @@ export class LoginService {
     const obs = this.httpServ.post(url, null, this.httpOptions).pipe(
       map(res => res as string));
     obs.subscribe(data => {
+      console.log(data);
+      if (!data) {
+        this.isLoggedIn = false;
+        return;
+      }
       if (data['email'] !== 'null') {
         this._MessegeModelService.error = false;
         this._MessegeModelService.show = false;

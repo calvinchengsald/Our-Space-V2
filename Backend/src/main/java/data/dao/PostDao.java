@@ -113,7 +113,7 @@ public class PostDao {
 //
 //		// ses.close();
 //		return PostList;
-		List<Post> pList = sesFact.getCurrentSession().createQuery("from Post", Post.class).list();
+		List<Post> pList = sesFact.getCurrentSession().createQuery("from Post order by created desc", Post.class).list();
 
 		return pList;
 	}
@@ -126,7 +126,7 @@ public class PostDao {
 
 		// ses.close();
 //		return PostList;
-		List<Post> pList = sesFact.getCurrentSession().createQuery("from Post where email='"+email+"'", Post.class).list();
+		List<Post> pList = sesFact.getCurrentSession().createQuery("from Post where email='"+email+"' order by created desc", Post.class).list();
 
 		return pList;
 	}

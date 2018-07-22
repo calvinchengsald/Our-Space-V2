@@ -63,12 +63,13 @@ public class UserController {
 
 		String username = obj.getString("email");
 		String password = obj.getString("password");
-		
 		try {
-			System.out.println("Hashed password = " + HashedPassword.getHash(password));
+			password = HashedPassword.getHash(password);
 		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 		// get user by email
 		User user = userDao.selectById(username);
@@ -119,6 +120,12 @@ public class UserController {
 		JSONObject obj = JSONUtil.getObj(req);
 		String username = obj.getString("username");
 		String password = obj.getString("password");
+		try {
+			password = HashedPassword.getHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String first_name = obj.getString("first_name");
 		String last_name = obj.getString("last_name");
 
@@ -134,7 +141,7 @@ public class UserController {
 			return new User("An account with this email arleady exist!");
 
 		}
-		u = new User(username, password, first_name, last_name);
+		u = new User(username, first_name, last_name, password);
 		userDao.insert(u);
 
 		Cookie userCookie = new Cookie("username", username);
@@ -157,14 +164,22 @@ public class UserController {
 		JSONObject obj = JSONUtil.getObj(request);
 		String username = obj.getString("username");
 		String password = obj.getString("password");
+		try {
+			password = HashedPassword.getHash(password);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String first_name = obj.getString("first_name");
 		String last_name = obj.getString("last_name");
+		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
 		
 		// validate input
 		if (username == null || first_name == null || last_name == null) {
 			System.out.println("Please fill out all fields");
 			return new User("Please fill out all fields");
 		}
+		
 
 		User u = UserService.selectById(username);
 		
@@ -172,7 +187,9 @@ public class UserController {
 		if (u == null) {
 			return new User("Invalid username!!!");
 		}
-		
+		if(!profilePicture.equals("")) {
+			u.setProfilePicture(profilePicture);
+		}
 		// update  first name
 		u.setFirstName(first_name);
 		
