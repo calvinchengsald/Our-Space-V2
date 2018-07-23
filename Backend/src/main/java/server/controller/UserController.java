@@ -43,11 +43,14 @@ public class UserController {
 	@RequestMapping("/checkLogin.action")
 	public @ResponseBody User handleCheckLogin(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession(false);
+<<<<<<< HEAD
+		if(session == null) {
+=======
 		if(session == null || session.getAttribute("user") == null) {
 			System.out.println("checkin null");
+>>>>>>> develop
 			return new User("null");
 		}else {
-			System.out.println("in check Login");
 			return (User) session.getAttribute("user");
 		}
 		
@@ -194,16 +197,29 @@ public class UserController {
 		User usr = (User) request.getSession().getAttribute("user");
 		String username = usr.getEmail();
 		String password = obj.getString("password");
+
 		try {
 			password = HashedPassword.getHash(password);
 		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+<<<<<<< HEAD
+		
+		String first_name = obj.getString("first_name");
+		String last_name = obj.getString("last_name");
+
+		System.out.println("password: " + password);
+		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
+
+
+=======
 		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
 		String first_name = usr.getFirstName();
 		String last_name = usr.getLastName();
 		System.out.println("password: " + password);
 		
+>>>>>>> develop
 		// validate input
 		if (username == null || first_name == null || last_name == null) {
 			System.out.println("Please fill out all fields");

@@ -1,7 +1,12 @@
 <<<<<<< HEAD
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: Belph
 Build-Jdk: 1.8.0_131
+=======
+Built-By: Mac
+Build-Jdk: 1.8.0_172
+>>>>>>> c26afb21c15e65e857a41db5e5dc309fdf2f0607
 Created-By: Maven Integration for Eclipse
 
 =======
@@ -10,4 +15,8 @@ Built-By: kevinqkh
 Build-Jdk: 1.8.0_171
 Created-By: Maven Integration for Eclipse
 
+<<<<<<< HEAD
 >>>>>>> 2340753dc5d6a9e17ce18819c21925657f99f29a
+=======
+>>>>>>> develop
+>>>>>>> c26afb21c15e65e857a41db5e5dc309fdf2f0607
