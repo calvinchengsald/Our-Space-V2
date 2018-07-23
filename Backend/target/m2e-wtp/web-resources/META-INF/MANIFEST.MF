@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -24,4 +25,11 @@ Build-Jdk: 1.8.0_171
 Created-By: Maven Integration for Eclipse
 
 >>>>>>> b741ab6795f046f5b51ac75ff86bf5f95c1c0d98
+>>>>>>> develop
+=======
+Manifest-Version: 1.0
+Built-By: Belph
+Build-Jdk: 1.8.0_131
+Created-By: Maven Integration for Eclipse
+
 >>>>>>> develop
