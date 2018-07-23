@@ -52,7 +52,7 @@ public class UserController {
 	
 	@CrossOrigin
 	@RequestMapping("/login.action")
-	public @ResponseBody User handleLogin(HttpServletRequest req, HttpServletResponse res) {
+	public @ResponseBody User Login(HttpServletRequest req, HttpServletResponse res) {
 
 		JSONObject obj = JSONUtil.getObj(req);
 
@@ -246,7 +246,7 @@ public class UserController {
 	 * Reset password of user
 	 */
 	@RequestMapping("/reset.action")
-	public @ResponseBody Error resetPassword(HttpServletRequest req, HttpServletResponse resp) {
+	public @ResponseBody Error handleResetPassword(HttpServletRequest req, HttpServletResponse resp) {
 		String subject = "OurSpace: Reset your password";
 		String body = "Your password has been succesfully reset \n\n";
 		// get email of user
