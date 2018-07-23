@@ -172,21 +172,16 @@ public class UserController {
 		User usr = (User) request.getSession().getAttribute("user");
 		String username = usr.getEmail();
 		String password = obj.getString("password");
-<<<<<<< HEAD
 		try {
 			password = HashedPassword.getHash(password);
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String first_name = obj.getString("first_name");
-		String last_name = obj.getString("last_name");
 		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
-=======
 		String first_name = usr.getFirstName();
 		String last_name = usr.getLastName();
 		System.out.println("password: " + password);
->>>>>>> mac_frontend
 		
 		// validate input
 		if (username == null || first_name == null || last_name == null) {

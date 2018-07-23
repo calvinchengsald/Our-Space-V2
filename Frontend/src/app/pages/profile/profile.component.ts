@@ -28,6 +28,9 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  get loginService() {
+    return this._loginService;
+  }
 
   setValues(user: string) {
     this.firstName = user['firstName'];
@@ -83,7 +86,8 @@ export class ProfileComponent implements OnInit {
           };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
+            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'],
+            created: dataEle['Created']
           };
           postList.push(p);
         }
