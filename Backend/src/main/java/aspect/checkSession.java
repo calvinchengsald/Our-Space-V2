@@ -19,7 +19,6 @@ import data.model.User;
 @Aspect
 @Component
 public class checkSession {
-<<<<<<< HEAD
 	
 	@Around("execution(* server.controller..*.handle*(..))")
 	public @ResponseBody Object checkLoginStatus(ProceedingJoinPoint joinPoint) {
@@ -42,26 +41,5 @@ public class checkSession {
 			return new User("null");
 		}
 	}
-=======
-//	
-//	@Around("execution(* server.controller..*.handle*(..))")
-//	public User checkLoginStatus(ProceedingJoinPoint joinPoint) {
-//		Object[] reqRes = joinPoint.getArgs();
-//		HttpServletRequest req = (HttpServletRequest) reqRes[0];
-//		HttpSession session = req.getSession(false);
-//		if (session != null) {
-//            try {
-//				joinPoint.proceed();
-//			} catch (Throwable e) {
-//				System.out.println("something wrong");
-//				return new User("null");
-//			}
-//        }
-//		else { // session == null
-//			System.out.println("User not logged");
-//			return new User("null");
-//		}
-//		return new User("null");
-//	}
->>>>>>> develop
+
 }
