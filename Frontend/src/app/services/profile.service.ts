@@ -64,11 +64,25 @@ export class ProfileService {
     );
   }
 
-  postUpdate(passwordz: string): Observable<string> {
+  postUpdate(passwordz: string, first_namez: string, last_namez: string): Observable<string> {
     this.url = EnvironmentService.APIpath + 'updateUser.action';
 
     const obj = {
-      password: passwordz
+      password: passwordz,
+      first_name: first_namez,
+      last_name: last_namez
+    };
+    return this.httpServ.post(this.url, obj, this.httpOptions).pipe(
+      map(res => res as string)
+    );
+  }
+
+  // send profile picture path to the database
+  pictureUpdate(picturez: String): Observable<string> {
+    this.url = EnvironmentService.APIpath + 'profilePicture.action';
+
+    const obj = {
+      picture: picturez
     };
     return this.httpServ.post(this.url, obj, this.httpOptions).pipe(
       map(res => res as string)
