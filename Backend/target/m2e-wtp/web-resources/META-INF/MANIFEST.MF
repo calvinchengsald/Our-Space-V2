@@ -15,7 +15,7 @@ Created-By: Maven Integration for Eclipse
 =======
 >>>>>>> develop
 Manifest-Version: 1.0
-Built-By: Calvin
-Build-Jdk: 1.8.0_102
+Built-By: Mac
+Build-Jdk: 1.8.0_172
 Created-By: Maven Integration for Eclipse
 
