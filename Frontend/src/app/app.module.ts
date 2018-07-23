@@ -23,6 +23,7 @@ import { ProfileService } from './services/profile.service';
 import { MessegeComponent } from './components/messege/messege.component';
 import { MessegeModelService } from './services/messege-model.service';
 import { PostComponent } from './components/post/post.component';
+import { UploadFileService } from './services/upload-file.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { PostComponent } from './components/post/post.component';
       { path: '**', component: HomeComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [LoginService, PostService, MessegeModelService, ProfileService],
+  providers: [LoginService, PostService, MessegeModelService, ProfileService, UploadFileService],
   bootstrap: [AppComponent],
 
 })
