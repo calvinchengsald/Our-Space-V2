@@ -48,46 +48,22 @@ export class ProfileComponent implements OnInit {
      this.imgSrc = this.filename;
    }
 
-<<<<<<< HEAD
+
    get loginService() {
      return this._loginService;
    }
-=======
-<<<<<<< HEAD
+
    selectFile(event) {
     this.selectedFiles = event.target.files;
   }
-
-
-  get loginService() {
-    return this._loginService;
-  }
-
-=======
-  get loginService() {
-    return this._loginService;
-  }
->>>>>>> b741ab6795f046f5b51ac75ff86bf5f95c1c0d98
->>>>>>> develop
 
   setValues(user: string) {
     this.firstName = user['firstName'];
     console.log(this.firstName);
     this.lastName = user['lastName'];
     this.email = user['email'];
-<<<<<<< HEAD
-    this.password = user['password'];
-=======
-<<<<<<< HEAD
-
-
     this.password = user['password'];
     this.imgSrc = user['profilePicture'];
-
-=======
->>>>>>> b741ab6795f046f5b51ac75ff86bf5f95c1c0d98
->>>>>>> develop
-
   }
 
   ngOnInit() {
@@ -100,7 +76,7 @@ export class ProfileComponent implements OnInit {
 
   clickUpdate(): void {
     console.log('clicked update password');
-    this._profileService.postUpdate(this.password).subscribe(
+    this._profileService.postUpdate(this.password, this.firstName, this.lastName).subscribe(
       data => {console.log(data);
     });
   }
@@ -134,20 +110,9 @@ export class ProfileComponent implements OnInit {
             };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
-<<<<<<< HEAD
             likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'],
             created: dataEle['Created'],
             };
-=======
-            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
-<<<<<<< HEAD
-
-            , created: dataEle['created'] };
-
-=======
-            , created: dataEle['created'] };
->>>>>>> b741ab6795f046f5b51ac75ff86bf5f95c1c0d98
->>>>>>> develop
           postList.push(p);
         }
         PostService.allPostUser = postList;

@@ -181,22 +181,14 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
 		
-=======
 		String first_name = obj.getString("first_name");
 		String last_name = obj.getString("last_name");
-<<<<<<< HEAD
-		System.out.println("password: " + password);
 
-=======
->>>>>>> develop
-		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
-		String first_name = usr.getFirstName();
-		String last_name = usr.getLastName();
 		System.out.println("password: " + password);
-		
->>>>>>> b741ab6795f046f5b51ac75ff86bf5f95c1c0d98
+		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
+
+
 		// validate input
 		if (username == null || first_name == null || last_name == null) {
 			System.out.println("Please fill out all fields");
