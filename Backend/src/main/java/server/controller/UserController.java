@@ -44,8 +44,10 @@ public class UserController {
 	public @ResponseBody User handleCheckLogin(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession(false);
 		if(session == null) {
+			System.out.println("in check Login");
 			return new User("null");
 		}else {
+			System.out.println("in check Login");
 			return (User) session.getAttribute("user");
 		}
 		
