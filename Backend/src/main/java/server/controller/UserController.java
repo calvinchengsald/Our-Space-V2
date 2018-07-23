@@ -118,7 +118,7 @@ public class UserController {
 	 */
 	@CrossOrigin
 	@RequestMapping("/register.action")
-	public @ResponseBody User handleRegister(HttpServletRequest req, HttpServletResponse res) {
+	public @ResponseBody User Register(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("In register Handle");
 
 		JSONObject obj = JSONUtil.getObj(req);
