@@ -48,6 +48,7 @@ export class ProfileComponent implements OnInit {
      this.imgSrc = this.filename;
    }
 
+<<<<<<< HEAD
    selectFile(event) {
     this.selectedFiles = event.target.files;
   }
@@ -57,17 +58,25 @@ export class ProfileComponent implements OnInit {
     return this._loginService;
   }
 
+=======
+  get loginService() {
+    return this._loginService;
+  }
+>>>>>>> b741ab6795f046f5b51ac75ff86bf5f95c1c0d98
 
   setValues(user: string) {
     this.firstName = user['firstName'];
     console.log(this.firstName);
     this.lastName = user['lastName'];
     this.email = user['email'];
+<<<<<<< HEAD
 
 
     this.password = user['password'];
     this.imgSrc = user['profilePicture'];
 
+=======
+>>>>>>> b741ab6795f046f5b51ac75ff86bf5f95c1c0d98
 
   }
 
@@ -116,9 +125,13 @@ export class ProfileComponent implements OnInit {
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
             likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
+<<<<<<< HEAD
 
             , created: dataEle['created'] };
 
+=======
+            , created: dataEle['created'] };
+>>>>>>> b741ab6795f046f5b51ac75ff86bf5f95c1c0d98
           postList.push(p);
         }
         PostService.allPostUser = postList;

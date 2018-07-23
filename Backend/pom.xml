@@ -56,7 +56,17 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>5.0.7.RELEASE</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>5.0.7.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>1.9.1</version>
+		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
@@ -94,6 +104,9 @@
 			<artifactId>guava</artifactId>
 			<version>20.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
+
+
 
 
 	</dependencies>

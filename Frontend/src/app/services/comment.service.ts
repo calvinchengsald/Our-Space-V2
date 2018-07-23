@@ -15,7 +15,8 @@ export class CommentService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type' : 'application/x-www-form-urlencoded'
-    })
+    }),
+    withCredentials: true
   };
 
   constructor(private httpServ: HttpClient, private _loginService: LoginService) { }
