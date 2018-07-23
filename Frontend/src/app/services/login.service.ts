@@ -16,6 +16,7 @@ export class LoginService {
   firstName: string;
   lastName: string;
   password = 'dummy pass';
+  profileImage: string;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -53,6 +54,7 @@ export class LoginService {
         this.firstName = data['firstName'];
         this.lastName = data['lastName'];
         this.email = data['email'];
+        this.profileImage = data['profilePicture'];
         console.log('logged in1 ');
         this.isLoggedIn = true;
       }

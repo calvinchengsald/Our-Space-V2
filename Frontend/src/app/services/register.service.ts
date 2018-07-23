@@ -13,11 +13,7 @@ export class RegisterService {
   // body: FormData;
   httpOptions = {
     headers: new HttpHeaders({
-<<<<<<< HEAD
       'Content-Type': 'application/x-www-form-urlencoded'
-=======
-      'Content-Type' : 'application/x-www-form-urlencoded'
->>>>>>> develop
     }),
     withCredentials: true
   };
