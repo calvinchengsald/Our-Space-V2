@@ -1,0 +1,89 @@
+<div *ngIf = '!loginService.isLoggedIn'>Please Log in</div>
+<div *ngIf = 'loginService.isLoggedIn'>
+
+<div>
+  <h1>Welcome to your profile, {{firstName}} {{lastName}}</h1>
+  <h4>{{email}}</h4>
+</div>
+
+  <br/>
+  <br/>
+  <br/>
+
+
+<button class='btn btn-primary' (click)='toggleUpdate()'>
+  {{showUpdate ? 'Update Info': 'Update Info'}} 
+</button>
+
+<div class="container" *ngIf="showUpdate">  
+  <div class="row">
+  <div class="col-md-12">
+    <h5>Update Profile Information</h5>
+  </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">      
+      <img src="{{imgSrc}}" width="150px" height="150px" />
+    </div>
+    <div class="col-md-3">
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)">
+        </label>
+
+        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadImage()">Upload Image</button>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-md-8 col-sm-offset-3">  
+    <div class="from-group">
+      <label>First Name</label>
+      <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" class="form-control" />
+    </div>
+    <div class="from-group">
+      <label>Last Name</label>
+      <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="input-lg form-control" [(ngModel)]="password" id="password" value="" autocomplete="off">
+    </div>
+
+    <div class="form-group">
+      <label>Confirm Password</label>
+      <input type="password" class="input-md form-control" [(ngModel)]="password2" id="password2" placeholder="Repeat Password" autocomplete="off">
+    </div>
+
+    <div class=".btncontainer">
+        <input type="submit" class="col-xs-12 btn btn-primary btn-load btn" (click)="clickUpdate()" value="update profile">
+        <button type="btn btn-md" routerLink="/">cancel</button>
+    </div>
+    
+  
+  
+  
+  
+  
+  
+  </div>
+  </div>
+  </div>
+
+  
+
+  <form>
+    <div class="form-group" *ngIf="showUpdate">
+      <label for="exampleFormControlFile1">Change Your Profile Picture</label>
+      <input type="file" class="form-control-file" id="exampleFormControlFile1">
+    </div>
+  </form>
+
+    <div class='col-8 offset-2' *ngFor='let temp of userPost' >
+      
+      <app-post [post]='temp'></app-post>
+
+      
+    </div>
+  
+  <!-- need to have user posts too -->
+</div>

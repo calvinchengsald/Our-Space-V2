@@ -1,5 +1,6 @@
 package server.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,9 +57,6 @@ public class PostController {
 			return new Post("This post does not exist");
 		}
 		return u;
-
-
-
 	}
 
 
@@ -113,7 +110,7 @@ public class PostController {
 
 		JSONObject obj = JSONUtil.getObj(req);
 		int postId = (obj.getInt("postId"));
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession(false);
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
 			return new Post("Please log in");
@@ -135,19 +132,23 @@ public class PostController {
 	@RequestMapping("/insertPost.action")
 	public @ResponseBody Post handleInsertPost(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("in handle insert Post of post Controller");
+		HttpSession session = req.getSession(false);
+		if(session==null) {
+			return new Post("Please log in");
+		}
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			return new Post("Please log in");
+		}
 
 		JSONObject obj = JSONUtil.getObj(req);
 		String imgsrc = (obj.has("imgsrc")?obj.getString("imgsrc"):"");
 		String youtubelink = (obj.has("youtubelink")?obj.getString("youtubelink"):"");
 		String body = (obj.has("body")?obj.getString("body"):"");
-		String email = (obj.has("email")?obj.getString("email"):"");
+
+		Timestamp created = new Timestamp(System.currentTimeMillis());
 		
-		User user = userDao.selectById(email);
-		
-		// check if user exists
-		if (user == null) {
-			return new Post("Please log in");
-		}
+		//User user = userDao.selectById(email);
 		
 		Post p = new Post(body, imgsrc, youtubelink, user);
 

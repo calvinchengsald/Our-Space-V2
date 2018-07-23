@@ -19,7 +19,8 @@ export class ProfileService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type' : 'application/x-www-form-urlencoded'
-    })
+    }),
+    withCredentials: true
   };
 
   constructor(private httpServ: HttpClient) { }
@@ -48,17 +49,44 @@ export class ProfileService {
     return ProfileService._email;
   }
 
-  getProfile(first_namez: string, last_namez: string, emailz: string): Observable<string> {
+  getProfile(first_namez: string, last_namez: string, emailz: string, passwordz: string): Observable<string> {
 
-    console.log('in getprofile method with params ' + emailz + '/' + first_namez + '/' + last_namez);
+    console.log('in getprofile method with params ' + emailz + '/' + first_namez + '/' + last_namez + '/' + passwordz);
     this.url = EnvironmentService.APIpath + 'getUser.action';
     const obj = {
       username: emailz,
       firstName: first_namez,
-      lastName: last_namez
+      lastName: last_namez,
+      password: passwordz
     };
     return this.httpServ.post<string>(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
     );
   }
+
+  postUpdate(passwordz: string, first_namez: string, last_namez: string): Observable<string> {
+    this.url = EnvironmentService.APIpath + 'updateUser.action';
+
+    const obj = {
+      password: passwordz,
+      first_name: first_namez,
+      last_name: last_namez
+    };
+    return this.httpServ.post(this.url, obj, this.httpOptions).pipe(
+      map(res => res as string)
+    );
+  }
+
+  // send profile picture path to the database
+  pictureUpdate(picturez: String): Observable<string> {
+    this.url = EnvironmentService.APIpath + 'profilePicture.action';
+
+    const obj = {
+      picture: picturez
+    };
+    return this.httpServ.post(this.url, obj, this.httpOptions).pipe(
+      map(res => res as string)
+    );
+  }
+
 }

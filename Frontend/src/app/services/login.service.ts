@@ -16,6 +16,7 @@ export class LoginService {
   firstName: string;
   lastName: string;
   password = 'dummy pass';
+  profileImage: string;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -41,6 +42,11 @@ export class LoginService {
     const obs = this.httpServ.post(url, null, this.httpOptions).pipe(
       map(res => res as string));
     obs.subscribe(data => {
+      console.log(data);
+      if (!data) {
+        this.isLoggedIn = false;
+        return;
+      }
       if (data['email'] !== 'null') {
         this._MessegeModelService.error = false;
         this._MessegeModelService.show = false;
@@ -48,6 +54,7 @@ export class LoginService {
         this.firstName = data['firstName'];
         this.lastName = data['lastName'];
         this.email = data['email'];
+        this.profileImage = data['profilePicture'];
         console.log('logged in1 ');
         this.isLoggedIn = true;
       }
@@ -84,5 +91,15 @@ export class LoginService {
     });
     return obs;
   }
+  changePass(emailz: string): Observable<string> {
+    console.log('sending reset email');
+    const url = EnvironmentService.APIpath + 'reset.action';
+    const obj = {
+      email: emailz
+    };
+    return this.httpServ.post(url, obj, this.httpOptions).pipe(
+      map(res => res as string)
+    );
 
+  }
 }

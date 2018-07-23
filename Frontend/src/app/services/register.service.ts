@@ -13,8 +13,9 @@ export class RegisterService {
   // body: FormData;
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type' : 'application/x-www-form-urlencoded'
-    })
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }),
+    withCredentials: true
   };
 
   constructor(private httpServ: HttpClient) { }
@@ -25,11 +26,6 @@ export class RegisterService {
     if (passwordz === con_passwordz) {
       console.log('passwords match');
       this.url = EnvironmentService.APIpath + 'register.action';
-      // const body = new FormData();
-      // body.append('username', usernamez);
-      // body.append('password', passwordz);
-      // body.append('first_name', first_namez);
-      // body.append('last_name', last_namez);
       const obj = {
         username: usernamez,
         password: passwordz,
