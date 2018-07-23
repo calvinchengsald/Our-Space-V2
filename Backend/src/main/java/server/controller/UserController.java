@@ -106,6 +106,8 @@ public class UserController {
 			System.out.println("Invalid password");
 			return new User("Incorrect Password");
 		} /* if (invalid password) */
+		
+		
 
 		HttpSession session = req.getSession();
 		session.setAttribute("user", user);		
@@ -136,7 +138,7 @@ public class UserController {
 	 */
 	@CrossOrigin
 	@RequestMapping("/register.action")
-	public @ResponseBody User handleRegister(HttpServletRequest req, HttpServletResponse res) {
+	public @ResponseBody User Register(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("In register Handle");
 
 		JSONObject obj = JSONUtil.getObj(req);
@@ -197,9 +199,10 @@ public class UserController {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		String first_name = obj.getString("first_name");
-		String last_name = obj.getString("last_name");
 		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
+		String first_name = usr.getFirstName();
+		String last_name = usr.getLastName();
+		System.out.println("password: " + password);
 		
 		// validate input
 		if (username == null || first_name == null || last_name == null) {
@@ -215,9 +218,7 @@ public class UserController {
 		if (u == null) {
 			return new User("Invalid username!!!");
 		}
-		if(!profilePicture.equals("")) {
-			u.setProfilePicture(profilePicture);
-		}
+		
 		// update  first name
 		u.setFirstName(first_name);
 		
@@ -237,6 +238,31 @@ public class UserController {
 		
 		return u;
 	}/* updateUser() */
+	
+	@RequestMapping("/profilePicture.action")
+	public @ResponseBody Error handleProfilePicture(HttpServletRequest req, HttpServletResponse res) {
+		System.out.println("in profile picture handle");
+		JSONObject obj = JSONUtil.getObj(req);		
+		User user = (User) req.getSession(false).getAttribute("user");
+		String picturePath = obj.getString("picture");
+		System.out.println("picture path: " + picturePath);
+		Error err = new Error();
+		
+		if (user == null) {
+			err.setMessege("Invalid username");
+			return err;
+		}
+		
+		user.setProfilePicture(picturePath);
+		
+		System.out.println("User = " + user);
+		
+		userDao.update(user);
+		err.setMessege("Picture uploaded successfully");
+		err.setError(false);		
+		
+		return err;
+	}
 
 	/*
 	 * Return user specified by the email
@@ -255,6 +281,7 @@ public class UserController {
 			System.out.println("There are no accounts associated with this email");
 			return new User("There are no accounts associated with this email");
 		}
+		u.setPassword("");
 		return u;
 	}/* handleGetUser() */
 
@@ -346,7 +373,14 @@ public class UserController {
 			err.setError(false);
 			
 			// update password in the database
-			user.setPassword(new_password);
+			String pwd = new_password;
+			try {
+				pwd = HashedPassword.getHash(new_password);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			user.setPassword(pwd);
 			userDao.update(user);
 			
 		} else {

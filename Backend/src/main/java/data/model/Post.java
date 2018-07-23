@@ -95,6 +95,16 @@ public class Post {
 		this.likes = likes;
 		this.comments = comments;
 	}
+	
+	public Post( String body, String imgSrc, String youtubeLink, User user) {
+		super();
+		this.body = body;
+		this.imgSrc = imgSrc;
+		this.youtubeLink = youtubeLink;
+		this.user = user;
+		likes = new ArrayList<User>();
+	}
+	
 	public Post( String body, String imgSrc, String youtubeLink, User user, Timestamp created) {
 		super();
 		this.body = body;

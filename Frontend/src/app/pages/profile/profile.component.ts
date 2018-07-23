@@ -6,6 +6,7 @@ import { LoginService } from '../../services/login.service';
 import { PostService } from '../../services/post.service';
 import { MessegeModelService } from '../../services/messege-model.service';
 import { IPost } from '../../interface/ipost';
+import { UploadFileService } from '../../services/upload-file.service';
 
 @Component({
   selector: 'app-profile',
@@ -21,16 +22,27 @@ export class ProfileComponent implements OnInit {
   showUpdate = false;
   userPost: IPost[];
   password: string;
+  imgSrc: string;
+  selectedFiles: FileList;
+  currDate: Date;
+  filename: string;
+
 
   // post stuff for user will be in here somewhere or something
   constructor(private _profileService: ProfileService, private _loginService: LoginService, private _postService: PostService,
-              private _messegeService: MessegeModelService, private route: ActivatedRoute) {
+    private _messegeService: MessegeModelService, private route: ActivatedRoute) {
 
-   }
+  }
+
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
+
 
   get loginService() {
     return this._loginService;
   }
+
 
   setValues(user: string) {
     console.log(user);
@@ -42,7 +54,8 @@ export class ProfileComponent implements OnInit {
     console.log(this.firstName);
     this.lastName = user['lastName'];
     this.email = user['email'];
-
+    this.password = user['password'];
+    this.imgSrc = user['profilePicture'];
   }
 
   ngOnInit() {
@@ -57,9 +70,11 @@ export class ProfileComponent implements OnInit {
 
   clickUpdate(): void {
     console.log('clicked update password');
-    this._profileService.postUpdate(this.password).subscribe(
-      data => {console.log(data);
-    });
+    this._profileService.postUpdate(this.password, this.firstName, this.lastName).subscribe(
+      data => {
+        console.log(data);
+      }
+    );
   }
 
   toggleUpdate() {
@@ -81,18 +96,19 @@ export class ProfileComponent implements OnInit {
               const uu: IUser = {
                 first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
                 email: likeEle[li]['email'], password: likeEle[li]['password'], profilePicture: likeEle[li]['profilePicture']
-                };
+              };
               l.push(uu);
             }
           }
           const o: IUser = {
             first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
             email: dataEle['user']['email'], password: dataEle['user']['password'], profilePicture: dataEle['user']['profilePicture']
-            };
+          };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
-            , created: dataEle['created'] };
+            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'],
+            created: dataEle['Created'],
+          };
           postList.push(p);
         }
         PostService.allPostUser = postList;

@@ -4,10 +4,10 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import {CookieModule } from 'ngx-cookie';
+import { CookieModule } from 'ngx-cookie';
 
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatInputModule, MatSelectModule, MatCardModule, MatButtonModule, MatFormFieldModule, MatIconModule} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule, MatSelectModule, MatCardModule, MatButtonModule, MatFormFieldModule, MatIconModule } from '@angular/material';
 
 
 import { LoginService } from './services/login.service';
@@ -22,8 +22,10 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ProfileService } from './services/profile.service';
 import { MessegeComponent } from './components/messege/messege.component';
 import { MessegeModelService } from './services/messege-model.service';
+import { ResetPageComponent } from './reset-page/reset-page.component';
 import { PostComponent } from './components/post/post.component';
 import { UserComponent } from './components/user/user.component';
+import { UploadFileService } from './services/upload-file.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { UserComponent } from './components/user/user.component';
     ProfileComponent,
     MessegeComponent,
     PostComponent,
-    UserComponent
+    UserComponent,
+    ResetPageComponent
   ],
   imports: [
     BrowserModule,
@@ -56,11 +59,12 @@ import { UserComponent } from './components/user/user.component';
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'profile/:email', component: ProfileComponent },
+      { path: 'reset', component: ResetPageComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: '**', component: HomeComponent, pathMatch: 'full' },
     ])
   ],
-  providers: [LoginService, PostService, MessegeModelService, ProfileService],
+  providers: [LoginService, PostService, MessegeModelService, ProfileService, UploadFileService],
   bootstrap: [AppComponent],
 
 })
