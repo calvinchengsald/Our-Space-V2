@@ -21,7 +21,8 @@ export class PostService {
   url: string;
   httpOptions = {
     headers: new HttpHeaders({
-    })
+    }),
+    withCredentials: true
   };
 
   constructor(private httpServ: HttpClient, private _loginService: LoginService) { }
