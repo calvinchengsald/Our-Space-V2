@@ -15,6 +15,7 @@
         <div class='col-6'>Likes: {{post.likes?post.likes.length:0}}</div>
       </div>
     </div>
+    <div class='col-12'  > {{post.created | date:'medium'}} </div>
     <div class='col-12 border border-secondary bg-warning'>
       <div class='row' *ngIf='post.comments'>
         <div class='col-12' *ngFor='let comment of post.comments'>

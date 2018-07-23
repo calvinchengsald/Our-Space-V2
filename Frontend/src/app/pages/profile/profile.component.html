@@ -2,8 +2,8 @@
 <div *ngIf = 'loginService.isLoggedIn'>
 
 <div>
-  <h1>Welcome to your profile, {{_firstName}} {{_lastName}}</h1>
-  <h4>{{_email}}</h4>
+  <h1>Welcome to your profile, {{firstName}} {{lastName}}</h1>
+  <h4>{{email}}</h4>
 </div>
 
 <!-- <form>
@@ -38,26 +38,14 @@
   <div class="row">
   <div class="col-sm-6 col-sm-offset-3">
   <!-- <p class="text-center">Use the form below to change your password. Your password cannot be the same as your username.</p> -->
-  <form method="post" id="passwordForm" action="updateUser.action">
-  <input type="password" class="input-lg form-control" name="password1" id="password1" placeholder="New Password" autocomplete="off">
-  <div class="row">
-  <div class="col-sm-6">
-  <!-- <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> 8 Characters Long<br>
-  <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Uppercase Letter -->
-  </div>
-  <div class="col-sm-6">
-  <!-- <span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Lowercase Letter<br>
-  <span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> One Number -->
-  </div>
-  </div>
-  <input type="password" class="input-md form-control" name="password2" id="password2" placeholder="Repeat Password" autocomplete="off">
-  <div class="row">
-  <div class="col-sm-12">
-  <!-- <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;"></span> Passwords Match -->
-  </div>
-  </div>
-  <input type="submit" class="col-xs-12 btn btn-primary btn-load btn" data-loading-text="Changing Password..." value="Change Password">
-  </form>
+  <!-- <form method="POST" id="passwordForm" action="http://localhost:9005/OurSpace/updateUser.action"> -->
+    <input type="text" class="input-lg form-control" name="username" id="email" placeholder="{{email}}" autocomplete="off">
+  <input type="password" class="input-lg form-control" [(ngModel)]="password" id="password" placeholder="New Password" autocomplete="off">
+  
+  <input type="password" class="input-md form-control" [(ngModel)]="password2" id="password2" placeholder="Repeat Password" autocomplete="off">
+  
+  <input type="submit" class="col-xs-12 btn btn-primary btn-load btn" (click)="clickUpdate()" value="Change Password">
+  <!-- </form> -->
   </div><!--/col-sm-6-->
   </div><!--/row-->
   </div>
@@ -77,7 +65,7 @@
 			<label class="col-md-4 control-label" for="lastName">Enter New
 				Last Name</label>
 			<div class="col-md-4">
-				<input id="lastName" name="lastName" type="text" placeholder="{{_lastName}}"
+				<input id="lastName" name="lastName" type="text" placeholder="{{lastName}}"
 					class="form-control input-md">
 
 			</div>

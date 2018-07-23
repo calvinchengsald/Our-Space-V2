@@ -1,7 +1,8 @@
 package data.model;
 
 
-import javax.persistence.CascadeType;
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,6 +35,9 @@ public class Comment {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="email")
 	private User user;
+	
+	@Column(name="created")
+	private Timestamp created;
 
 	public Comment() {
 		super();
@@ -58,6 +62,15 @@ public class Comment {
 		this.body = body;
 		this.post = post;
 		this.user = user;
+	}
+	
+
+	public Comment(String body, Post post, User user, Timestamp created) {
+		super();
+		this.body = body;
+		this.post = post;
+		this.user = user;
+		this.created = created;
 	}
 
 	public Comment(int commentId) {
@@ -100,6 +113,15 @@ public class Comment {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+
+	public Timestamp getCreated() {
+		return created;
+	}
+
+	public void setCreated(Timestamp created) {
+		this.created = created;
 	}
 
 	@Override
