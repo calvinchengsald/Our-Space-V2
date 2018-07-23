@@ -30,8 +30,7 @@ export class ProfileComponent implements OnInit {
 
   // post stuff for user will be in here somewhere or something
   constructor(private _profileService: ProfileService, private _loginService: LoginService, private _postService: PostService,
-<<<<<<< HEAD
-              private _messegeService: MessegeModelService, private _uploadService: UploadFileService) {
+              private _messegeService: MessegeModelService, private _uploadService: UploadFileService, private route: ActivatedRoute) {
 
    }
 
@@ -48,27 +47,15 @@ export class ProfileComponent implements OnInit {
      .subscribe(data => console.log('pic resp = ' + data));
      this.imgSrc = this.filename;
    }
-=======
-    private _messegeService: MessegeModelService, private route: ActivatedRoute) {
-
-  }
-
-  selectFile(event) {
-    this.selectedFiles = event.target.files;
-  }
->>>>>>> develop
 
 
    get loginService() {
      return this._loginService;
    }
 
-<<<<<<< HEAD
    selectFile(event) {
     this.selectedFiles = event.target.files;
   }
-=======
->>>>>>> develop
 
   setValues(user: string) {
     console.log(user);
@@ -91,21 +78,13 @@ export class ProfileComponent implements OnInit {
     this._profileService.getProfile(this.email).subscribe(data => this.setValues(data));
 
     this.getAllUserPost(this.email);
-    
   }
 
   clickUpdate(): void {
     console.log('clicked update password');
     this._profileService.postUpdate(this.password, this.firstName, this.lastName).subscribe(
-<<<<<<< HEAD
       data => {console.log(data);
     });
-=======
-      data => {
-        console.log(data);
-      }
-    );
->>>>>>> develop
   }
 
   toggleUpdate() {
@@ -139,11 +118,7 @@ export class ProfileComponent implements OnInit {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
             likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'],
             created: dataEle['Created'],
-<<<<<<< HEAD
             };
-=======
-          };
->>>>>>> develop
           postList.push(p);
         }
         PostService.allPostUser = postList;
