@@ -328,7 +328,14 @@ public class UserController {
 			err.setError(false);
 			
 			// update password in the database
-			user.setPassword(new_password);
+			String pwd = new_password;
+			try {
+				pwd = HashedPassword.getHash(new_password);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			user.setPassword(pwd);
 			userDao.update(user);
 			
 		} else {
