@@ -10,7 +10,7 @@ import { IUser } from '../../interface/iuser';
 export class UserComponent implements OnInit {
 
   get loginService() {
-    return this.loginService;
+    return this._loginService;
   }
 
   constructor(private _loginService: LoginService) { }
