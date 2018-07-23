@@ -43,7 +43,7 @@ export class LoginService {
       map(res => res as string));
     obs.subscribe(data => {
       console.log(data);
-      if (!data) {
+      if (data['email'] === 'null') {
         this.isLoggedIn = false;
         return;
       }

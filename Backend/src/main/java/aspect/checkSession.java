@@ -5,11 +5,14 @@ import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import data.model.User;
 
@@ -18,13 +21,16 @@ import data.model.User;
 public class checkSession {
 	
 	@Around("execution(* server.controller..*.handle*(..))")
-	public User checkLoginStatus(ProceedingJoinPoint joinPoint) {
+	public @ResponseBody Object checkLoginStatus(ProceedingJoinPoint joinPoint) {
 		Object[] reqRes = joinPoint.getArgs();
+		//Signature signature =  joinPoint.getSignature();
+		//Class returnType = ((MethodSignature) signature).getReturnType();
 		HttpServletRequest req = (HttpServletRequest) reqRes[0];
 		HttpSession session = req.getSession(false);
 		if (session != null) {
             try {
-				joinPoint.proceed();
+            	System.out.println("proceeded");
+				return joinPoint.proceed();
 			} catch (Throwable e) {
 				System.out.println("something wrong");
 				return new User("null");
@@ -34,6 +40,5 @@ public class checkSession {
 			System.out.println("User not logged");
 			return new User("null");
 		}
-		return new User("null");
 	}
 }
