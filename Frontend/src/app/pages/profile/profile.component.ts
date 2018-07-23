@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
 
   // post stuff for user will be in here somewhere or something
   constructor(private _profileService: ProfileService, private _loginService: LoginService, private _postService: PostService,
-              private _messegeService: MessegeModelService) {
+              private _messegeService: MessegeModelService, private route: ActivatedRoute) {
 
    }
 
@@ -33,6 +33,11 @@ export class ProfileComponent implements OnInit {
   }
 
   setValues(user: string) {
+    console.log(user);
+    if (!user || !user['firstName']) {
+      this.firstName = '';
+      return;
+    }
     this.firstName = user['firstName'];
     console.log(this.firstName);
     this.lastName = user['lastName'];
@@ -42,10 +47,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     console.log('we clicked profile');
-    this._profileService.getProfile(this._loginService.firstName, this._loginService.lastName,
-      this._loginService.email, this._loginService.password).subscribe(data => this.setValues(data));
 
-    this.getAllUserPost();
+    this.email = this.route.snapshot.paramMap.get('email').trim();
+    this._profileService.getProfile(this.email).subscribe(data => this.setValues(data));
+
+    this.getAllUserPost(this.email);
+    
   }
 
   clickUpdate(): void {
@@ -59,8 +66,8 @@ export class ProfileComponent implements OnInit {
     this.showUpdate = !this.showUpdate;
   }
 
-  getAllUserPost(): void {
-    this._postService.getAllUserPost(this._loginService.email).subscribe(data => {
+  getAllUserPost(userEmail: string): void {
+    this._postService.getAllUserPost(userEmail).subscribe(data => {
       console.log(data);
       if (data[0] && data[0]['postId'] !== 0) {
 

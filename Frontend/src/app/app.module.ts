@@ -23,6 +23,7 @@ import { ProfileService } from './services/profile.service';
 import { MessegeComponent } from './components/messege/messege.component';
 import { MessegeModelService } from './services/messege-model.service';
 import { PostComponent } from './components/post/post.component';
+import { UserComponent } from './components/user/user.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { PostComponent } from './components/post/post.component';
     RegisterComponent,
     ProfileComponent,
     MessegeComponent,
-    PostComponent
+    PostComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,7 @@ import { PostComponent } from './components/post/post.component';
       { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },
-      { path: 'profile', component: ProfileComponent },
+      { path: 'profile/:email', component: ProfileComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: '**', component: HomeComponent, pathMatch: 'full' },
     ])
