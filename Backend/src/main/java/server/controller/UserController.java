@@ -44,8 +44,10 @@ public class UserController {
 	public @ResponseBody User handleCheckLogin(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession(false);
 		if(session == null) {
+			System.out.println("in check Login");
 			return new User("null");
 		}else {
+			System.out.println("in check Login");
 			return (User) session.getAttribute("user");
 		}
 		
@@ -53,7 +55,7 @@ public class UserController {
 	
 	@CrossOrigin
 	@RequestMapping("/login.action")
-	public @ResponseBody User handleLogin(HttpServletRequest req, HttpServletResponse res) {
+	public @ResponseBody User Login(HttpServletRequest req, HttpServletResponse res) {
 
 		JSONObject obj = JSONUtil.getObj(req);
 
@@ -172,21 +174,14 @@ public class UserController {
 		User usr = (User) request.getSession().getAttribute("user");
 		String username = usr.getEmail();
 		String password = obj.getString("password");
-<<<<<<< HEAD
 		try {
 			password = HashedPassword.getHash(password);
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String first_name = obj.getString("first_name");
 		String last_name = obj.getString("last_name");
 		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
-=======
-		String first_name = usr.getFirstName();
-		String last_name = usr.getLastName();
-		System.out.println("password: " + password);
->>>>>>> mac_frontend
 		
 		// validate input
 		if (username == null || first_name == null || last_name == null) {
@@ -281,7 +276,7 @@ public class UserController {
 	 * Reset password of user
 	 */
 	@RequestMapping("/reset.action")
-	public @ResponseBody Error resetPassword(HttpServletRequest req, HttpServletResponse resp) {
+	public @ResponseBody Error handleResetPassword(HttpServletRequest req, HttpServletResponse resp) {
 		String subject = "OurSpace: Reset your password";
 		String body = "Your password has been succesfully reset \n\n";
 		// get email of user
