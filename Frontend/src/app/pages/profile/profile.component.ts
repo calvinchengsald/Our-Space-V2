@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
 
   // post stuff for user will be in here somewhere or something
   constructor(private _profileService: ProfileService, private _loginService: LoginService, private _postService: PostService,
+<<<<<<< HEAD
               private _messegeService: MessegeModelService, private _uploadService: UploadFileService) {
 
    }
@@ -47,17 +48,34 @@ export class ProfileComponent implements OnInit {
      .subscribe(data => console.log('pic resp = ' + data));
      this.imgSrc = this.filename;
    }
+=======
+    private _messegeService: MessegeModelService, private route: ActivatedRoute) {
+
+  }
+
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
+>>>>>>> develop
 
 
    get loginService() {
      return this._loginService;
    }
 
+<<<<<<< HEAD
    selectFile(event) {
     this.selectedFiles = event.target.files;
   }
+=======
+>>>>>>> develop
 
   setValues(user: string) {
+    console.log(user);
+    if (!user || !user['firstName']) {
+      this.firstName = '';
+      return;
+    }
     this.firstName = user['firstName'];
     console.log(this.firstName);
     this.lastName = user['lastName'];
@@ -68,25 +86,34 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     console.log('we clicked profile');
-    this._profileService.getProfile(this._loginService.firstName, this._loginService.lastName,
-      this._loginService.email, this._loginService.password).subscribe(data => this.setValues(data));
 
-    this.getAllUserPost();
+    this.email = this.route.snapshot.paramMap.get('email').trim();
+    this._profileService.getProfile(this.email).subscribe(data => this.setValues(data));
+
+    this.getAllUserPost(this.email);
+    
   }
 
   clickUpdate(): void {
     console.log('clicked update password');
     this._profileService.postUpdate(this.password, this.firstName, this.lastName).subscribe(
+<<<<<<< HEAD
       data => {console.log(data);
     });
+=======
+      data => {
+        console.log(data);
+      }
+    );
+>>>>>>> develop
   }
 
   toggleUpdate() {
     this.showUpdate = !this.showUpdate;
   }
 
-  getAllUserPost(): void {
-    this._postService.getAllUserPost(this._loginService.email).subscribe(data => {
+  getAllUserPost(userEmail: string): void {
+    this._postService.getAllUserPost(userEmail).subscribe(data => {
       console.log(data);
       if (data[0] && data[0]['postId'] !== 0) {
 
@@ -100,19 +127,23 @@ export class ProfileComponent implements OnInit {
               const uu: IUser = {
                 first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
                 email: likeEle[li]['email'], password: likeEle[li]['password'], profilePicture: likeEle[li]['profilePicture']
-                };
+              };
               l.push(uu);
             }
           }
           const o: IUser = {
             first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
             email: dataEle['user']['email'], password: dataEle['user']['password'], profilePicture: dataEle['user']['profilePicture']
-            };
+          };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
             likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'],
             created: dataEle['Created'],
+<<<<<<< HEAD
             };
+=======
+          };
+>>>>>>> develop
           postList.push(p);
         }
         PostService.allPostUser = postList;

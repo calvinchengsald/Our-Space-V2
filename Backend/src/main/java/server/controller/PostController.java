@@ -152,7 +152,7 @@ public class PostController {
 		
 		//User user = userDao.selectById(email);
 		
-		Post p = new Post(body, imgsrc, youtubelink, user, created);
+		Post p = new Post(body, imgsrc, youtubelink, user);
 
 		postDao.insert(p);
 

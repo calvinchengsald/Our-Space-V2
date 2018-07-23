@@ -49,15 +49,12 @@ export class ProfileService {
     return ProfileService._email;
   }
 
-  getProfile(first_namez: string, last_namez: string, emailz: string, passwordz: string): Observable<string> {
+  getProfile(emailz: string): Observable<string> {
 
-    console.log('in getprofile method with params ' + emailz + '/' + first_namez + '/' + last_namez + '/' + passwordz);
+    console.log('in getprofile method with params ' + emailz );
     this.url = EnvironmentService.APIpath + 'getUser.action';
     const obj = {
-      username: emailz,
-      firstName: first_namez,
-      lastName: last_namez,
-      password: passwordz
+      email: emailz,
     };
     return this.httpServ.post<string>(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
@@ -88,5 +85,7 @@ export class ProfileService {
       map(res => res as string)
     );
   }
+
+
 
 }

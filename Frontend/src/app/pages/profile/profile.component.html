@@ -1,5 +1,5 @@
-<div *ngIf = '!loginService.isLoggedIn'>Please Log in</div>
-<div *ngIf = 'loginService.isLoggedIn'>
+<h1 *ngIf="firstName==''" > This user does not exist </h1>
+<div *ngIf='firstName!=""'>
 
 <div>
   <h1>Welcome to your profile, {{firstName}} {{lastName}}</h1>
@@ -75,6 +75,9 @@
       <app-post [post]='temp'></app-post>
 
       
+    </div>
+    <div *ngIf='!userPost || userPost.length == 0' >
+      This user have not posted anything
     </div>
   
   <!-- need to have user posts too -->

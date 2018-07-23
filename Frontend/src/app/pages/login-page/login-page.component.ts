@@ -39,9 +39,9 @@ export class LoginPageComponent implements OnInit {
 
   clickLogin(): void {
     console.log('we clicked login');
-    this._loginService.getLogin(this.email, this.password).subscribe( res => {
+    if (this._loginService.getLogin(this.email, this.password)) {
       this._router.navigateByUrl('/');
-    });
+    }
   }
 
 
