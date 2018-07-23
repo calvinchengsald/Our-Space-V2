@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
         this.getAllPost();
       }
     });
+    this._loginService.getAllUsers();
   }
 
 

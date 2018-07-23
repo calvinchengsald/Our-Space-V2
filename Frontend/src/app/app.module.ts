@@ -24,6 +24,7 @@ import { MessegeComponent } from './components/messege/messege.component';
 import { MessegeModelService } from './services/messege-model.service';
 import { ResetPageComponent } from './reset-page/reset-page.component';
 import { PostComponent } from './components/post/post.component';
+import { UserComponent } from './components/user/user.component';
 import { UploadFileService } from './services/upload-file.service';
 
 @NgModule({
@@ -36,6 +37,7 @@ import { UploadFileService } from './services/upload-file.service';
     ProfileComponent,
     MessegeComponent,
     PostComponent,
+    UserComponent,
     ResetPageComponent
   ],
   imports: [
@@ -56,8 +58,8 @@ import { UploadFileService } from './services/upload-file.service';
       { path: 'home', component: HomeComponent },
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'profile/:email', component: ProfileComponent },
       { path: 'reset', component: ResetPageComponent },
-      { path: 'profile', component: ProfileComponent },
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: '**', component: HomeComponent, pathMatch: 'full' },
     ])
