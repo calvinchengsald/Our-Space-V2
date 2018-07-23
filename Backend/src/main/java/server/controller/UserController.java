@@ -44,8 +44,10 @@ public class UserController {
 	public @ResponseBody User handleCheckLogin(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession(false);
 		if(session == null) {
+			System.out.println("in check Login");
 			return new User("null");
 		}else {
+			System.out.println("in check Login");
 			return (User) session.getAttribute("user");
 		}
 		
@@ -175,7 +177,6 @@ public class UserController {
 		try {
 			password = HashedPassword.getHash(password);
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
@@ -328,7 +329,14 @@ public class UserController {
 			err.setError(false);
 			
 			// update password in the database
-			user.setPassword(new_password);
+			String pwd = new_password;
+			try {
+				pwd = HashedPassword.getHash(new_password);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			user.setPassword(pwd);
 			userDao.update(user);
 			
 		} else {

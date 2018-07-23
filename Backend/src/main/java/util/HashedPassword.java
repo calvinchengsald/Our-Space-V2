@@ -4,7 +4,6 @@
 package util;
 
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.google.common.hash.Hashing;

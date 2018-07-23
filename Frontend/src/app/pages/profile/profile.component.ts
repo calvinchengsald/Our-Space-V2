@@ -37,7 +37,10 @@ export class ProfileComponent implements OnInit {
     console.log(this.firstName);
     this.lastName = user['lastName'];
     this.email = user['email'];
+<<<<<<< HEAD
     this.password = user['password'];
+=======
+>>>>>>> develop
 
   }
 
@@ -86,9 +89,14 @@ export class ProfileComponent implements OnInit {
           };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
+<<<<<<< HEAD
             likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'],
             created: dataEle['Created']
           };
+=======
+            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
+            , created: dataEle['created'] };
+>>>>>>> develop
           postList.push(p);
         }
         PostService.allPostUser = postList;
