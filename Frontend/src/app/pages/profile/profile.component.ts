@@ -28,22 +28,15 @@ export class ProfileComponent implements OnInit {
 
    }
 
-<<<<<<< HEAD
   get loginService() {
     return this._loginService;
   }
-=======
->>>>>>> mac_frontend
 
   setValues(user: string) {
     this.firstName = user['firstName'];
     console.log(this.firstName);
     this.lastName = user['lastName'];
     this.email = user['email'];
-<<<<<<< HEAD
-=======
-    this.password = user['password'];
->>>>>>> mac_frontend
 
   }
 
@@ -92,11 +85,7 @@ export class ProfileComponent implements OnInit {
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
             likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
-<<<<<<< HEAD
             , created: dataEle['created'] };
-=======
-            };
->>>>>>> mac_frontend
           postList.push(p);
         }
         PostService.allPostUser = postList;
