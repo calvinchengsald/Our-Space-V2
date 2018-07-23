@@ -43,12 +43,10 @@ public class UserController {
 	@RequestMapping("/checkLogin.action")
 	public @ResponseBody User handleCheckLogin(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession(false);
-<<<<<<< HEAD
-		if(session == null) {
-=======
+
 		if(session == null || session.getAttribute("user") == null) {
 			System.out.println("checkin null");
->>>>>>> develop
+
 			return new User("null");
 		}else {
 			return (User) session.getAttribute("user");
@@ -204,7 +202,7 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
+
 		
 		String first_name = obj.getString("first_name");
 		String last_name = obj.getString("last_name");
@@ -213,13 +211,6 @@ public class UserController {
 		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
 
 
-=======
-		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
-		String first_name = usr.getFirstName();
-		String last_name = usr.getLastName();
-		System.out.println("password: " + password);
-		
->>>>>>> develop
 		// validate input
 		if (username == null || first_name == null || last_name == null) {
 			System.out.println("Please fill out all fields");
