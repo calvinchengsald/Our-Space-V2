@@ -3,7 +3,7 @@ package server.controller;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,13 +13,13 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import data.dao.UserDao;
 import data.model.Error;
+import data.model.Post;
 import data.model.User;
 import data.service.UserService;
 import util.EmailUtil;
@@ -43,8 +43,8 @@ public class UserController {
 	@RequestMapping("/checkLogin.action")
 	public @ResponseBody User handleCheckLogin(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession(false);
-		if(session == null) {
-			System.out.println("in check Login");
+		if(session == null || session.getAttribute("user") == null) {
+			System.out.println("checkin null");
 			return new User("null");
 		}else {
 			System.out.println("in check Login");
@@ -52,6 +52,24 @@ public class UserController {
 		}
 		
 	}
+	
+	@RequestMapping("/getUserFromAll.action")
+	public @ResponseBody List<User> handleGetUserFromAll(HttpServletRequest req, HttpServletResponse res) {
+
+		System.out.println("in handle get User from all of user Controller");
+
+	//	System.out.println("User from sesion is: " + req.getSession().getAttribute("user"));
+		List<User> p = userDao.selectAll();
+		if (p == null || p.size() == 0) {
+
+			ArrayList<User> al = new ArrayList<User>();
+			al.add(new User("There are no user at all"));
+			return al;
+		}
+
+		return p;
+	}
+	
 	
 	@CrossOrigin
 	@RequestMapping("/login.action")
@@ -120,7 +138,7 @@ public class UserController {
 	 */
 	@CrossOrigin
 	@RequestMapping("/register.action")
-	public @ResponseBody User handleRegister(HttpServletRequest req, HttpServletResponse res) {
+	public @ResponseBody User Register(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("In register Handle");
 
 		JSONObject obj = JSONUtil.getObj(req);
@@ -181,15 +199,11 @@ public class UserController {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		String first_name = obj.getString("first_name");
-		String last_name = obj.getString("last_name");
-<<<<<<< HEAD
-		System.out.println("password: " + password);
-
-=======
 		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
+		String first_name = usr.getFirstName();
+		String last_name = usr.getLastName();
+		System.out.println("password: " + password);
 		
->>>>>>> b741ab6795f046f5b51ac75ff86bf5f95c1c0d98
 		// validate input
 		if (username == null || first_name == null || last_name == null) {
 			System.out.println("Please fill out all fields");
@@ -257,7 +271,7 @@ public class UserController {
 	public @ResponseBody User handleGetUser(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("In get user handle");
 		JSONObject obj = JSONUtil.getObj(req);
-		String username = obj.getString("username");
+		String username = obj.getString("email");
 		if (username == null) {
 			System.out.println("email was not found in the field");
 			return new User("email was not found");

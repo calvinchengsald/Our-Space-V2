@@ -21,7 +21,7 @@
     "@angular/material": "^6.3.3",
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
-    "@types/node" : "^10.5.2",
+    "@types/node": "^10.5.2",
     "@angular/router": "^6.0.3",
     "angular": "^1.7.2",
     "aws-sdk": "^2.279.1",

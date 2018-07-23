@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { MessegeModelService } from './messege-model.service';
 import { Router } from '@angular/router';
+import {IUser } from '../interface/iuser';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class LoginService {
   firstName: string;
   lastName: string;
   password = 'dummy pass';
+  allUser: IUser[];
   profileImage: string;
 
   httpOptions = {
@@ -43,7 +45,7 @@ export class LoginService {
       map(res => res as string));
     obs.subscribe(data => {
       console.log(data);
-      if (!data) {
+      if (data['email'] === 'null') {
         this.isLoggedIn = false;
         return;
       }
@@ -62,6 +64,7 @@ export class LoginService {
     return obs;
   }
 
+
   getLogin(emailz: string, passwordz: string) {
     console.log('in getlogin method with params ' + emailz + '/' + passwordz);
     const url: string = EnvironmentService.APIpath + 'login.action';
@@ -78,6 +81,7 @@ export class LoginService {
         this._MessegeModelService.show = true;
         this._MessegeModelService.messege = data['email'];
         console.log('in pass');
+        return false;
       } else if (data['email']) {
         this._MessegeModelService.error = false;
         this._MessegeModelService.show = false;
@@ -87,9 +91,43 @@ export class LoginService {
         this.email = data['email'];
         console.log('logged in ');
         this.isLoggedIn = true;
+        return true;
       }
     });
-    return obs;
   }
 
+  getAllUsers() {
+    const url: string = EnvironmentService.APIpath + 'getUserFromAll.action';
+    const obs = this.httpServ.post(url, null, this.httpOptions).pipe(
+      map(res => res as string));
+    obs.subscribe(data => {
+      console.log(data);
+      if (data[0] && data[0]['firstName'] !== '') {
+        const userList = [];
+        for (let i = 0; i < data.length; i++) {
+          const tempUser: IUser = { email: data[i]['email'], password: data[i]['password'],
+            first_name: data[i]['firstName'], last_name: data[i]['lastName'], profilePicture: data[i]['profilePicture'] } ;
+          userList.push(tempUser);
+        }
+        this.allUser = userList;
+      } else {
+        this._MessegeModelService.error = true;
+        this._MessegeModelService.messege = data[0]['email'];
+        this._MessegeModelService.show = true;
+        this.allUser = [];
+      }
+    });
+    return true;
+  }
+  changePass(emailz: string): Observable<string> {
+    console.log('sending reset email');
+    const url = EnvironmentService.APIpath + 'reset.action';
+    const obj = {
+      email: emailz
+    };
+    return this.httpServ.post(url, obj, this.httpOptions).pipe(
+      map(res => res as string)
+    );
+
+  }
 }

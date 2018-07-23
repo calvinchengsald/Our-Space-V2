@@ -29,10 +29,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this._loginService.checkLogin().subscribe(data => {
-      if (data) {
+      if (data['email'] !== 'null') {
+        console.log('getting all posts');
         this.getAllPost();
       }
     });
+    this._loginService.getAllUsers();
   }
 
 

@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: Belph
 Build-Jdk: 1.8.0_131
 Created-By: Maven Integration for Eclipse
 
+=======
+Manifest-Version: 1.0
+Built-By: kevinqkh
+Build-Jdk: 1.8.0_171
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> 2340753dc5d6a9e17ce18819c21925657f99f29a
