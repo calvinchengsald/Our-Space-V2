@@ -145,13 +145,10 @@ public class PostController {
 		String imgsrc = (obj.has("imgsrc")?obj.getString("imgsrc"):"");
 		String youtubelink = (obj.has("youtubelink")?obj.getString("youtubelink"):"");
 		String body = (obj.has("body")?obj.getString("body"):"");
-<<<<<<< HEAD
-=======
+
 		String email = (obj.has("email")?obj.getString("email"):"");
 		Timestamp created = new Timestamp(System.currentTimeMillis());
-		
-		User user = userDao.selectById(email);
->>>>>>> 823aefe5160f0fd7cb1be6915ba80e79aff0644f
+
 		
 		//User user = userDao.selectById(email);
 		
