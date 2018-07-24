@@ -328,7 +328,7 @@ public class UserController {
 	 * Reset password of user
 	 */
 	@RequestMapping("/reset.action")
-	public @ResponseBody Error handleResetPassword(HttpServletRequest req, HttpServletResponse resp) {
+	public @ResponseBody Error resetPassword(HttpServletRequest req, HttpServletResponse resp) {
 		String subject = "OurSpace: Reset your password";
 		String body = "Your password has been succesfully reset \n\n";
 		// get email of user
