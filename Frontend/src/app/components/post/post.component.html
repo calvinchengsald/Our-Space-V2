@@ -12,7 +12,9 @@
         <img [src]='post.imageSrc' width="300" height="200" />
       </div>
       <br />
-      <div *ngIf='post.youtubeLink'> {{post.youtubeLink}} </div>
+      <div *ngIf='post.youtubeLink'>
+        <iframe id='ytplayer' width="300" height="260" [src]='post.youtubeLink | safe' frameborder='0' allowfullscreen></iframe>
+      </div>
 
 
       <div class='row text-left'>
@@ -22,6 +24,11 @@
         </button> Likes: {{post.likes?post.likes.length:0}} &nbsp; {{post.created | date:'medium'}}
       </div>
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> develop
       <div class='row' *ngIf='post.comments'>
         <hr />
         <div *ngFor='let comment of post.comments'>
@@ -48,6 +55,10 @@
         />
       </div>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
     </div>
   </div>
 

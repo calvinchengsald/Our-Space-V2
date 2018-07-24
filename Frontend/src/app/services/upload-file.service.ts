@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as AWS from 'aws-sdk/global';
 import * as S3 from 'aws-sdk/clients/s3';
+import { env } from '../env/env';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class UploadFileService {
   // Upload profile picture to amazon s3
   uploadProfilePicture(file, filename) {
     const bucket = new S3({
-      accessKeyId: 'AKIAJYI3MYBPJGVUHN4A',
-      secretAccessKey: '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',
+      accessKeyId: env.AWSs3access,
+      secretAccessKey: env.AWSs3secret,
       region: 'us-east-1'
     });
 
@@ -41,8 +42,8 @@ export class UploadFileService {
   // upload post picture to amazon s3
   uploadPostPicture(file, filename) {
     const bucket = new S3({
-      accessKeyId: 'AKIAIKU7LDU5RT6NW3FQ',
-      secretAccessKey: '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',
+      accessKeyId: env.AWSs3access,
+      secretAccessKey: env.AWSs3secret,
       region: 'us-east-1'
     });
 
