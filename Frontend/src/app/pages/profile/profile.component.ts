@@ -106,8 +106,8 @@ export class ProfileComponent implements OnInit {
         for (let i = 0; i < data.length; i++) {
           const dataEle = data[i];
           const l = [];
-          if (dataEle['likes']) {
-            const likeEle = dataEle['likes'];
+          if (dataEle['likedUsers']) {
+            const likeEle = dataEle['likedUsers'];
             for (let li = 0; li < likeEle.length; li++) {
               const uu: IUser = {
                 first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],

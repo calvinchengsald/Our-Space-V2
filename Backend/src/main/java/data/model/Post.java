@@ -192,8 +192,5 @@ public class Post {
 	
 	
 	
-	
-	
-	
 }
 

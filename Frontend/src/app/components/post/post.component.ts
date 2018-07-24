@@ -51,8 +51,8 @@ export class PostComponent implements OnInit {
           console.log('data2' + dataEle);
           if (dataEle && dataEle['postId'] !== 0) {
             const l = [];
-            if (dataEle['likes']) {
-              const likeEle = dataEle['likes'];
+            if (dataEle['likedUsers']) {
+              const likeEle = dataEle['likedUsers'];
               for (let li = 0; li < likeEle.length; li++) {
                 const uu: IUser = {first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
                   email: likeEle[li]['email'],  password: likeEle[li]['password'] , profilePicture: likeEle[li]['profilePicture'] };
@@ -118,8 +118,8 @@ export class PostComponent implements OnInit {
       console.log(data);
       if (data && data['postId'] !== 0) {
         const l = [];
-        if (data['likes']) {
-          const likeEle = data['likes'];
+        if (data['likedUsers']) {
+          const likeEle = data['likedUsers'];
           for (let li = 0; li < likeEle.length; li++) {
             const uu: IUser = {first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
               email: likeEle[li]['email'],  password: likeEle[li]['password'], profilePicture: likeEle[li]['profilePicture'] };
