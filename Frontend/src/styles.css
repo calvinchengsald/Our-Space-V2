@@ -1,2 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body{
+    width: 100%;
+    margin: 0;
+    /* background: url('https://pbs.twimg.com/profile_images/653700295395016708/WjGTnKGQ_400x400.png'); */
+    background: url('https://3.bp.blogspot.com/-zR3CZBHLvXM/VorG7JMaSUI/AAAAAAAAB4k/ZjJkrlme9gA/s1600/iphone-13-IMG_5547.GIF') no-repeat center center fixed;
+    
+
+    
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: 100%;
+    overflow-x: hidden;
+}
+
+.well{
+    background-color: #AED6F1;
+}

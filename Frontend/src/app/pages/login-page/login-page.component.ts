@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
-
   _email: string;
   _password: string;
   _result: boolean;
@@ -49,16 +48,8 @@ export class LoginPageComponent implements OnInit {
         this._router.navigateByUrl('login');
         console.log('in pass');
       } else if (data['email']) {
-        this._router.navigateByUrl('/');
+        this._router.navigateByUrl('home');
       }
     });
-    // this._result = this._loginService.getLogin(this.email, this.password);
-    // console.log('result = ' + this._result);
-    // if (this._result == true) {
-    //   // console.log("getting in loginpage before");
-    //   this._router.navigateByUrl('/');
-    // }
   }
-
-
 }
