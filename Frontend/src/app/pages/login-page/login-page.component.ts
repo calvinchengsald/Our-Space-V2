@@ -13,6 +13,7 @@ export class LoginPageComponent implements OnInit {
 
   _email: string;
   _password: string;
+  _result: boolean;
 
   constructor(private _loginService: LoginService, private _messegeService: MessegeModelService, private _router: Router ) {
 
@@ -39,9 +40,21 @@ export class LoginPageComponent implements OnInit {
 
   clickLogin(): void {
     console.log('we clicked login');
-    if (this._loginService.getLogin(this.email, this.password)) {
-      this._router.navigateByUrl('/');
-    }
+    this._loginService.getLogin(this.email, this.password).subscribe(data => {
+      if (!data['password']) {
+        this._router.navigateByUrl('login');
+        console.log('in pass');
+        return false;
+      } else if (data['email']) {
+        this._router.navigateByUrl('/');
+      }
+    });
+    // this._result = this._loginService.getLogin(this.email, this.password);
+    // console.log('result = ' + this._result);
+    // if (this._result == true) {
+    //   // console.log("getting in loginpage before");
+    //   this._router.navigateByUrl('/');
+    // }
   }
 
 

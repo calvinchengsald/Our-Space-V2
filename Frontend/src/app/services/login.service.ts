@@ -7,6 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { MessegeModelService } from './messege-model.service';
 import { Router } from '@angular/router';
 import {IUser } from '../interface/iuser';
+import { METHODS } from 'http';
 
 @Injectable({
   providedIn: 'root'
@@ -91,9 +92,11 @@ export class LoginService {
         this.email = data['email'];
         console.log('logged in ');
         this.isLoggedIn = true;
-        return true;
+        console.log('isLoggedIn: ' + this.isLoggedIn);
+        return this.isLoggedIn;
       }
     });
+    return obs;
   }
 
   getAllUsers() {
