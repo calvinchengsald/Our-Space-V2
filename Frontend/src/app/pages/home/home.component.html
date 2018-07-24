@@ -1,6 +1,13 @@
 <div class='container-fluid'>
   <div *ngIf='!loginService.isLoggedIn'> User not logged in page</div>
   <div class='row' *ngIf='loginService.isLoggedIn'>
+      <div class="col-sm-3 well">
+          <div class="well">
+            <p><a>My Profile</a></p>
+            <img src="" class="img-circle" height="65" width="65" alt="Avatar">
+          </div>
+          
+        </div>
     <div class='col-10'>
       <div class='row'>
         <div class='col-10 offset-1'>
