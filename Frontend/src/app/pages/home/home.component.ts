@@ -8,7 +8,7 @@ import { LoginService } from '../../services/login.service';
 import { ProfileService } from '../../services/profile.service';
 
 import { env } from '../../env/env';
-
+import { UploadFileService } from '../../services/upload-file.service';
 
 @Component({
   selector: 'app-home',
@@ -23,11 +23,17 @@ export class HomeComponent implements OnInit {
   newPostYoutube: string;
   homePost: IPost[];
   isLoggedIn = false;
+  postBodyImageFile: FileList;
+  currDate: Date;
+  youtubeLink: string;
+  linkTempImage: string;
+  uploadTempImage: string;
 
   get loginService() {
     return this._loginService;
   }
-  constructor(private _postService: PostService, private _messegeService: MessegeModelService, private _loginService: LoginService) {
+  constructor(private _postService: PostService, private _messegeService: MessegeModelService, private _loginService: LoginService,
+    private _uploadService: UploadFileService) {
 
 
   }
@@ -66,12 +72,12 @@ export class HomeComponent implements OnInit {
           const o: IUser = {
             first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
             email: dataEle['user']['email'], password: dataEle['user']['password'], profilePicture: dataEle['user']['profilePicture']
-            };
+          };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
             imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
             , created: dataEle['created']
-            };
+          };
           postList.push(p);
         }
         PostService.allPostList = postList;
@@ -85,6 +91,28 @@ export class HomeComponent implements OnInit {
       console.log(this.homePost);
     });
     this._postService.getPostLikes();
+  }
+
+  selectFile(event) {
+    this.postBodyImageFile = event.target.files;
+  }
+
+  saveVideoLink(): void {
+    const temp = this.youtubeLink.split('=');
+    this.newPostYoutube = 'http://youtube.com/embed/' +  temp[1];
+    console.log('video link' + this.newPostYoutube.split('='));
+  }
+
+  saveImagePost(): void {
+    if (this.postBodyImageFile !== undefined) {
+      const file = this.postBodyImageFile.item(0);
+      this.currDate = new Date();
+      this.newPostImage =  this._loginService.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
+                    + this.currDate.getMinutes() + file.name;
+    } else {
+      this.newPostImage = this.linkTempImage;
+    }
+    console.log('img = ' + this.newPostImage);
   }
 
   clickPost(): void {

@@ -70,6 +70,7 @@ export class ProfileComponent implements OnInit {
     this.email = user['email'];
     this.password = user['password'];
     this.imgSrc = user['profilePicture'];
+    console.log('img src:' + this.imgSrc);
     if (this.email === this._loginService.email) {
       this.updatable = true;
     } else {
