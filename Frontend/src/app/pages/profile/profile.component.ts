@@ -70,6 +70,7 @@ export class ProfileComponent implements OnInit {
     this.email = user['email'];
     this.password = user['password'];
     this.imgSrc = user['profilePicture'];
+    console.log('img src:' + this.imgSrc);
     if (this.email === this._loginService.email) {
       this.updatable = true;
     } else {
@@ -105,24 +106,24 @@ export class ProfileComponent implements OnInit {
         const postList = [];
         for (let i = 0; i < data.length; i++) {
           const dataEle = data[i];
-          const l = [];
-          if (dataEle['likes']) {
-            const likeEle = dataEle['likes'];
-            for (let li = 0; li < likeEle.length; li++) {
-              const uu: IUser = {
-                first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
-                email: likeEle[li]['email'], password: likeEle[li]['password'], profilePicture: likeEle[li]['profilePicture']
-              };
-              l.push(uu);
-            }
-          }
+          // const l = [];
+          // if (dataEle['likedUsers']) {
+          //   const likeEle = dataEle['likedUsers'];
+          //   for (let li = 0; li < likeEle.length; li++) {
+          //     const uu: IUser = {
+          //       first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
+          //       email: likeEle[li]['email'], password: likeEle[li]['password'], profilePicture: likeEle[li]['profilePicture']
+          //     };
+          //     l.push(uu);
+          //   }
+          // }
           const o: IUser = {
             first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
             email: dataEle['user']['email'], password: dataEle['user']['password'], profilePicture: dataEle['user']['profilePicture']
           };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'],
+             imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'],
             created: dataEle['Created'],
             };
           postList.push(p);

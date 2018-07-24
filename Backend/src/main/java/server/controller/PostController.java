@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import data.dao.LikeDao;
 import data.dao.PostDao;
 import data.dao.UserDao;
+import data.model.Like;
 import data.model.Post;
 import data.model.User;
 import util.JSONUtil;
@@ -36,6 +38,9 @@ public class PostController {
 
 	@Autowired
 	private PostDao postDao;
+
+	@Autowired
+	private LikeDao likeDao;
 
 	@Autowired
 	private UserDao userDao;
@@ -96,6 +101,8 @@ public class PostController {
 			al.add(new Post("There are no post at all"));
 			return al;
 		}
+		
+		
 
 		return p;
 	}
@@ -125,6 +132,8 @@ public class PostController {
 
 
 	}
+	
+	
 
 	/*
 	 * insert new post object into the database
@@ -193,44 +202,56 @@ public class PostController {
 	}
 	
 	@RequestMapping("/updatePostLikes.action")
-	public @ResponseBody Post handleUpdatePostLikes(HttpServletRequest req, HttpServletResponse res) {
+	public @ResponseBody List<Like> handleUpdatePostLikes(HttpServletRequest req, HttpServletResponse res) {
 		System.out.println("in handle update Post likes of post Controller");
 
 		JSONObject obj = JSONUtil.getObj(req);
-//		if (!obj.has("likes")) {
-//			return new Post("Invalid paramteres");
-//		}
-//
-//		int postId = (obj.has("postId")?obj.getInt("postId"):0);
-//		JSONArray likes = obj.getJSONArray("likes");
-//		List<User> likesList = new ArrayList<User>();
-//		for( int i = 0; i < likes.length(); i++) {
-//			JSONObject like = likes.getJSONObject(i);
-//			String username = like.getString("email");
-//			String password = like.getString("password");
-//			String first_name = like.getString("first_name");
-//			String last_name = like.getString("last_name");
-//			likesList.add( new User(username, password, first_name, last_name));
-//		}
+
 		int postId = (obj.has("postId")?obj.getInt("postId"):0);
 		String email = (obj.has("email")?obj.getString("email"):"");
 		
 		if (postId == 0) {
-			return new Post("invalid post ID");
+			return null;
+//			return new Post("invalid post ID");
 		}
 		Post u = postDao.selectbyId(postId);
 		if (u == null) {
-			return new Post("this post does not exist");
+			return null;
+//			return new Post("this post does not exist");
 		}
-		User uu = userDao.selectById(email);
-		if (uu == null) {
-			return new Post("this user does not exist");
-		}
-		if(postDao.updateLike(uu, u)) {
-			return postDao.selectbyId(postId);
+		User p = userDao.selectById(email);
+		if (p == null) {
+			return null;
+//			return new Post("this user does not exist");
 		}
 
-		return new Post("There was an error with the like update");
+		System.out.println("Execute with userID unique : " + email);
+//		if(likeDao.insertLike(email, postId)) {
+////			System.out.println("Selecting by ID after update likes:....");
+//			Post u3 = postDao.selectbyId(postId);
+////			System.out.println("After update, post comments is with body: " + u3.getBody());
+////			System.out.println(u3.getComments()); 
+//			return u3;
+//		}
+		likeDao.insertLike(email, postId);
+		
+		return likeDao.selectAll();
+		
+
+//		return new Post("There was an error with the like update");
+	}
+	
+	@RequestMapping("/getPostLikes.action")
+	public @ResponseBody List<Like> handleGetPostLikes(HttpServletRequest req, HttpServletResponse res) {
+//		JSONObject obj = JSONUtil.getObj(req);
+//		int postId = (obj.has("postId")?obj.getInt("postId"):0);
+//		
+//		if (postId == 0) {
+//			//invalid id;
+//			return null;
+//		}
+		return likeDao.selectAll();
+		
 	}
 
 }

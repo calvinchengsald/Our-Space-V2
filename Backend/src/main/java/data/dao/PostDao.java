@@ -24,6 +24,7 @@ public class PostDao {
 	private SessionFactory sesFact;
 
 	
+	
 	public PostDao() {
 		super();
 	}
@@ -71,7 +72,11 @@ public class PostDao {
 //		Post myPost = ses.get(Post.class, id);
 //		return myPost;
 		
-		return sesFact.getCurrentSession().get(Post.class, id);
+		Post u = sesFact.getCurrentSession().get(Post.class, id);
+		
+//		System.out.println("Inside select by ID post : " + u.getBody());
+//		System.out.println(u.getComments());
+		return u;
 	}
 
 	// public Post selectByName(String name) {
@@ -115,6 +120,12 @@ public class PostDao {
 //		return PostList;
 		List<Post> pList = sesFact.getCurrentSession().createQuery("from Post order by created desc", Post.class).list();
 
+		for(int i = 0; i < pList.size(); i++) {
+			System.out.println("Comments in post with body: " + pList.get(i).getBody());
+//			pList.get(i).orderComments();
+			System.out.println( pList.get(i).getComments());
+		}
+
 		return pList;
 	}
 
@@ -131,64 +142,77 @@ public class PostDao {
 		return pList;
 	}
 	
-	public boolean updateLike(User u, Post p) {
-		System.out.println(u.getLikes());
-		System.out.println("---");
-		System.out.println(p.getLikes());
-		System.out.println("---");
-		boolean hasPost = ComparisonUtil.userHasPostLike(p,	 u);
-		boolean hasUser = ComparisonUtil.postHasUserLike(p,	 u);
-		System.out.println(hasPost + " && " + hasUser);
-		if(hasPost && hasUser) {
-			
-			ComparisonUtil.removeUser(p,u);
-			ComparisonUtil.removePost(p,u);
-			System.out.println("removed");
-		}
-		else if (!hasPost && !hasUser) {
-			u.getLikes().add(p);
-			p.getLikes().add(u);
-			System.out.println("added");
-		}
-		else {
-			System.out.println("There was a mismatch with the table data");
-			return false;
-		}
-		
-		Session s = sesFact.getCurrentSession();
-		s.update(u);
-		s.update(p);
-		return true;
-		
-	}
+//	public boolean updateLike(int postId, String userId) {
+//		
+//		System.out.println("Read in userID : " + userId);
+//		User u = sesFact.getCurrentSession().get(User.class, userId);
+//		Post p = sesFact.getCurrentSession().get(Post.class, postId);
+//		System.out.println(u.getLikedPosts());
+////		System.out.println("---");
+//		System.out.println(p.getLikedUsers());
+////		System.out.println("---");
+////		boolean hasPost = ComparisonUtil.userHasPostLike(p,	 u);
+////		boolean hasUser = ComparisonUtil.postHasUserLike(p,	 u);
+//		boolean hasPost = u.getLikedPosts().contains(p);
+//		boolean hasUser = p.getLikedUsers().contains(u);
+//		System.out.println("User has liked post: " + u.getLikedPosts().contains(p));
+//		System.out.println("Post has liked user: " + p.getLikedUsers().contains(u));
+//		System.out.println(hasPost + " && " + hasUser);
+//		if(hasPost && hasUser) {
+//			
+////			ComparisonUtil.removeUser(p,u);
+////			ComparisonUtil.removePost(p,u);
+//			u.getLikedPosts().remove(p);
+//			p.getLikedUsers().remove(u);
+//			System.out.println("removed");
+//		}
+//		else if (!hasPost && !hasUser) {
+//
+//			u.getLikedPosts().add(p);
+//			p.getLikedUsers().add(u);
+//			System.out.println("added");
+//		}
+//		else {
+//			System.out.println("There was a mismatch with the table data");
+//			return false;
+//		}
+//			
+//			Session s = sesFact.getCurrentSession();
+//		System.out.println("Before" + u.getLikedPosts().size());
+////		s.merge(u);
+//		System.out.println("After: " + u.getLikedPosts().size());
+////		s.update(p);
+//		return true;
+//		
+//	}
 
 	// true if liked it, false if unliked it
-	public static boolean likePost(String email, int postId) {
-		Session ses = HibernateUtil.getSession();
-		Transaction tx = ses.beginTransaction();
-		Post post = ses.get(Post.class, postId);
-		User user = ses.get(User.class, email);
-		if (post == null) {
-			System.out.println("Post is null");
-			tx.commit();
-			return false;
-		}
-		if (user == null) {
-			System.out.println("User is null");
-			tx.commit();
-			return false;
-		}
-		if (!post.getLikes().contains(user)) {
-			post.getLikes().add(user);
-			tx.commit();
-			return true;
-			// like it
-		} else {
-			post.getLikes().remove(user);
-			tx.commit();
-			return false;
-		}
-
-	}
+//	public static boolean likePost(String email, int postId) {
+//		Session ses = HibernateUtil.getSession();
+//		Transaction tx = ses.beginTransaction();
+//		Post post = ses.get(Post.class, postId);
+//		User user = ses.get(User.class, email);
+//		if (post == null) {
+//			System.out.println("Post is null");
+//			tx.commit();
+//			return false;
+//		}
+//		if (user == null) {
+//			System.out.println("User is null");
+//			tx.commit();
+//			return false;
+//		}
+//		if (!post.getLikedUsers().contains(user)) {
+//			post.getLikedUsers().add(user);
+//			tx.commit();
+//			return true;
+//			// like it
+//		} else {
+//			post.getLikedUsers().remove(user);
+//			tx.commit();
+//			return false;
+//		}
+//
+//	}
 
 }

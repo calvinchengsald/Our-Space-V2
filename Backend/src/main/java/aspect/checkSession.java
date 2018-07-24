@@ -29,6 +29,7 @@ public class checkSession {
             	System.out.println("proceeded");
 				return joinPoint.proceed();
 			} catch (Throwable e) {
+				e.printStackTrace();
 				System.out.println("something wrong");
 				return null;
 			}

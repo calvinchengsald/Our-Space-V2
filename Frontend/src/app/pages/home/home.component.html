@@ -1,57 +1,134 @@
 <div class='container-fluid'>
   <div *ngIf='!loginService.isLoggedIn'> User not logged in page</div>
   <div class='row' *ngIf='loginService.isLoggedIn'>
-    <div class="col-sm-3 well">
-      <div class="well">
+    <div class="col-sm-2">
+      <mat-card class="well">
         <img src="{{_loginService.profileImage}}" class="img-circle" height="65" width="65" alt="Avatar">
         <p>
           <a routerLink='/profile/{{_loginService.email}}'>My Profile</a>
         </p>
+<<<<<<< HEAD
       </div>      
+=======
+      </mat-card>
+
+>>>>>>> 49622fab9ec016f091947959fba7f5b3bce22859
     </div>
     <div class="col-sm-2"></div>
 
     <div class='col-sm-7'>
-      <div class='row'>
+      <mat-card class='row'>
         <div class='col-sm-12'>
           <div class='row border border-primary m-2 bg-light'>
-            <div class='col-3'>Body</div>
-            <div class='col-9'></div>
-            <div class='col-12'>
-              <input [(ngModel)]='newPostBody' type='text' class='' />
+            <div class="form-group text-left">
+              <label>Body </label>
+              <textarea [(ngModel)]='newPostBody' type='text' class='form-control' rows='5' width='100%' placeholder="insert new post.."></textarea>
+              <div>
+                <span class="glyphicon glyphicon-picture"></span> &nbsp;
+                <a data-toggle='modal' data-target='#postImageModal'>Insert Image</a>
+                &nbsp;
+                <span class="glyphicon glyphicon-paperclip"></span> &nbsp;
+                <a data-toggle="modal" data-target="#postVideoModal">Insert video</a>
+              </div>
+              <div *ngIf='newPostImage'>
+                <img [src]='newPostImage' width="100" height="100" />
+              </div>
+              <div *ngIf='newPostYoutube'>
+                <iframe id='ytplayer'  width="200" height="160" [src]='newPostYoutube | safe' frameborder='0' allowfullscreen></iframe>
+              </div>
             </div>
-            <div class='col-3'>Image url: </div>
+            <!-- Modal -->
+            <div id="postImageModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Picture Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Insert post image</h4>
+                  </div>
+                  <div class="modal-body">
+                    <input [(ngModel)]='uploadTempImage' type='file' (change)="selectFile($event)" class='' /> or
+                    <input [(ngModel)]='linkTempImage' type='text' class='' />
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)='saveImagePost()'>
+                      save
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Video Modal -->
+            <div id="postVideoModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Inset video</h4>
+                  </div>
+                  <div class="modal-body">
+                      <input [(ngModel)]='youtubeLink' type='text' class='' />
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)='saveVideoLink()'>
+                      insert
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- <div class='col-3'>Image url: </div>
             <div class='col-9'>
               <input [(ngModel)]='newPostImage' type='text' class='' />
-            </div>
-            <div class='col-3'>Youtube url: </div>
+            </div> -->
+            <!-- <div class='col-3'>Youtube url: </div>
             <div class='col-9'>
               <input [(ngModel)]='newPostYoutube' type='text' class='' />
-            </div>
+            </div> -->
             <div class='col-3 offset-9'>
               <div class='btn btn-primary' (click)='clickPost()'>Post</div>
             </div>
           </div>
         </div>
-      </div>
+      </mat-card>
 
+      <ng-container>
+        <div *ngFor='let temp of homePost'>
+          <mat-card class="row pcontain">
+            <app-post [post]='temp'></app-post>
+          </mat-card>
+        </div>
 
-      <ng-container>        
-          <div *ngFor='let temp of homePost'>
-            <mat-card class="row pcontain">
-                <app-post [post]='temp'></app-post>
-            </mat-card>            
-          </div>
-        
-      </ng-container>
-
-
-
-
-
-
+    </ng-container>
+    
+  <div *ngIf='!loginService.isLoggedIn'> User not logged in page</div>
+  <div class='row' *ngIf='loginService.isLoggedIn'>
+  <div class="col-sm-3 well">
+    <div class="well">
+      <img src="{{_loginService.profileImage}}" class="img-circle" height="65" width="65" alt="Avatar">
+      <p>
+        <a routerLink='/profile/{{_loginService.email}}'>My Profile</a>
+      </p>
     </div>
   </div>
 
 
+  <div class='col-sm-7'>
+    <ng-container>
+      <div *ngFor='let temp of homePost'>
+        <mat-card class="row pcontain">
+          <app-post [post]='temp'></app-post>
+        </mat-card>
+      </div>
+    </ng-container>
+  </div>
 </div>
