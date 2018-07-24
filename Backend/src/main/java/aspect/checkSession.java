@@ -30,12 +30,12 @@ public class checkSession {
 				return joinPoint.proceed();
 			} catch (Throwable e) {
 				System.out.println("something wrong");
-				return new User("null");
+				return null;
 			}
         }
 		else { // session == null
 			System.out.println("User not logged");
-			return new User("null");
+			return null;
 		}
 	}
 
