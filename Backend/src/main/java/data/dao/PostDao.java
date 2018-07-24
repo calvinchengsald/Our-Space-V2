@@ -71,7 +71,10 @@ public class PostDao {
 //		Post myPost = ses.get(Post.class, id);
 //		return myPost;
 		
-		return sesFact.getCurrentSession().get(Post.class, id);
+		Post u = sesFact.getCurrentSession().get(Post.class, id);
+		System.out.println("Inside select by ID post : " + u.getBody());
+		System.out.println(u.getComments());
+		return u;
 	}
 
 	// public Post selectByName(String name) {
@@ -114,6 +117,12 @@ public class PostDao {
 //		// ses.close();
 //		return PostList;
 		List<Post> pList = sesFact.getCurrentSession().createQuery("from Post order by created desc", Post.class).list();
+
+		for(int i = 0; i < pList.size(); i++) {
+			System.out.println("Comments in post with body: " + pList.get(i).getBody());
+//			pList.get(i).orderComments();
+			System.out.println( pList.get(i).getComments());
+		}
 
 		return pList;
 	}

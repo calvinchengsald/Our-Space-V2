@@ -40,7 +40,7 @@ public class ComparisonUtil {
 		for(int i = 0; i<ulist.size(); i++) {
 			if(ulist.get(i).getEmail().equals(u.getEmail())) {
 				p.getLikes().remove(i);
-				return;
+				i = -1;
 			}
 		}
 	}
@@ -49,7 +49,7 @@ public class ComparisonUtil {
 		for(int i = 0; i<plist.size(); i++) {
 			if(plist.get(i).getPostId() ==  p.getPostId()) {
 				u.getLikes().remove(i);
-				return;
+				i = -1;
 			}
 		}
 		

@@ -9,9 +9,11 @@ import { IUser } from '../../interface/iuser';
 })
 export class UserComponent implements OnInit {
 
+  get loginService() {
+    return this._loginService;
+  }
 
-
-  constructor(private loginService: LoginService) { }
+  constructor(private _loginService: LoginService) { }
 
   ngOnInit() {
   }

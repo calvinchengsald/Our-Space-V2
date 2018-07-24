@@ -91,6 +91,7 @@ export class LoginService {
         this.email = data['email'];
         console.log('logged in ');
         this.isLoggedIn = true;
+        this._router.navigateByUrl('/');
         return true;
       }
     });

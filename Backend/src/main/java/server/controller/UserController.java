@@ -47,7 +47,6 @@ public class UserController {
 			System.out.println("checkin null");
 			return new User("null");
 		}else {
-			System.out.println("in check Login");
 			return (User) session.getAttribute("user");
 		}
 		
@@ -194,9 +193,11 @@ public class UserController {
 		User usr = (User) request.getSession().getAttribute("user");
 		String username = usr.getEmail();
 		String password = obj.getString("password");
+
 		try {
 			password = HashedPassword.getHash(password);
 		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";

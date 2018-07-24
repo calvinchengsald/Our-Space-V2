@@ -96,6 +96,8 @@ public class PostController {
 			al.add(new Post("There are no post at all"));
 			return al;
 		}
+		
+		
 
 		return p;
 	}
@@ -146,7 +148,9 @@ public class PostController {
 		String youtubelink = (obj.has("youtubelink")?obj.getString("youtubelink"):"");
 		String body = (obj.has("body")?obj.getString("body"):"");
 
+		String email = (obj.has("email")?obj.getString("email"):"");
 		Timestamp created = new Timestamp(System.currentTimeMillis());
+
 		
 		//User user = userDao.selectById(email);
 		
@@ -195,21 +199,7 @@ public class PostController {
 		System.out.println("in handle update Post likes of post Controller");
 
 		JSONObject obj = JSONUtil.getObj(req);
-//		if (!obj.has("likes")) {
-//			return new Post("Invalid paramteres");
-//		}
-//
-//		int postId = (obj.has("postId")?obj.getInt("postId"):0);
-//		JSONArray likes = obj.getJSONArray("likes");
-//		List<User> likesList = new ArrayList<User>();
-//		for( int i = 0; i < likes.length(); i++) {
-//			JSONObject like = likes.getJSONObject(i);
-//			String username = like.getString("email");
-//			String password = like.getString("password");
-//			String first_name = like.getString("first_name");
-//			String last_name = like.getString("last_name");
-//			likesList.add( new User(username, password, first_name, last_name));
-//		}
+
 		int postId = (obj.has("postId")?obj.getInt("postId"):0);
 		String email = (obj.has("email")?obj.getString("email"):"");
 		
@@ -225,7 +215,11 @@ public class PostController {
 			return new Post("this user does not exist");
 		}
 		if(postDao.updateLike(uu, u)) {
-			return postDao.selectbyId(postId);
+			System.out.println("Selecting by ID after update likes:....");
+			Post u3 = postDao.selectbyId(postId);
+			System.out.println("After update, post comments is with body: " + u3.getBody());
+			System.out.println(u3.getComments());
+			return u3;
 		}
 
 		return new Post("There was an error with the like update");
