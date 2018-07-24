@@ -8,6 +8,7 @@ import { LoginService } from '../../services/login.service';
 import { ProfileService } from '../../services/profile.service';
 
 import { env } from '../../env/env';
+import { UploadFileService } from '../../services/upload-file.service';
 
 
 @Component({
@@ -23,10 +24,17 @@ export class HomeComponent implements OnInit {
   newPostYoutube: string;
   homePost: IPost[];
   isLoggedIn = false;
+  postBodyImageFile: FileList;
+  currDate: Date;
+  youtubeLink: string;
+  linkTempImage: string;
+  uploadTempImage: string;
+
   get loginService() {
     return this._loginService;
   }
-  constructor(private _postService: PostService, private _messegeService: MessegeModelService, private _loginService: LoginService) {
+  constructor(private _postService: PostService, private _messegeService: MessegeModelService, private _loginService: LoginService,
+    private _uploadService: UploadFileService) {
 
 
   }
@@ -42,8 +50,8 @@ export class HomeComponent implements OnInit {
 
 
   getAllPost(): void {
-    //console.log(env.AWSs3access);
-    //console.log(env.AWSs3secret);
+    // console.log(env.AWSs3access);
+    // console.log(env.AWSs3secret);
     this._postService.getAllPost().subscribe(data => {
       console.log(data);
       if (data[0] && data[0]['postId'] !== 0) {
@@ -83,6 +91,28 @@ export class HomeComponent implements OnInit {
       this.homePost = PostService.allPostList;
       console.log(this.homePost);
     });
+  }
+
+  selectFile(event) {
+    this.postBodyImageFile = event.target.files;
+  }
+
+  saveVideoLink(): void {
+    const temp = this.youtubeLink.split('=');
+    this.newPostYoutube = 'http://youtube.com/embed/' +  temp[1];
+    console.log('video link' + this.newPostYoutube.split('='));
+  }
+
+  saveImagePost(): void {
+    if (this.postBodyImageFile !== undefined) {
+      const file = this.postBodyImageFile.item(0);
+      this.currDate = new Date();
+      this.newPostImage =  this._loginService.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
+                    + this.currDate.getMinutes() + file.name;
+    } else {
+      this.newPostImage = this.linkTempImage;
+    }
+    console.log('img = ' + this.newPostImage);
   }
 
   clickPost(): void {
