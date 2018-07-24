@@ -24,8 +24,8 @@ import { MessegeComponent } from './components/messege/messege.component';
 import { MessegeModelService } from './services/messege-model.service';
 import { ResetPageComponent } from './reset-page/reset-page.component';
 import { PostComponent } from './components/post/post.component';
-import { UserComponent } from './components/user/user.component';
 import { UploadFileService } from './services/upload-file.service';
+import { UsersComponent } from './pages/users/users.component';
 
 @NgModule({
   declarations: [
@@ -37,8 +37,8 @@ import { UploadFileService } from './services/upload-file.service';
     ProfileComponent,
     MessegeComponent,
     PostComponent,
-    UserComponent,
-    ResetPageComponent
+    ResetPageComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +56,7 @@ import { UploadFileService } from './services/upload-file.service';
 
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent },
+      { path: 'allusers', component: UsersComponent },
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'profile/:email', component: ProfileComponent },

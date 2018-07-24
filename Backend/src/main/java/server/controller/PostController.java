@@ -146,7 +146,9 @@ public class PostController {
 		String youtubelink = (obj.has("youtubelink")?obj.getString("youtubelink"):"");
 		String body = (obj.has("body")?obj.getString("body"):"");
 
+		String email = (obj.has("email")?obj.getString("email"):"");
 		Timestamp created = new Timestamp(System.currentTimeMillis());
+
 		
 		//User user = userDao.selectById(email);
 		

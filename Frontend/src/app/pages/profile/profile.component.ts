@@ -26,23 +26,37 @@ export class ProfileComponent implements OnInit {
   selectedFiles: FileList;
   currDate: Date;
   filename: string;
+  updatable: boolean;
 
 
   // post stuff for user will be in here somewhere or something
   constructor(private _profileService: ProfileService, private _loginService: LoginService, private _postService: PostService,
-    private _messegeService: MessegeModelService, private route: ActivatedRoute) {
+              private _messegeService: MessegeModelService, private _uploadService: UploadFileService, private route: ActivatedRoute) {
 
-  }
+   }
 
-  selectFile(event) {
+   // upload profile picture
+   uploadImage() {
+     const file = this.selectedFiles.item(0);
+     this.currDate = new Date();
+     this.filename = this.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
+                  + this.currDate.getMinutes() + file.name;
+      console.log('filename = ' + this.filename);
+     this._uploadService.uploadProfilePicture(file, this.filename);
+     this.imgSrc = this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename;
+     this._profileService.pictureUpdate(this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename)
+     .subscribe(data => console.log('pic resp = ' + data));
+     this.imgSrc = this.filename;
+   }
+
+
+   get loginService() {
+     return this._loginService;
+   }
+
+   selectFile(event) {
     this.selectedFiles = event.target.files;
   }
-
-
-  get loginService() {
-    return this._loginService;
-  }
-
 
   setValues(user: string) {
     console.log(user);
@@ -56,25 +70,27 @@ export class ProfileComponent implements OnInit {
     this.email = user['email'];
     this.password = user['password'];
     this.imgSrc = user['profilePicture'];
+    if (this.email === this._loginService.email) {
+      this.updatable = true;
+    } else {
+      this.updatable = false;
+    }
   }
 
   ngOnInit() {
     console.log('we clicked profile');
-
+    this._loginService.checkLogin();
     this.email = this.route.snapshot.paramMap.get('email').trim();
     this._profileService.getProfile(this.email).subscribe(data => this.setValues(data));
 
     this.getAllUserPost(this.email);
-    
   }
 
   clickUpdate(): void {
     console.log('clicked update password');
     this._profileService.postUpdate(this.password, this.firstName, this.lastName).subscribe(
-      data => {
-        console.log(data);
-      }
-    );
+      data => {console.log(data);
+    });
   }
 
   toggleUpdate() {
@@ -108,7 +124,7 @@ export class ProfileComponent implements OnInit {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
             likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink'],
             created: dataEle['Created'],
-          };
+            };
           postList.push(p);
         }
         PostService.allPostUser = postList;
