@@ -1,47 +1,57 @@
 <div class='container-fluid'>
   <div *ngIf='!loginService.isLoggedIn'> User not logged in page</div>
   <div class='row' *ngIf='loginService.isLoggedIn'>
-      <div class="col-sm-3 well">
-          <div class="well">
-            <p><a>My Profile</a></p>
-            <img src="" class="img-circle" height="65" width="65" alt="Avatar">
-          </div>
-          
-        </div>
-    <div class='col-10'>
+    <div class="col-sm-3 well">
+      <div class="well">
+        <img src="{{_loginService.profileImage}}" class="img-circle" height="65" width="65" alt="Avatar">
+        <p>
+          <a routerLink='/profile/{{_loginService.email}}'>My Profile</a>
+        </p>
+      </div>
+      <app-user></app-user>
+    </div>
+    <div class="col-sm-2"></div>
+
+    <div class='col-sm-7'>
       <div class='row'>
-        <div class='col-10 offset-1'>
-            <div class='row border border-primary m-2 bg-light' >
-              <div class='col-3'>Body</div>
-              <div class='col-9'></div>
-              <div class='col-12'>
-                <input [(ngModel)]='newPostBody' type='text' class='' />
-              </div>
-              <div class='col-3'>Image url: </div>
-              <div class='col-9'>
-                <input [(ngModel)]='newPostImage' type='text' class='' />
-              </div>
-              <div class='col-3'>Youtube url: </div>
-              <div class='col-9'>
-                <input [(ngModel)]='newPostYoutube' type='text' class='' />
-              </div>
-              <div class='col-3 offset-9'>
-                <div class='btn btn-primary' (click)='clickPost()'>Post</div>
-              </div>
-      
-      
+        <div class='col-sm-12'>
+          <div class='row border border-primary m-2 bg-light'>
+            <div class='col-3'>Body</div>
+            <div class='col-9'></div>
+            <div class='col-12'>
+              <input [(ngModel)]='newPostBody' type='text' class='' />
+            </div>
+            <div class='col-3'>Image url: </div>
+            <div class='col-9'>
+              <input [(ngModel)]='newPostImage' type='text' class='' />
+            </div>
+            <div class='col-3'>Youtube url: </div>
+            <div class='col-9'>
+              <input [(ngModel)]='newPostYoutube' type='text' class='' />
+            </div>
+            <div class='col-3 offset-9'>
+              <div class='btn btn-primary' (click)='clickPost()'>Post</div>
             </div>
           </div>
-      
-          <ng-container >
-            <div class='col-10 offset-1' *ngFor='let temp of homePost'>
-              <app-post [post]='temp'></app-post>
-            </div>
-          </ng-container>
+        </div>
       </div>
 
+
+      <ng-container>        
+          <div *ngFor='let temp of homePost'>
+            <mat-card class="row pcontain">
+                <app-post [post]='temp'></app-post>
+            </mat-card>            
+          </div>
+        
+      </ng-container>
+
+
+
+
+
+
     </div>
-    
   </div>
 
 
