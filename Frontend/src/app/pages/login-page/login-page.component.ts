@@ -35,7 +35,11 @@ export class LoginPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this._loginService.checkLogin();
+    this._loginService.checkLogin().subscribe(data => {
+      if (data) {
+        this._router.navigateByUrl('/');
+      }
+    });
   }
 
   clickLogin(): void {
@@ -44,7 +48,6 @@ export class LoginPageComponent implements OnInit {
       if (!data['password']) {
         this._router.navigateByUrl('login');
         console.log('in pass');
-        return false;
       } else if (data['email']) {
         this._router.navigateByUrl('/');
       }

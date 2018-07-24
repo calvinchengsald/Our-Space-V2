@@ -79,7 +79,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     console.log('we clicked profile');
-
+    this._loginService.checkLogin();
     this.email = this.route.snapshot.paramMap.get('email').trim();
     this._profileService.getProfile(this.email).subscribe(data => this.setValues(data));
 

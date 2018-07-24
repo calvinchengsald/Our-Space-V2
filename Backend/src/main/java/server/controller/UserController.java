@@ -47,7 +47,7 @@ public class UserController {
 		if(session == null || session.getAttribute("user") == null) {
 			System.out.println("checkin null");
 
-			return new User("null");
+			return null;
 		}else {
 			return (User) session.getAttribute("user");
 		}
