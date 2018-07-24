@@ -42,8 +42,8 @@ export class HomeComponent implements OnInit {
 
 
   getAllPost(): void {
-    //console.log(env.AWSs3access);
-    //console.log(env.AWSs3secret);
+    // console.log(env.AWSs3access);
+    // console.log(env.AWSs3secret);
     this._postService.getAllPost().subscribe(data => {
       console.log(data);
       if (data[0] && data[0]['postId'] !== 0) {
