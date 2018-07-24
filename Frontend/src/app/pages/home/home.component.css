@@ -5,3 +5,19 @@ body{
 mat-card{
     margin-bottom: 15px;
 }
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+
+  .center{
+    margin: auto;
+    margin-top: 5%;
+    width: 50%;
+  }
+  
