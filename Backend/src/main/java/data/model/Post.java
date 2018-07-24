@@ -45,13 +45,18 @@ public class Post {
 	private Timestamp created;
 	
 	
-	
-	@ManyToMany( fetch= FetchType.EAGER, mappedBy="likedPosts")
-	private List<User> likedUsers;
+//	
+//	@ManyToMany( fetch= FetchType.EAGER, mappedBy="likedPosts")
+//	private List<User> likedUsers;
 	
 	
 	@OneToMany(mappedBy="post", fetch=FetchType.EAGER, cascade= CascadeType.ALL)
 	private List<Comment> comments;
+	
+//	@OneToMany(mappedBy="likes", fetch=FetchType.EAGER, cascade= CascadeType.ALL)
+//    private Like likes;
+	
+//	private List<Like> likes;
 	
 	public void orderComments() {
 		comments.sort(new CommentTimeComparator());
@@ -63,7 +68,6 @@ public class Post {
 	public Post(int postId) {
 		super();
 		this.postId = postId;
-		likedUsers = new ArrayList<User>();
 	}
 	public Post(int postId, String body, String imgSrc, String youtubeLink, User user, List<Comment> comments,
 			List<User> likedUsers) {
@@ -75,7 +79,6 @@ public class Post {
 		this.user = user;
 		this.comments = comments;
 		likedUsers = new ArrayList<User>();
-		this.likedUsers = likedUsers;
 	}
 	public Post(String body, String imgSrc, String youtubeLink, User user, List<Comment> comments, List<User> likedUsers) {
 		super();
@@ -84,7 +87,6 @@ public class Post {
 		this.youtubeLink = youtubeLink;
 		this.user = user;
 		this.comments = comments;
-		this.likedUsers = likedUsers;
 	}
 	
 	public Post( String body, String imgSrc, String youtubeLink, User user) {
@@ -93,7 +95,6 @@ public class Post {
 		this.imgSrc = imgSrc;
 		this.youtubeLink = youtubeLink;
 		this.user = user;
-		likedUsers = new ArrayList<User>();
 	}
 
 	public Post(String body, String imgSrc, String youtubeLink, User user, Timestamp created, List<User> likedUsers,
@@ -104,7 +105,6 @@ public class Post {
 		this.youtubeLink = youtubeLink;
 		this.user = user;
 		this.created = created;
-		this.likedUsers = likedUsers;
 		this.comments = comments;
 	}
 	
@@ -115,7 +115,6 @@ public class Post {
 		this.youtubeLink = youtubeLink;
 		this.user = user;
 		this.created = created;
-		likedUsers = new ArrayList<User>();
 	}
 	public Post( String body) {
 		super();
@@ -175,19 +174,21 @@ public class Post {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+	
 
-	public List<User> getLikedUsers() {
-		return likedUsers;
-	}
 
-	public void setLikedUsers(List<User> likedUsers) {
-		this.likedUsers = likedUsers;
-	}
+//	public List<Like> getLikes() {
+//		return likes;
+//	}
+//
+//	public void setLikes(List<Like> likes) {
+//		this.likes = likes;
+//	}
 
 	@Override
 	public String toString() {
 		return "Post [postId=" + postId + ", body=" + body + ", imgSrc=" + imgSrc + ", youtubeLink=" + youtubeLink
-				+ ", likedUsers=" + likedUsers.size() + "]";
+				 + "]";
 	}
 	
 	

@@ -17,9 +17,15 @@
     
       <div class='row text-left'>
         <!-- <img src={{likeSrc}}  class='col-3 img-fluid btn' /> -->
-        <button type="button" class="btn btn-default btn-sm" (click)='clickLike()'>
+        <button *ngIf='likedByUserBool' type="button" class="btn btn-sm btn-primary" (click)='clickLike()'>
             <span class="glyphicon glyphicon-thumbs-up"></span> Like
-        </button> Likes: {{post.likes?post.likes.length:0}} &nbsp; {{post.created | date:'medium'}} 
+        </button>
+        <button *ngIf='!likedByUserBool' type="button" class="btn btn-sm btn-default" (click)='clickLike()'>
+            <span class="glyphicon glyphicon-thumbs-up"></span> Like
+        </button>
+        
+        
+        Likes: {{likeList?likeList.length:0}} &nbsp; {{post.created | date:'medium'}} 
       </div>
     
     

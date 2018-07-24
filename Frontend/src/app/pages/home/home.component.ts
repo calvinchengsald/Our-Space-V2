@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   newPostYoutube: string;
   homePost: IPost[];
   isLoggedIn = false;
+
   get loginService() {
     return this._loginService;
   }
@@ -42,8 +43,8 @@ export class HomeComponent implements OnInit {
 
 
   getAllPost(): void {
-    //console.log(env.AWSs3access);
-    //console.log(env.AWSs3secret);
+    // console.log(env.AWSs3access);
+    // console.log(env.AWSs3secret);
     this._postService.getAllPost().subscribe(data => {
       console.log(data);
       if (data[0] && data[0]['postId'] !== 0) {
@@ -51,24 +52,24 @@ export class HomeComponent implements OnInit {
         const postList = [];
         for (let i = 0; i < data.length; i++) {
           const dataEle = data[i];
-          const l = [];
-          if (dataEle['likedUsers']) {
-            const likeEle = dataEle['likedUsers'];
-            for (let li = 0; li < likeEle.length; li++) {
-              const uu: IUser = {
-                first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
-                email: likeEle[li]['email'], password: likeEle[li]['password'], profilePicture: likeEle[li]['profilePicture']
-                };
-              l.push(uu);
-            }
-          }
+          // const l = [];
+          // if (dataEle['likedUsers']) {
+          //   const likeEle = dataEle['likedUsers'];
+          //   for (let li = 0; li < likeEle.length; li++) {
+          //     const uu: IUser = {
+          //       first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
+          //       email: likeEle[li]['email'], password: likeEle[li]['password'], profilePicture: likeEle[li]['profilePicture']
+          //       };
+          //     l.push(uu);
+          //   }
+          // }
           const o: IUser = {
             first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
             email: dataEle['user']['email'], password: dataEle['user']['password'], profilePicture: dataEle['user']['profilePicture']
             };
           const p: IPost = {
             postId: dataEle['postId'], body: dataEle['body'], owner: o,
-            likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
+            imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
             , created: dataEle['created']
             };
           postList.push(p);
@@ -83,6 +84,7 @@ export class HomeComponent implements OnInit {
       this.homePost = PostService.allPostList;
       console.log(this.homePost);
     });
+    this._postService.getPostLikes();
   }
 
   clickPost(): void {
