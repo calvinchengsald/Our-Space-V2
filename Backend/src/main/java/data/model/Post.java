@@ -46,7 +46,7 @@ public class Post {
 	
 	
 	
-	@ManyToMany( fetch= FetchType.EAGER, mappedBy="likedPost")
+	@ManyToMany( fetch= FetchType.EAGER, mappedBy="likedPosts")
 	private List<User> likedUsers;
 	
 	

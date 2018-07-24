@@ -1,84 +1,108 @@
-<h1 *ngIf="firstName==''" > This user does not exist </h1>
+<h1 *ngIf="firstName==''"> This user does not exist </h1>
 <div *ngIf='firstName!=""'>
 
-<div>
-  <h1>Welcome to your profile, {{firstName}} {{lastName}}</h1>
-  <h4>{{email}}</h4>
-</div>
+  <div>
+    <h1 *ngIf="updatable">Welcome to your profile, {{firstName}} {{lastName}}</h1>
+    <h1 *ngIf="!updatable"> Profile Information</h1>
+    <!-- <h4>{{email}}</h4> -->
+  </div>
 
   <br/>
   <br/>
   <br/>
 
 
-<button class='btn btn-primary' (click)='toggleUpdate()'>
+  <!-- <button *ngIf="updatable" class='btn btn-primary' (click)='toggleUpdate()'>
   {{showUpdate ? 'Update Info': 'Update Info'}} 
-</button>
+</button> -->
 
-<div class="container" *ngIf="showUpdate">  
-  <div class="row">
-  <div class="col-md-12">
-    <h5>Update Profile Information</h5>
-  </div>
-  </div>
-  <div class="row">
-    <div class="col-md-8">      
-      <img src="{{imgSrc}}" width="150px" height="150px" />
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12" *ngIf="updatable">
+        <h5>Update Profile Information</h5>
+      </div>
     </div>
-    <div class="col-md-3">
+    <div class="row">
+      <div class="col-md-8">
+        <img *ngIf="imgSrc" [src]="imgSrc" width="150px" height="150px" />
+      </div>
+      <div class="col-md-3" *ngIf="updatable">
         <label class="btn btn-default">
           <input type="file" (change)="selectFile($event)">
         </label>
 
-        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadImage()">Upload Image</button>
+        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadImage()" *ngIf="updatable">Upload Image</button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-9 col-sm-offset-3">
+        <div class="from-group">
+          <label>email</label>
+          <input type="text" value="{{email}}" class="form-control" disabled/>
+        </div>
+        <br>
+
+        <div class="from-group" *ngIf="updatable">
+          <label>First Name</label>
+          <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" class="form-control" />
+        </div>
+
+        <div class="from-group" *ngIf="!updatable">
+          <label>First Name</label>
+          <input type="text" [(ngModel)]="firstName" class="form-control" disabled />
+        </div>
+
+        <br>       
+
+        <div class="from-group" *ngIf="updatable">
+          <label>Last Name</label>
+          <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" class="form-control" />
+        </div>
+
+
+        <div class="from-group" *ngIf="!updatable">
+          <label>Last Name</label>
+          <input type="text" [(ngModel)]="lastName" class="form-control" disabled/>
+        </div>
+
+
+        <div class="form-group" *ngIf="updatable">
+          <label>Password</label>
+          <input type="password" class="input-lg form-control" [(ngModel)]="password" id="password" value="" autocomplete="off">
+        </div>
+
+        <div class="form-group" *ngIf="updatable">
+          <label>Confirm Password</label>
+          <input type="password" class="input-md form-control" [(ngModel)]="password2" id="password2" placeholder="Repeat Password"
+            autocomplete="off">
+        </div>
+
+        <div class=".btncontainer text-center" *ngIf="updatable">
+          <input type="submit" class="btn btn-primary btn-load" (click)="clickUpdate()" value="update profile">
+          <button type="btn btn-primary btn-load" routerLink="/">cancel</button>
+        </div>
+
+
+
+
+
+
+
+      </div>
     </div>
   </div>
-  <div class="row">
-  <div class="col-md-8 col-sm-offset-3">  
-    <div class="from-group">
-      <label>First Name</label>
-      <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" class="form-control" />
-    </div>
-    <div class="from-group">
-      <label>Last Name</label>
-      <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" class="form-control" />
-    </div>
 
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" class="input-lg form-control" [(ngModel)]="password" id="password" value="" autocomplete="off">
-    </div>
 
-    <div class="form-group">
-      <label>Confirm Password</label>
-      <input type="password" class="input-md form-control" [(ngModel)]="password2" id="password2" placeholder="Repeat Password" autocomplete="off">
-    </div>
+  <div class='col-8 offset-2' *ngFor='let temp of userPost'>
 
-    <div class=".btncontainer">
-        <input type="submit" class="col-xs-12 btn btn-primary btn-load btn" (click)="clickUpdate()" value="update profile">
-        <button type="btn btn-md" routerLink="/">cancel</button>
-    </div>
-    
-  
-  
-  
-  
-  
-  
+    <app-post [post]='temp'></app-post>
+
+
   </div>
-  </div>
+  <div *ngIf='!userPost || userPost.length == 0'>
+    This user have not posted anything
   </div>
 
-
-    <div class='col-8 offset-2' *ngFor='let temp of userPost' >
-      
-      <app-post [post]='temp'></app-post>
-
-      
-    </div>
-    <div *ngIf='!userPost || userPost.length == 0' >
-      This user have not posted anything
-    </div>
-  
   <!-- need to have user posts too -->
 </div>

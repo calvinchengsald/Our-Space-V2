@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
   selectedFiles: FileList;
   currDate: Date;
   filename: string;
+  updatable: boolean;
 
 
   // post stuff for user will be in here somewhere or something
@@ -69,11 +70,16 @@ export class ProfileComponent implements OnInit {
     this.email = user['email'];
     this.password = user['password'];
     this.imgSrc = user['profilePicture'];
+    if (this.email === this._loginService.email) {
+      this.updatable = true;
+    } else {
+      this.updatable = false;
+    }
   }
 
   ngOnInit() {
     console.log('we clicked profile');
-
+    this._loginService.checkLogin();
     this.email = this.route.snapshot.paramMap.get('email').trim();
     this._profileService.getProfile(this.email).subscribe(data => this.setValues(data));
 

@@ -5,6 +5,7 @@ import { IPost } from '../../interface/ipost';
 import { IUser } from '../../interface/iuser';
 import { MessegeModelService } from '../../services/messege-model.service';
 import { LoginService } from '../../services/login.service';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-home',
@@ -29,12 +30,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this._loginService.checkLogin().subscribe(data => {
-      if (data['email'] !== 'null') {
+      if (data) {
         console.log('getting all posts');
         this.getAllPost();
       }
     });
-    this._loginService.getAllUsers();
   }
 
 

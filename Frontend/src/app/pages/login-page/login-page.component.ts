@@ -13,6 +13,7 @@ export class LoginPageComponent implements OnInit {
 
   _email: string;
   _password: string;
+  _result: boolean;
 
   constructor(private _loginService: LoginService, private _messegeService: MessegeModelService, private _router: Router ) {
 
@@ -34,12 +35,29 @@ export class LoginPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this._loginService.checkLogin();
+    this._loginService.checkLogin().subscribe(data => {
+      if (data) {
+        this._router.navigateByUrl('/');
+      }
+    });
   }
 
   clickLogin(): void {
     console.log('we clicked login');
-    this._loginService.getLogin(this.email, this.password);
+    this._loginService.getLogin(this.email, this.password).subscribe(data => {
+      if (!data['password']) {
+        this._router.navigateByUrl('login');
+        console.log('in pass');
+      } else if (data['email']) {
+        this._router.navigateByUrl('/');
+      }
+    });
+    // this._result = this._loginService.getLogin(this.email, this.password);
+    // console.log('result = ' + this._result);
+    // if (this._result == true) {
+    //   // console.log("getting in loginpage before");
+    //   this._router.navigateByUrl('/');
+    // }
   }
 
 

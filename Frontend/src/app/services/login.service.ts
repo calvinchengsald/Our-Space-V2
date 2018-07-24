@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { MessegeModelService } from './messege-model.service';
 import { Router } from '@angular/router';
-import {IUser } from '../interface/iuser';
+import { IUser } from '../interface/iuser';
+import { METHODS } from 'http';
 
 @Injectable({
   providedIn: 'root'
@@ -45,11 +46,11 @@ export class LoginService {
       map(res => res as string));
     obs.subscribe(data => {
       console.log(data);
-      if (data['email'] === 'null') {
+      if (!data) {
         this.isLoggedIn = false;
         return;
       }
-      if (data['email'] !== 'null') {
+      if (data) {
         this._MessegeModelService.error = false;
         this._MessegeModelService.show = false;
         this._MessegeModelService.messege = data['email'];
@@ -81,7 +82,6 @@ export class LoginService {
         this._MessegeModelService.show = true;
         this._MessegeModelService.messege = data['email'];
         console.log('in pass');
-        return false;
       } else if (data['email']) {
         this._MessegeModelService.error = false;
         this._MessegeModelService.show = false;
@@ -91,10 +91,9 @@ export class LoginService {
         this.email = data['email'];
         console.log('logged in ');
         this.isLoggedIn = true;
-        this._router.navigateByUrl('/');
-        return true;
       }
     });
+    return obs;
   }
 
   getAllUsers() {
@@ -103,22 +102,21 @@ export class LoginService {
       map(res => res as string));
     obs.subscribe(data => {
       console.log(data);
-      if (data[0] && data[0]['firstName'] !== '') {
+      if (data) {
         const userList = [];
         for (let i = 0; i < data.length; i++) {
-          const tempUser: IUser = { email: data[i]['email'], password: data[i]['password'],
-            first_name: data[i]['firstName'], last_name: data[i]['lastName'], profilePicture: data[i]['profilePicture'] } ;
+          const tempUser: IUser = {
+            email: data[i]['email'], password: data[i]['password'],
+            first_name: data[i]['firstName'], last_name: data[i]['lastName'], profilePicture: data[i]['profilePicture']
+          };
           userList.push(tempUser);
         }
         this.allUser = userList;
       } else {
-        this._MessegeModelService.error = true;
-        this._MessegeModelService.messege = data[0]['email'];
-        this._MessegeModelService.show = true;
         this.allUser = [];
       }
     });
-    return true;
+    return obs;
   }
   changePass(emailz: string): Observable<string> {
     console.log('sending reset email');
@@ -129,6 +127,6 @@ export class LoginService {
     return this.httpServ.post(url, obj, this.httpOptions).pipe(
       map(res => res as string)
     );
-
   }
+
 }

@@ -43,9 +43,11 @@ public class UserController {
 	@RequestMapping("/checkLogin.action")
 	public @ResponseBody User handleCheckLogin(HttpServletRequest req, HttpServletResponse res) {
 		HttpSession session = req.getSession(false);
+
 		if(session == null || session.getAttribute("user") == null) {
 			System.out.println("checkin null");
-			return new User("null");
+
+			return null;
 		}else {
 			return (User) session.getAttribute("user");
 		}
@@ -200,11 +202,15 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
-		String first_name = usr.getFirstName();
-		String last_name = usr.getLastName();
-		System.out.println("password: " + password);
+
 		
+		String first_name = obj.getString("first_name");
+		String last_name = obj.getString("last_name");
+
+		System.out.println("password: " + password);
+		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
+
+
 		// validate input
 		if (username == null || first_name == null || last_name == null) {
 			System.out.println("Please fill out all fields");
@@ -322,7 +328,7 @@ public class UserController {
 	 * Reset password of user
 	 */
 	@RequestMapping("/reset.action")
-	public @ResponseBody Error handleResetPassword(HttpServletRequest req, HttpServletResponse resp) {
+	public @ResponseBody Error resetPassword(HttpServletRequest req, HttpServletResponse resp) {
 		String subject = "OurSpace: Reset your password";
 		String body = "Your password has been succesfully reset \n\n";
 		// get email of user
