@@ -71,7 +71,10 @@ public class PostDao {
 //		Post myPost = ses.get(Post.class, id);
 //		return myPost;
 		
-		return sesFact.getCurrentSession().get(Post.class, id);
+		Post u = sesFact.getCurrentSession().get(Post.class, id);
+		System.out.println("Inside select by ID post : " + u.getBody());
+		System.out.println(u.getComments());
+		return u;
 	}
 
 	// public Post selectByName(String name) {
@@ -115,6 +118,12 @@ public class PostDao {
 //		return PostList;
 		List<Post> pList = sesFact.getCurrentSession().createQuery("from Post order by created desc", Post.class).list();
 
+		for(int i = 0; i < pList.size(); i++) {
+			System.out.println("Comments in post with body: " + pList.get(i).getBody());
+//			pList.get(i).orderComments();
+			System.out.println( pList.get(i).getComments());
+		}
+
 		return pList;
 	}
 
@@ -132,9 +141,9 @@ public class PostDao {
 	}
 	
 	public boolean updateLike(User u, Post p) {
-		System.out.println(u.getLikes());
+		System.out.println(u.getLikedPosts());
 		System.out.println("---");
-		System.out.println(p.getLikes());
+		System.out.println(p.getLikedUsers());
 		System.out.println("---");
 		boolean hasPost = ComparisonUtil.userHasPostLike(p,	 u);
 		boolean hasUser = ComparisonUtil.postHasUserLike(p,	 u);
@@ -146,8 +155,8 @@ public class PostDao {
 			System.out.println("removed");
 		}
 		else if (!hasPost && !hasUser) {
-			u.getLikes().add(p);
-			p.getLikes().add(u);
+			u.getLikedPosts().add(p);
+			p.getLikedUsers().add(u);
 			System.out.println("added");
 		}
 		else {
@@ -178,13 +187,13 @@ public class PostDao {
 			tx.commit();
 			return false;
 		}
-		if (!post.getLikes().contains(user)) {
-			post.getLikes().add(user);
+		if (!post.getLikedUsers().contains(user)) {
+			post.getLikedUsers().add(user);
 			tx.commit();
 			return true;
 			// like it
 		} else {
-			post.getLikes().remove(user);
+			post.getLikedUsers().remove(user);
 			tx.commit();
 			return false;
 		}

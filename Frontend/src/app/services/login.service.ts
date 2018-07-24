@@ -91,7 +91,6 @@ export class LoginService {
         this.email = data['email'];
         console.log('logged in ');
         this.isLoggedIn = true;
-        console.log('isLoggedIn: ' + this.isLoggedIn);
       }
     });
     return obs;

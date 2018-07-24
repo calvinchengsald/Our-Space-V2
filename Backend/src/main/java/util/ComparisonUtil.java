@@ -14,7 +14,7 @@ import data.model.User;
  */
 public class ComparisonUtil {
 	public static boolean postHasUserLike(Post p, User u) {
-		List<User> ulist = p.getLikes();
+		List<User> ulist = p.getLikedUsers();
 		for(int i = 0; i<ulist.size(); i++) {
 			if(ulist.get(i).getEmail().equals(u.getEmail())) {
 				return true;
@@ -25,7 +25,7 @@ public class ComparisonUtil {
 	}
 	
 	public static boolean userHasPostLike(Post p, User u) {
-		List<Post> plist = u.getLikes();
+		List<Post> plist = u.getLikedPosts();
 		for(int i = 0; i<plist.size(); i++) {
 			if(plist.get(i).getPostId() ==  p.getPostId()) {
 				return true;
@@ -36,20 +36,20 @@ public class ComparisonUtil {
 	}
 	
 	public static void removeUser(Post p, User u) {
-		List<User> ulist = p.getLikes();
+		List<User> ulist = p.getLikedUsers();
 		for(int i = 0; i<ulist.size(); i++) {
 			if(ulist.get(i).getEmail().equals(u.getEmail())) {
-				p.getLikes().remove(i);
-				return;
+				p.getLikedUsers().remove(i);
+				i = -1;
 			}
 		}
 	}
 	public static void removePost(Post p, User u) {
-		List<Post> plist = u.getLikes();
+		List<Post> plist = u.getLikedPosts();
 		for(int i = 0; i<plist.size(); i++) {
 			if(plist.get(i).getPostId() ==  p.getPostId()) {
-				u.getLikes().remove(i);
-				return;
+				u.getLikedPosts().remove(i);
+				i = -1;
 			}
 		}
 		

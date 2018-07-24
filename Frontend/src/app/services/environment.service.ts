@@ -6,8 +6,13 @@ import { Injectable } from '@angular/core';
 export class EnvironmentService {
 
 
+<<<<<<< HEAD
   static APIpath = 'http://localhost:9001/OurSpace/';
   // static APIpath = 'http://ec2-54-145-139-170.compute-1.amazonaws.com:8080/';
+=======
+ // static APIpath = 'http://localhost:9005/OurSpace/';
+   static APIpath = 'http://ec2-54-145-139-170.compute-1.amazonaws.com:8080/';
+>>>>>>> 3a3f0a702b5789ff7a7660738bb677864d969d0e
 
   constructor() { }
 }
