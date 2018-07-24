@@ -61,8 +61,8 @@ import { UsersComponent } from './pages/users/users.component';
       { path: 'register', component: RegisterComponent },
       { path: 'profile/:email', component: ProfileComponent },
       { path: 'reset', component: ResetPageComponent },
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: '**', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: LoginPageComponent, pathMatch: 'full' },
+      { path: '**', component: LoginPageComponent, pathMatch: 'full' },
     ])
   ],
   providers: [LoginService, PostService, MessegeModelService, ProfileService, UploadFileService],
