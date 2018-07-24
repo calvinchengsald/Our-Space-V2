@@ -7,6 +7,9 @@ import { MessegeModelService } from '../../services/messege-model.service';
 import { LoginService } from '../../services/login.service';
 import { ProfileService } from '../../services/profile.service';
 
+import { env } from '../../env/env';
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -39,6 +42,7 @@ export class HomeComponent implements OnInit {
 
 
   getAllPost(): void {
+    console.log(env.testData);
     this._postService.getAllPost().subscribe(data => {
       console.log(data);
       if (data[0] && data[0]['postId'] !== 0) {
