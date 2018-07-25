@@ -109,26 +109,5 @@
         </div>
 
     </ng-container>
-    
-  <div *ngIf='!loginService.isLoggedIn'> User not logged in page</div>
-  <div class='row' *ngIf='loginService.isLoggedIn'>
-  <div class="col-sm-3 well">
-    <div class="well">
-      <img src="{{_loginService.profileImage}}" class="img-circle" height="65" width="65" alt="Avatar">
-      <p>
-        <a routerLink='/profile/{{_loginService.email}}'>My Profile</a>
-      </p>
-    </div>
-  </div>
-
-
-  <div class='col-sm-7'>
-    <ng-container>
-      <div *ngFor='let temp of homePost'>
-        <mat-card class="row pcontain">
-          <app-post [post]='temp'></app-post>
-        </mat-card>
-      </div>
-    </ng-container>
   </div>
 </div>
