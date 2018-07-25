@@ -16,6 +16,7 @@ export class PostService {
   static allPostList: IPost[];
   static allPostUser: IPost[];
   static currentPost: IPost;
+  likeData: any;
 
 
   url: string;
@@ -27,17 +28,35 @@ export class PostService {
 
   constructor(private httpServ: HttpClient, private _loginService: LoginService) { }
 
+  getLikeList(postId: number): any {
+    // console.log('getting like list of postid: ' + postId);
+    const listOfLikes = [];
+    for (let i = 0; i < this.likeData.length; i++ ) {
+      // console.log(this.likeData[i]);
+      // console.log(this.likeData[i]['id']['postId']);
+      // console.log(this.likeData[i]['id']['postId'] == postId);
+      // console.log(this.likeData[i]['id']['postId'] === postId);
+      // console.log('comparinging inside: ' + this.likeData[i]['id']['postId']+'/'+postId +':' +(this.likeData[i]['postId'] == postId) );
+      if (this.likeData[i]['id']['postId'] === postId) {
+        listOfLikes.push(this.likeData[i]['id']);
+      }
+    }
+    return listOfLikes;
+  }
 
 
   getAllPost(): Observable<string> {
+
 
     this.url = EnvironmentService.APIpath + 'getPostFromAll.action';
     const obj = {
 
     };
-    return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
+    const resp = this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
     );
+    this.getPostLikes();
+    return resp;
   }
 
   getAllUserPost(em: string): Observable<string> {
@@ -46,9 +65,11 @@ export class PostService {
     const obj = {
       email: em
     };
-    return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
+    const resp = this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
     );
+    this.getPostLikes();
+    return resp;
   }
 
   getPost(id: number): Observable<string> {
@@ -57,9 +78,11 @@ export class PostService {
     const obj = {
       postId: id
     };
-    return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
+    const resp = this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
     );
+    this.getPostLikes();
+    return resp;
   }
 
   newPost(bodyz: string, image: string, youtube: string): Observable<string> {
@@ -71,9 +94,11 @@ export class PostService {
       youtubelink: youtube,
       email: this._loginService.isLoggedIn ? this._loginService.email : '',
     };
-    return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
+    const resp = this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
     );
+    this.getPostLikes();
+    return resp;
   }
 
   updatePost(postIdz: number, emailz: string): Observable<string> {
@@ -92,9 +117,24 @@ export class PostService {
       postId: postIdz,
       email: emailz,
     };
-
-    return this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
+    const resp = this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
     );
+
+    return resp;
+  }
+
+  getPostLikes(): Observable<string> {
+    this.url = EnvironmentService.APIpath + 'getPostLikes.action';
+    const obj = {    };
+
+    const result = this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
+      map(res => res as string)
+    );
+    result.subscribe(data => {
+      this.likeData = data;
+      console.log(data);
+    });
+    return result;
   }
 }

@@ -17,28 +17,38 @@ export class PostComponent implements OnInit {
   newCommentBody: string;
   likeLinkDefault = 'https://cms.jotform.com/uploads/help/document/joey/88_facebook_like_button_big.jpeg';
   likeLinkLiked = 'https://s3.amazonaws.com/our-space/UI/btn-liked.jpeg';
+  likedByUserBool = false;
   likeSrc = this.likeLinkDefault;
+  likeList: any;
   @Input() post: IPost;
   constructor(private _commentService: CommentService, private _messegeService: MessegeModelService,
       private _postService: PostService, private _loginService: LoginService ) { }
 
   likedByUser(post: IPost, email: string): boolean {
-    if (!post.likes) {return false; }
-    const likes = post.likes;
-    for (let i = 0; i < likes.length; i++) {
-      if (likes[i].email === email) {
+    if (!this.likeList || this.likeList.length === 0) {return false; }
+
+    for (let i = 0; i < this.likeList.length; i++) {
+      if (this.likeList[i].email === email) {
+        this.likedByUserBool = true;
         return true;
       }
     }
+    this.likedByUserBool = false;
     return false;
   }
-  ngOnInit() {  }
+  ngOnInit() {
+    this.likeList = [];
+  }
 
   ngAfterContentChecked() {
     if (this.likedByUser(this.post, this._loginService.email )) {
       this.likeSrc = this.likeLinkLiked;
     } else {
       this.likeSrc = this.likeLinkDefault;
+    }
+    if  (this.post && this.post.postId !== 0) {
+      this.likeList = this._postService.getLikeList(this.post.postId);
+      // console.log('like list for comp ' + this.post.body + ' is: ' + this.likeList);
     }
   }
 
@@ -51,19 +61,19 @@ export class PostComponent implements OnInit {
           console.log('data2' + dataEle);
           if (dataEle && dataEle['postId'] !== 0) {
             const l = [];
-            if (dataEle['likedUsers']) {
-              const likeEle = dataEle['likedUsers'];
-              for (let li = 0; li < likeEle.length; li++) {
-                const uu: IUser = {first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
-                  email: likeEle[li]['email'],  password: likeEle[li]['password'] , profilePicture: likeEle[li]['profilePicture'] };
-                l.push(uu);
-              }
-            }
+            // if (dataEle['likedUsers']) {
+            //   const likeEle = dataEle['likedUsers'];
+            //   for (let li = 0; li < likeEle.length; li++) {
+            //     const uu: IUser = {first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
+            //       email: likeEle[li]['email'],  password: likeEle[li]['password'] , profilePicture: likeEle[li]['profilePicture'] };
+            //     l.push(uu);
+            //   }
+            // }
             const o: IUser = {first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
               email: dataEle['user']['email'], password: dataEle['user']['password'], profilePicture: dataEle['user']['profilePicture']
                };
             const p: IPost = {postId: dataEle['postId'], body: dataEle['body'], owner: o,
-              likes: l, imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
+               imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']
               , created: dataEle['created']};
             this.post = p;
           }
@@ -115,28 +125,12 @@ export class PostComponent implements OnInit {
     //   this.likeSrc = this.likeLinkLiked;
     // }
     this._postService.updatePost(this.post.postId, this._loginService.email).subscribe(data => {
-      console.log(data);
-      if (data && data['postId'] !== 0) {
-        const l = [];
-        if (data['likedUsers']) {
-          const likeEle = data['likedUsers'];
-          for (let li = 0; li < likeEle.length; li++) {
-            const uu: IUser = {first_name: likeEle[li]['firstName'], last_name: likeEle[li]['lastName'],
-              email: likeEle[li]['email'],  password: likeEle[li]['password'], profilePicture: likeEle[li]['profilePicture'] };
-            l.push(uu);
-          }
-        }
-        const o: IUser = {first_name: data['user']['firstName'], last_name: data['user']['lastName'],
-          email: data['user']['email'], password: data['user']['password'], profilePicture: data['user']['profilePicture'] };
-        const p: IPost = {postId: data['postId'], body: data['body'], owner: o,
-          likes: l, imageSrc: data['imgSrc'], comments: data['comments'], youtubeLink: data['youtubeLink']
-          , created: data['created'] };
-        this.post = p;
-      } else {
-        this._messegeService.show = true;
-        this._messegeService.messege = data['body'];
-        this._messegeService.error = true;
-      }
+      this._postService.getPostLikes().subscribe((data2) => {
+        this.likeList = this._postService.getLikeList(this.post.postId);
+        this.likedByUser(this.post, this._loginService.email );
+        console.log(this.likeList);
+      });
+
     });
 
   }

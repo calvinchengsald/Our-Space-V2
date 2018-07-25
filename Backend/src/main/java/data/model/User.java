@@ -43,10 +43,10 @@ public class User {
 
 	
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
-	@JoinColumn(name="postId")
-	@JsonIgnore
-	private List<Post> likedPosts;
+//	@ManyToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+//	@JoinColumn(name="postId")
+//	@JsonIgnore
+//	private List<Post> likedPosts;
 	
 	public User() {
 		super();
@@ -77,14 +77,14 @@ public class User {
 	}
 
 
-	public User(String email, String firstName, String lastName, String password, List<Post> posts) {
-		super();
-		this.email = email;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.password = password;
-		this.posts = posts;
-	}
+//	public User(String email, String firstName, String lastName, String password) {
+//		super();
+//		this.email = email;
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.password = password;
+////		this.posts = posts;
+//	}
 	
 
 
@@ -97,7 +97,7 @@ public class User {
 		this.password = password;
 		this.posts = posts;
 		this.profilePicture = profilePicture;
-		this.likedPosts = likedPosts;
+//		this.likedPosts = likedPosts;
 	}
 
 
@@ -109,7 +109,7 @@ public class User {
 		this.password = password;
 		this.posts = posts;
 		this.profilePicture = profilePicture;
-		this.likedPosts = likedPosts;
+//		this.likedPosts = likedPosts;
 	}
 
 
@@ -167,14 +167,6 @@ public class User {
 
 	
 
-	public List<Post> getLikedPosts() {
-		return likedPosts;
-	}
-
-
-	public void setLikedPosts(List<Post> likedPosts) {
-		this.likedPosts = likedPosts;
-	}
 
 
 	@Override
