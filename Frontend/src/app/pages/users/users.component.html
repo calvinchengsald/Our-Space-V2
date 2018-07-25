@@ -1,7 +1,18 @@
 <div class='panel panel-primary' style="text-align: left;">
   <div class='panel-heading'>
-    OurSpace Users
+    
+    <div role="search" class="searchBar">
+      <div class="input-group">
+          <input type="text" [(ngModel)]='listFilter' class="form-control" placeholder="Search..">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </span>        
+        </div>
+      </div>
   </div>
+  
   <div class='table-responsive'>
     <table class='table'>
       <thead>
@@ -13,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor='let temp of loginService.allUser' (mouseenter)="highlight($event)" (mouseleave)="dehighlight($event)">
+        <tr *ngFor='let temp of filteredUsers' (mouseenter)="highlight($event)" (mouseleave)="dehighlight($event)">
           <td>{{temp.first_name}}</td>
           <td>{{temp.last_name}}</td>
           <td>{{temp.email}}</td>

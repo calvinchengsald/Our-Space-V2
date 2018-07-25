@@ -29,16 +29,16 @@ import data.model.EmailContainer;
 public class EmailUtil {
 	private static EmailContainer emailContainer;
 
-	private final static String filename = "/usr/apache/filing/secure.txt";	
+	private final static String filename = "../secure.txt";	
 
 	private static void getEmailInfo() {
 		try {
 			
-			FileInputStream fileIn = new FileInputStream(filename);
-			ObjectInputStream in = new ObjectInputStream(fileIn);
+//			FileInputStream fileIn = new FileInputStream(EmailUtil.class.getResource(filename));
+			ObjectInputStream in = new ObjectInputStream(EmailUtil.class.getResourceAsStream(filename));
 			emailContainer = (EmailContainer) in.readObject();
 			in.close();
-			fileIn.close();			
+//			fileIn.close();			
 
 		} catch (FileNotFoundException e) {
 			System.out.println("Error: file not found!!!!");
