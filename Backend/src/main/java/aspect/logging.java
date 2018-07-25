@@ -20,8 +20,10 @@ public class logging {
 	public void log4j(JoinPoint joinPoint) {
 		if(joinPoint.getArgs()[0] instanceof HttpServletRequest) {
 			HttpServletRequest req = (HttpServletRequest) joinPoint.getArgs()[0];
-			String ip = req.getRemoteAddr();
-			System.out.println("ip add: "+ip);
+			if(!joinPoint.getSignature().getName().equals("handleCheckLogin")) {
+				String ip = req.getRemoteAddr();
+				logger.info("Request from: "+ip+"\n"+joinPoint.getSignature().getName());
+			}
 		}
 		else {
 			System.out.println("no");
