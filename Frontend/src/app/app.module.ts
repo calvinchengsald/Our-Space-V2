@@ -57,7 +57,7 @@ import { SafePipe } from './services/youtube.pipe';
 
 
     RouterModule.forRoot([
-      { path: 'home', component: HomeComponent },
+      { path: 'home', component: HomeComponent},
       { path: 'allusers', component: UsersComponent },
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },

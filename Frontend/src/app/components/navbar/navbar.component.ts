@@ -1,6 +1,8 @@
 import { Component, OnInit,  AfterContentChecked } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
+import { IUser } from '../../interface/iuser';
+
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +12,12 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   title: 'Our Space';
   _name: string;
+  showBar: boolean;
+
+
+
+
+
 
   constructor(private _loginService: LoginService, private _router: Router) {
   }
@@ -26,7 +34,9 @@ export class NavbarComponent implements OnInit {
   }
 
 
+
   ngOnInit() {
+    this.showBar = false;
 
   }
 
