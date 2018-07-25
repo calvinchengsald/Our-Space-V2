@@ -9,6 +9,7 @@ import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import data.model.User;
@@ -16,7 +17,6 @@ import data.model.User;
 @Aspect
 @Component
 public class checkSession {
-	
 	@Around("execution(* server.controller..*.handle*(..))")
 	public @ResponseBody Object checkLoginStatus(ProceedingJoinPoint joinPoint) {
 		Object[] reqRes = joinPoint.getArgs();
