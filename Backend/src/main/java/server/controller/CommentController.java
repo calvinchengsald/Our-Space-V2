@@ -100,8 +100,6 @@ public class CommentController {
 			return new Comment("This Comment does not exist");
 		} /* if (null) */
 
-		System.out.println(u);
-
 		// return comment
 		return u;
 	}/* handleGetComment() */
