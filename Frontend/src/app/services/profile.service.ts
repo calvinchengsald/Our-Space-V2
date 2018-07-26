@@ -76,6 +76,7 @@ export class ProfileService {
 
   // send profile picture path to the database
   pictureUpdate(picturez: String): Observable<string> {
+    console.log('uploaded profile picture');
     this.url = EnvironmentService.APIpath + 'profilePicture.action';
 
     const obj = {

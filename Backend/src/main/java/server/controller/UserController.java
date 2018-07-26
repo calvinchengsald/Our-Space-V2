@@ -270,7 +270,7 @@ public class UserController {
 		
 		user.setProfilePicture(picturePath);
 		
-		System.out.println("User = " + user);
+//		System.out.println("User = " + user);
 		
 		userDao.update(user);
 		err.setMessege("Picture uploaded successfully");
