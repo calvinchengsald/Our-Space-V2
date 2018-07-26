@@ -1,5 +1,6 @@
 package data.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -38,6 +39,7 @@ public class PostDao {
 //
 //		tx.commit();
 
+		myPost.setCreated(new Timestamp(System.currentTimeMillis()));
 		sesFact.getCurrentSession().save(myPost);
 
 	}

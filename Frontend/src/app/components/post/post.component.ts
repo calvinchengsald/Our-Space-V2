@@ -50,6 +50,7 @@ export class PostComponent implements OnInit {
       this.likeList = this._postService.getLikeList(this.post.postId);
       // console.log('like list for comp ' + this.post.body + ' is: ' + this.likeList);
     }
+    // console.log(this.post);
   }
 
 

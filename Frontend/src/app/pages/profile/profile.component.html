@@ -1,7 +1,7 @@
 <h1 *ngIf="firstName==''"> This user does not exist </h1>
 <div *ngIf='firstName!=""'>
 
-  <div>
+  <div class="containerTitle">
     <h1 *ngIf="updatable">Welcome to your profile, {{firstName}} {{lastName}}</h1>
     <h1 *ngIf="!updatable"> Profile Information</h1>
     <!-- <h4>{{email}}</h4> -->
@@ -17,26 +17,36 @@
 </button> -->
 
   <div class="container">
-    <div class="row">
+    <div class="row text-center" >
       <div class="col-md-12" *ngIf="updatable">
-        <h5>Update Profile Information</h5>
+        <h3 class="labelTitle">Update Profile Information</h3>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-sm-5  profileInput">
         <img *ngIf="imgSrc" [src]="imgSrc" width="150px" height="150px" />
+<<<<<<< HEAD
       </div>
       <div class="col-md-3" *ngIf="updatable">
         <label class="btn btn-default">
           <input type="file" (change)="selectFile($event)" >
         </label>
+=======
+        <br>
 
-        <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadImage()" *ngIf="updatable">Upload Image</button>
+        <div class="fileButton" *ngIf="updatable">
+          <label class="btn btn-default">
+            <input type="file" (change)="selectFile($event)">
+          </label>
+>>>>>>> develop
+
+          <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadImage()" *ngIf="updatable">Upload Image</button>
+        </div>
       </div>
-    </div>
+    <!-- </div> -->
     <br>
-    <div class="row">
-      <div class="col-md-9 col-sm-offset-3">
+    <!-- <div class="row"> -->
+      <div class="col-sm-7">
         <div class="from-group">
           <label>Email</label>
           <input type="text" value="{{email}}" class="form-control" disabled/>
@@ -53,7 +63,7 @@
           <input type="text" [(ngModel)]="firstName" class="form-control" disabled />
         </div>
 
-        <br>       
+        <br>
 
         <div class="from-group" *ngIf="updatable">
           <label>Last Name</label>
