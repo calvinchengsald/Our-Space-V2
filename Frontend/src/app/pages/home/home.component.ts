@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
 
   newPostImage: string;
-  newPostBody: string;
+  newPostBody = '';
   newPostYoutube: string;
   homePost: IPost[];
   isLoggedIn = false;
@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
         }
         PostService.allPostList = postList;
       } else {
-        this._messegeService.show = true;
+        this._messegeService.show = false;
         this._messegeService.messege = data['body'];
         this._messegeService.error = false;
         PostService.allPostList = [];
@@ -118,6 +118,13 @@ export class HomeComponent implements OnInit {
   }
 
   clickPost(): void {
+    console.log(this.newPostBody);
+    if (this.newPostBody === '') {
+      this._messegeService.show = true;
+      this._messegeService.messege = 'This post must have a body';
+      this._messegeService.error = true;
+      return;
+    }
     console.log('clicked post with ' + this.newPostBody + '/' + this.newPostImage + '/' + this.newPostYoutube);
     this._postService.newPost(this.newPostBody, this.newPostImage, this.newPostYoutube).subscribe(data => {
       console.log(data);

@@ -1,4 +1,5 @@
 <div class='container-fluid'>
+<<<<<<< HEAD
     <div *ngIf='!loginService.isLoggedIn'> User not logged in page</div>
     <div class='row' *ngIf='loginService.isLoggedIn'>
       <div class="col-sm-2">
@@ -59,6 +60,83 @@
                       </button>
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
+=======
+  <div *ngIf='!loginService.isLoggedIn'> User not logged in page</div>
+  <div class='row' *ngIf='loginService.isLoggedIn'>
+    <div class="col-sm-2">
+      <mat-card class="well profileWell">
+        <img src="{{_loginService.profileImage}}" class="img-circle" height="65" width="65" alt="Avatar">
+        <p>
+          <a routerLink='/profile/{{_loginService.email}}'>My Profile</a>
+        </p>
+
+          
+
+      </mat-card>
+
+
+    </div>
+
+    <div class='col-sm-9'>
+      <mat-card class='row'>
+        <div class='col-sm-12'>
+          <div class='row border border-primary m-2 bg-info'>
+            <!-- <div class="form-group text-left">
+              <label>Body </label>
+              <textarea [(ngModel)]='newPostBody' type='text' class='form-control' rows='5' width='100%' placeholder="insert new post.."></textarea>
+              <div>
+                <span class="glyphicon glyphicon-picture"></span> &nbsp;
+                <a data-toggle='modal' data-target='#postImageModal'>Insert Image</a>
+                &nbsp;
+                <span class="glyphicon glyphicon-paperclip"></span> &nbsp;
+                <a data-toggle="modal" data-target="#postVideoModal">Insert video</a>
+              </div>
+              
+            </div> -->
+            <div class='col-10 offset-1'>
+              <div class='row'> Body </div>
+              <div class='row'> 
+                <textarea [(ngModel)]='newPostBody' type='text' class='textbox' rows='5'  placeholder="insert new post.."></textarea>
+              </div>
+              <div class='row'>
+                <span class="glyphicon glyphicon-picture"></span> &nbsp;
+                <a data-toggle='modal' data-target='#postImageModal'>Insert Image</a>
+                &nbsp;
+                <span class="glyphicon glyphicon-paperclip"></span> &nbsp;
+                <a data-toggle="modal" data-target="#postVideoModal">Insert video</a>
+              </div>
+              <div class='row'>
+                <div class='col-6' *ngIf='newPostImage'>
+                  <img [src]='newPostImage' class='halfbox' />
+                </div>
+                <br/>
+                <div class='col-6' *ngIf='newPostYoutube'>
+                  <iframe id='ytplayer'  class='halfbox' [src]='newPostYoutube | safe' frameborder='0' allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+            <div class='col-1'></div>
+
+            <!-- Modal -->
+            <div id="postImageModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Picture Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Insert post image</h4>
+                  </div>
+                  <div class="modal-body">
+                    <input [(ngModel)]='uploadTempImage' type='file' (change)="selectFile($event)" class='' /> or
+                    <input [(ngModel)]='linkTempImage' type='text' class='' />
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)='saveImagePost()'>
+                      save
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+>>>>>>> develop
                   </div>
   
                 </div>

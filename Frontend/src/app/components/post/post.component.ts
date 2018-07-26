@@ -55,6 +55,13 @@ export class PostComponent implements OnInit {
 
 
   onInsertComment() {
+    console.log(this.newCommentBody);
+    if (this.newCommentBody.trim() === '') {
+      this._messegeService.show = true;
+      this._messegeService.messege = 'This comment must have a body';
+      this._messegeService.error = true;
+      return;
+    }
     this._commentService.insertComment(this.newCommentBody, this.post.postId).subscribe(data => {
       console.log(data);
       if (data && data['commentId'] !== 0) {
