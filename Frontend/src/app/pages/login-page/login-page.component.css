@@ -12,4 +12,8 @@
     margin-top: 5%;
     width: 50%;
   }
+
+  mat-card {
+    background-color: white;
+  }
   

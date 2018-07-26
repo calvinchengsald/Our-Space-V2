@@ -23,7 +23,9 @@ export class UsersComponent implements OnInit {
 
   set listFilter(temp: string) {
     if (this._loginService.isLoggedIn) {
-      console.log('filtering');
+      this._loginService.getAllUsers();
+      this.usersList = this._loginService.allUser;
+      this.filteredUsers = this.usersList;
       this._listFilter = temp;
       this.filteredUsers = this._listFilter ? this.performFilter(this._listFilter) : this.usersList;
     }
@@ -32,7 +34,7 @@ export class UsersComponent implements OnInit {
   // filter names
   performFilter(filterBy: string): IUser[] {
     filterBy = filterBy.toLocaleLowerCase();
-      return this.usersList.filter((user: IUser) =>
+    return this.usersList.filter((user: IUser) =>
       user.first_name.toLocaleLowerCase().indexOf(filterBy) !== -1 || user.last_name.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
@@ -45,13 +47,15 @@ export class UsersComponent implements OnInit {
     this.filteredUsers = this.usersList;
   }
 
-  get loginService () {
+  get loginService() {
     return this._loginService;
   }
 
   ngOnInit() {
     this._loginService.checkLogin(); // for refreshing on the pae
     this._loginService.getAllUsers();
+    this.usersList = this._loginService.allUser;
+    this.filteredUsers = this.usersList;
   }
 
   viewUser(input) {
@@ -70,13 +74,13 @@ export class UsersComponent implements OnInit {
     this.sorted[on] = this.sorted[on] === 0 ? 1 : this.sorted[on] * -1;
     this._loginService.allUser.sort((a, b) => {
       if (a[on].toUpperCase() > b[on].toUpperCase()) {
-        if (a === undefined) {return 1 * i; }
-        if (b === undefined) {return -1 * i; }
+        if (a === undefined) { return 1 * i; }
+        if (b === undefined) { return -1 * i; }
         return -1 * i;
       }
       if (a[on].toUpperCase() < b[on].toUpperCase()) {
-        if (a === undefined) {return 1 * i; }
-        if (b === undefined) {return -1 * i; }
+        if (a === undefined) { return 1 * i; }
+        if (b === undefined) { return -1 * i; }
         return 1 * i;
       }
       return 0;

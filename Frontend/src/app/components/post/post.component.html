@@ -52,8 +52,8 @@
         </div>
       </div>
       <div class='row'>
-        <input type='text' [(ngModel)]='newCommentBody' placeholder='Insert New Comment...' (keyup.enter)="onInsertComment()" class="commentBody"
-        />
+        <textarea [(ngModel)]='newCommentBody' placeholder='Insert New Comment...' (keyup.enter)="onInsertComment()" class="commentBody"
+        rows='3' width='100%'></textarea>
       </div>
 
     </div>
