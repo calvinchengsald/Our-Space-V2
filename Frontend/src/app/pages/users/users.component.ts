@@ -72,7 +72,7 @@ export class UsersComponent implements OnInit {
   sortUsers(on) {
     const i: number = this.sorted[on] === 1 ? -1 : 1;
     this.sorted[on] = this.sorted[on] === 0 ? 1 : this.sorted[on] * -1;
-    this._loginService.allUser.sort((a, b) => {
+    this.filteredUsers.sort((a, b) => {
       if (a[on].toUpperCase() > b[on].toUpperCase()) {
         if (a === undefined) { return 1 * i; }
         if (b === undefined) { return -1 * i; }
