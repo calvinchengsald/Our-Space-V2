@@ -4,18 +4,23 @@
 body{
     width: 100%;
     margin: 0;
-    background: url('https://pbs.twimg.com/profile_images/653700295395016708/WjGTnKGQ_400x400.png');
-    /* background: url('https://3.bp.blogspot.com/-zR3CZBHLvXM/VorG7JMaSUI/AAAAAAAAB4k/ZjJkrlme9gA/s1600/iphone-13-IMG_5547.GIF') no-repeat center center fixed; */
+    /* background: url('https://pbs.twimg.com/profile_images/653700295395016708/WjGTnKGQ_400x400.png'); */
+    background: url('https://c1.staticflickr.com/1/698/23341712561_eeafb38fa5_b.jpg') no-repeat center center fixed;
     
 
     
-    -webkit-background-size: cover;
+    /* -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: 100%;
-    overflow-x: hidden;
+    background-size: cover;
+    overflow-x: hidden; */
 }
 
 .well{
     background-color: #AED6F1;
+}
+
+mat-card[_ngcontent-c4]{
+    background: transparent;
+    box-shadow: none !important;
 }

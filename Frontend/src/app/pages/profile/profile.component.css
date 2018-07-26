@@ -6,11 +6,52 @@
     margin: auto;
     width: 600px;
     height: 600px;
-    text-align: left;
+    text-align: left;    
 }
 
 .btncontainer{
     margin: 0 auto;
     width: 100%;
+}
+
+.profileBody{
+    background-color: #D6DBDF  ;
+    height: 790px;
+}
+
+ .containerTitle{
+    color: white;
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+        1px 1px 0 #000;
+    
+    
+
+} 
+
+.labelTitle{
+    color: white;
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+        1px 1px 0 #000; 
+}
+
+label{
+    color: white;
+    text-shadow:
+		-1px -1px 0 #000,
+		1px -1px 0 #000,
+		-1px 1px 0 #000,
+        1px 1px 0 #000;
+}
+
+.profileInput{
+    background:transparent;
+    background-image: none;
+    
 }
 

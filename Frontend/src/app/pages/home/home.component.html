@@ -2,7 +2,7 @@
   <div *ngIf='!loginService.isLoggedIn'> User not logged in page</div>
   <div class='row' *ngIf='loginService.isLoggedIn'>
     <div class="col-sm-2">
-      <mat-card class="well">
+      <mat-card class="well profileWell">
         <img src="{{_loginService.profileImage}}" class="img-circle" height="65" width="65" alt="Avatar">
         <p>
           <a routerLink='/profile/{{_loginService.email}}'>My Profile</a>

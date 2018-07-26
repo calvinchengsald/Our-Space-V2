@@ -20,3 +20,15 @@ mat-card{
 textarea {
   resize: none;
 }
+
+mat-card{    
+    border:none;    
+}
+
+.profileWell{
+    background-color: white;
+}
+
+div{
+    border: none;
+}
