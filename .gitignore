@@ -4,4 +4,8 @@ Frontend/src/app/services/environment.service.ts
 Backend/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF
 Frontend/src/app/services/environment.service.ts
 Frontend/src/app/services/environment.service.ts
+<<<<<<< HEAD
 Frontend/src/app/env
+=======
+Frontend/src/app/env/env.ts
+>>>>>>> kevin-activation

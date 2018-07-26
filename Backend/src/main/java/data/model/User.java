@@ -34,12 +34,16 @@ public class User {
 	@Column(name="password", nullable=false)
 	private String password;
 	
+	
 	@OneToMany(mappedBy="user", fetch=FetchType.LAZY, cascade= CascadeType.ALL)
 	@JsonIgnore
 	private List<Post> posts;
 	
 	@Column(name="profilePicture")
 	private String profilePicture;
+	
+	@Column(name="activated")
+	private boolean activated;
 
 	
 	
@@ -68,12 +72,13 @@ public class User {
 		this.password = password;
 		this.posts = posts;
 	}
-	public User(String email, String firstName, String lastName, String password) {
+	public User(String email, String firstName, String lastName, String password, boolean activated) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
+		this.activated = false;
 	}
 
 
@@ -165,6 +170,14 @@ public class User {
 		this.posts = posts;
 	}
 
+	public boolean isActivated() {
+		return activated;
+	}
+
+
+	public void setActivated(boolean activated) {
+		this.activated = activated;
+	}
 	
 
 
@@ -172,7 +185,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password=" + password
-				+ "]";
+				+ ", posts=" + posts + ", profilePicture=" + profilePicture + ", activated=" + activated + "]";
 	}
 	
 	
