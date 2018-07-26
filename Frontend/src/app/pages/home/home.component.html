@@ -46,9 +46,12 @@
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                       <h4 class="modal-title">Insert post image</h4>
                     </div>
-                    <div class="modal-body">
-                      <input [(ngModel)]='uploadTempImage' type='file' (change)="selectFile($event)" class='' /> OR insert URL 
-                      <input [(ngModel)]='linkTempImage' type='text' class='' />
+                    <div class="modal-body center" style="margin-top: auto">
+                      <input style="margin-left: 45px" [(ngModel)]='uploadTempImage' type='file' (change)="selectFile($event)" class='' />                       
+                      <p>
+                        OR insert URL 
+                      </p>
+                      <input [(ngModel)]='linkTempImage' type='text' class='insertImgLink' />
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal" (click)='saveImagePost()'>
@@ -67,16 +70,16 @@
   
                   <!-- Modal content-->
                   <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" style="padding: 0px; padding-right: 5px">
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Inset video</h4>
+                      <!-- <h4 class="modal-title">Insert video</h4> -->
                     </div>
                     <div class="modal-body">
-                        <input [(ngModel)]='youtubeLink' type='text' class='' />
+                        <input [(ngModel)]='youtubeLink' type='text' class='' placeholder="Share a Youtube video" style="width: 300px;"/>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal" (click)='saveVideoLink()'>
-                        insert
+                        Insert
                       </button>
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
