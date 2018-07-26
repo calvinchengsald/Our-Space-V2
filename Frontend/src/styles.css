@@ -6,14 +6,12 @@ body{
     margin: 0;
     /* background: url('https://pbs.twimg.com/profile_images/653700295395016708/WjGTnKGQ_400x400.png'); */
     background: url('https://c1.staticflickr.com/1/698/23341712561_eeafb38fa5_b.jpg') no-repeat center center fixed;
-    
-
-    
-    /* -webkit-background-size: cover;
+        
+    -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    overflow-x: hidden; */
+    overflow-x: hidden;
 }
 
 .well{
