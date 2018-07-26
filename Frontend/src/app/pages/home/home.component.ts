@@ -120,6 +120,9 @@ export class HomeComponent implements OnInit {
     this._postService.newPost(this.newPostBody, this.newPostImage, this.newPostYoutube).subscribe(data => {
       console.log(data);
       if (data && data['postId'] !== 0) {
+        this.newPostImage = '';
+        this.newPostBody = '';
+        this.newPostYoutube = '';
         this.getAllPost();
       } else {
         this._messegeService.show = true;
@@ -127,6 +130,7 @@ export class HomeComponent implements OnInit {
         this._messegeService.error = false;
         PostService.allPostList = [];
       }
+
       // this.homePost = PostService.allPostList;
       // console.log(this.homePost);
     });
