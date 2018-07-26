@@ -46,7 +46,7 @@ export class NavbarComponent implements OnInit {
     // need to do a req, but for now just set vars client side
     this._loginService.logout().subscribe(  // code inside of subscribe not executing
       res => {
-        console.log('logged out');
+        console.log(res);
       }
     );
     this._loginService.isLoggedIn = false;

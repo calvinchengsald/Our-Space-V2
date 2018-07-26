@@ -25,10 +25,18 @@ mat-card{
     border:none;    
 }
 
+.postData{
+    background-color: white;
+}
+
 .profileWell{
     background-color: white;
 }
 
 div{
     border: none;
+}
+
+.pcontain{
+    background-color: white;
 }

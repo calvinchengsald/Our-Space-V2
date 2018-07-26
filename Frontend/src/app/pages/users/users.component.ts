@@ -33,6 +33,9 @@ export class UsersComponent implements OnInit {
 
   // filter names
   performFilter(filterBy: string): IUser[] {
+    this._loginService.getAllUsers();
+    this.usersList = this._loginService.allUser;
+    this.filteredUsers = this.usersList;
     filterBy = filterBy.toLocaleLowerCase();
     return this.usersList.filter((user: IUser) =>
       user.first_name.toLocaleLowerCase().indexOf(filterBy) !== -1 || user.last_name.toLocaleLowerCase().indexOf(filterBy) !== -1);
@@ -40,12 +43,7 @@ export class UsersComponent implements OnInit {
 
 
 
-  constructor(private _loginService: LoginService, public router: Router) {
-    this._loginService.getAllUsers();
-    console.log('users' + this._loginService.allUser);
-    this.usersList = this._loginService.allUser;
-    this.filteredUsers = this.usersList;
-  }
+  constructor(private _loginService: LoginService, public router: Router) {  }
 
   get loginService() {
     return this._loginService;
@@ -56,6 +54,7 @@ export class UsersComponent implements OnInit {
     this._loginService.getAllUsers();
     this.usersList = this._loginService.allUser;
     this.filteredUsers = this.usersList;
+    console.log('users = ' + this.filteredUsers);
   }
 
   viewUser(input) {
