@@ -29,5 +29,9 @@ hr{
 }
 
 .card-body{
-    background-color: aqua;
+    border: none;
+}
+
+textarea {
+    resize: none;
 }
