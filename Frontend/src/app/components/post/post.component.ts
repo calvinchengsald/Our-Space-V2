@@ -71,7 +71,8 @@ export class PostComponent implements OnInit {
             //   }
             // }
             const o: IUser = {first_name: dataEle['user']['firstName'], last_name: dataEle['user']['lastName'],
-              email: dataEle['user']['email'], password: dataEle['user']['password'], profilePicture: dataEle['user']['profilePicture']
+              email: dataEle['user']['email'], password: dataEle['user']['password'], profilePicture: dataEle['user']['profilePicture'],
+              activated: dataEle['user']['activated']
                };
             const p: IPost = {postId: dataEle['postId'], body: dataEle['body'], owner: o,
                imageSrc: dataEle['imgSrc'], comments: dataEle['comments'], youtubeLink: dataEle['youtubeLink']

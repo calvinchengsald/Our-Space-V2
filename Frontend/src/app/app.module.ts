@@ -27,6 +27,7 @@ import { PostComponent } from './components/post/post.component';
 import { UploadFileService } from './services/upload-file.service';
 import { UsersComponent } from './pages/users/users.component';
 import { SafePipe } from './services/youtube.pipe';
+import { ActivationComponent } from './pages/activation/activation.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SafePipe } from './services/youtube.pipe';
     PostComponent,
     ResetPageComponent,
     UsersComponent,
-    SafePipe
+    SafePipe,
+    ActivationComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +64,7 @@ import { SafePipe } from './services/youtube.pipe';
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'profile/:email', component: ProfileComponent },
+      { path: 'activation', component: ActivationComponent },
       { path: 'reset', component: ResetPageComponent },
       { path: '', component: LoginPageComponent, pathMatch: 'full' },
       { path: '**', component: LoginPageComponent, pathMatch: 'full' },
