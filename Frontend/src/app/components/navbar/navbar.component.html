@@ -35,17 +35,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a routerLink = "/home">Home</a></li>
         <li><a  *ngIf="loginService.isLoggedIn" routerLink='/allusers' > All Users</a></li>
-      </ul>
-      <div class="navbar-form navbar-left" role="search">
-          <div class="form-group input-group">
-              <input type="text" class="form-control" placeholder="Search..">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button">
-                  <span class="glyphicon glyphicon-search"></span>
-                </button>
-              </span>        
-            </div>
-          </div>
+      </ul>      
       
       <ul class="nav navbar-nav navbar-right">
         <li><a *ngIf="!loginService.isLoggedIn" routerLink='/login'> Login</a></li>

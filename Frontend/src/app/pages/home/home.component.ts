@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     return this._loginService;
   }
   constructor(private _postService: PostService, private _messegeService: MessegeModelService, private _loginService: LoginService,
-    private _uploadService: UploadFileService) {
+    private _uploadService: UploadFileService,  private _router: Router) {
 
 
   }
@@ -124,6 +124,9 @@ export class HomeComponent implements OnInit {
         this.newPostBody = '';
         this.newPostYoutube = '';
         this.getAllPost();
+        this.newPostBody = '';
+        this.newPostImage = '';
+        this.newPostYoutube = '';
       } else {
         this._messegeService.show = true;
         this._messegeService.messege = data['body'];
@@ -134,6 +137,7 @@ export class HomeComponent implements OnInit {
       // this.homePost = PostService.allPostList;
       // console.log(this.homePost);
     });
+
   }
 
 
