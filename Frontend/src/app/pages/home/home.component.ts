@@ -18,6 +18,7 @@ import { UploadFileService } from '../../services/upload-file.service';
 export class HomeComponent implements OnInit {
 
 
+
   newPostImage: string;
   newPostBody: string;
   newPostYoutube: string;
