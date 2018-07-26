@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import data.dao.ActivationDao;
 import data.dao.UserDao;
+import data.model.Activation;
 import data.model.Error;
 import data.model.Post;
 import data.model.User;
@@ -31,6 +34,9 @@ import util.JSONUtil;
 public class UserController {
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private ActivationDao activationDao;
 
 	public UserController() {
 	}
@@ -107,6 +113,10 @@ public class UserController {
 			System.out.println("Invalid password");
 			return new User("Incorrect Password");
 		} /* if (invalid password) */
+		if(!user.isActivated()) {
+			System.out.println("not activated");
+			return new User("Not activated, check you email");
+		}
 		
 		
 
@@ -166,15 +176,13 @@ public class UserController {
 			return new User("An account with this email arleady exist!");
 
 		}
-		u = new User(username, first_name, last_name, password);
+		u = new User(username, first_name, last_name, password, false);
 		userDao.insert(u);
 
-		Cookie userCookie = new Cookie("username", username);
-		Cookie nameCookie = new Cookie("name", u.getFirstName() + "-" + u.getLastName());
-		res.addCookie(userCookie);
-		res.addCookie(nameCookie);
-
-		String body = "Thank you for registering with our super duper website";
+		String activationKey = UUID.randomUUID().toString().replace("-", "");
+		activationDao.insert(new Activation(activationKey, username));
+		String body = "Thank you for registering with our super duper website. Please click on the link below to activate \n" +
+				"http://localhost:4200/OurSpace/activation?activationKey="+activationKey;
 
 		EmailUtil.sendEmail(username, "Successful registration", body);
 
@@ -323,7 +331,24 @@ public class UserController {
 		err.setError(false);
 		return err;
 	}/* handleDeleteUser() */
-
+	
+	@RequestMapping("/activation.action")
+	public @ResponseBody User activate(HttpServletRequest request, HttpServletResponse response) {
+		JSONObject obj = JSONUtil.getObj(request);
+		String key = obj.getString("activationKey");
+		System.out.println("key "+key);
+		Activation act = activationDao.selectById(key);
+		System.out.println(act);
+		if(act !=null) {
+			User user =userDao.selectById(act.getEmail());
+			user.setActivated(true);
+			userDao.update(user);
+			activationDao.delete(act);
+			return user;
+		}else {
+			return null;
+		}
+	}
 	/*
 	 * Reset password of user
 	 */

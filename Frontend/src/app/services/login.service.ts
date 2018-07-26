@@ -107,7 +107,8 @@ export class LoginService {
         for (let i = 0; i < data.length; i++) {
           const tempUser: IUser = {
             email: data[i]['email'], password: data[i]['password'],
-            first_name: data[i]['firstName'], last_name: data[i]['lastName'], profilePicture: data[i]['profilePicture']
+            first_name: data[i]['firstName'], last_name: data[i]['lastName'], profilePicture: data[i]['profilePicture'],
+            activated: data[i]['activated']
           };
           userList.push(tempUser);
         }
