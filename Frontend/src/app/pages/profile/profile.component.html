@@ -25,20 +25,12 @@
     <div class="row">
       <div class="col-sm-5  profileInput">
         <img *ngIf="imgSrc" [src]="imgSrc" width="150px" height="150px" />
-<<<<<<< HEAD
-      </div>
-      <div class="col-md-3" *ngIf="updatable">
-        <label class="btn btn-default">
-          <input type="file" (change)="selectFile($event)" >
-        </label>
-=======
         <br>
 
         <div class="fileButton" *ngIf="updatable">
           <label class="btn btn-default">
             <input type="file" (change)="selectFile($event)">
           </label>
->>>>>>> develop
 
           <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadImage()" *ngIf="updatable">Upload Image</button>
         </div>
