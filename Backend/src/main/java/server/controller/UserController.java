@@ -139,7 +139,6 @@ public class UserController {
 			System.out.println("session is null");
 			return new User("no");
 		}
-		System.out.println("User: " + session.getAttribute("user"));
 		session.invalidate();
 		return new User("yes");
 	}/* logout() */
