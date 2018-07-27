@@ -95,9 +95,27 @@ export class ProfileComponent implements OnInit {
   }
 
   clickUpdate(): void {
+    // console.log(this.firstName + '/' + this.lastName);
+    // console.log('firstname:' + this.firstName);
+    // console.log('lastname:' + this.lastName);
+    // console.log( (this.firstName === '') + '/' + (this.lastName === '') );
+    // console.log( (this.firstName === null) + '/' + (this.lastName === null) );
+    // console.log( (this.firstName === undefined) + '/' + (this.lastName === undefined) );
+    // console.log( (typeof(this.firstName) === null) + '/' + (typeof(this.firstName) === null) );
+    // console.log( (typeof(this.firstName) === undefined) + '/' + (typeof(this.firstName) === undefined) );
+    if ( (this.firstName === '') || (this.lastName === '') ) {
+      this._messegeService.show = true;
+      this._messegeService.messege = 'Please enter a valid First/Last name';
+      alert('Please enter a valid First/Last name');
+      this._messegeService.error = false;
+      return;
+    }
     console.log('clicked update password');
     this._profileService.postUpdate(this.password, this.firstName, this.lastName).subscribe(
-      data => {console.log(data);
+      data => {
+        console.log(data);
+        this._loginService.firstName = data['firstName'];
+        this._loginService.lastName = data['lastName'];
     });
   }
 
