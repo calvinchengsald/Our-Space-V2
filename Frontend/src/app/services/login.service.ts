@@ -48,6 +48,14 @@ export class LoginService {
       console.log(data);
       if (!data) {
         this.isLoggedIn = false;
+        // this._MessegeModelService.error = false;
+        // this._MessegeModelService.show = true;
+        // this._MessegeModelService.messege = 'Please Log In';
+        // console.log(this._router.url);
+        if (this._router.url !== '/login') {
+
+          this._router.navigateByUrl('login');
+        }
         return;
       }
       if (data) {
