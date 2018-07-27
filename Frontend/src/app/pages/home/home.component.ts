@@ -121,6 +121,24 @@ export class HomeComponent implements OnInit {
     }
     // console.log('img = ' + this.newPostImage);
   }
+  saveImagePost2(callbackz): void {
+    if (this.postBodyImageFile !== undefined) {
+      const file = this.postBodyImageFile.item(0);
+      this.currDate = new Date();
+      this.newPostImage =  this._loginService.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
+                    + this.currDate.getMinutes() + file.name;
+
+      this._uploadService.uploadPostPicture(file, this.newPostImage, data => {
+        // console.log(data);
+        this.newPostImage = this._uploadService.BUCKET_URL + this._uploadService.POST_FOLDER + this.newPostImage;
+        callbackz();
+      });
+    } else {
+      this.newPostImage = this.linkTempImage;
+      callbackz();
+    }
+    // console.log('img = ' + this.newPostImage);
+  }
 
   clickPost(): void {
     // console.log(this.newPostBody);
@@ -130,10 +148,11 @@ export class HomeComponent implements OnInit {
       this._messegeService.error = true;
       return;
     }
-    this.saveImagePost();
-    const file = this.postBodyImageFile.item(0);
+    // const file = this.postBodyImageFile.item(0);
+    this.saveImagePost2( () => {
+      // console.log('i still got executed');
     // console.log('clicked post with ' + this.newPostBody + '/' + this.newPostImage + '/' + this.newPostYoutube);
-    this._postService.newPost(this.newPostBody, this._uploadService.BUCKET_URL + this._uploadService.POST_FOLDER +
+    this._postService.newPost(this.newPostBody, 
        this.newPostImage, this.newPostYoutube).subscribe(data => {
       // console.log(data);
       if (data && data['postId'] !== 0) {
@@ -150,13 +169,16 @@ export class HomeComponent implements OnInit {
         this._messegeService.error = false;
         PostService.allPostList = [];
       }
-      this.newPostImage = undefined;
+      this.newPostImage = '';
+      this.uploadTempImage = '';
+      this.postBodyImageFile = undefined;
 
       // this.homePost = PostService.allPostList;
       // console.log(this.homePost);
     });
 
-    this.newPostImage = undefined;
+    this.newPostImage = '';
+  });
     // console.log(this.newPostImage);
   }
 
