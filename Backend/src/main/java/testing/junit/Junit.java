@@ -6,6 +6,7 @@ package testing.junit;
 //
 //import data.model.User;
 
+
 public class Junit {
 //	User user = new User();
 //	
