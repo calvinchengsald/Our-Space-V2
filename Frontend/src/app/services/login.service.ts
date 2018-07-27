@@ -35,6 +35,7 @@ export class LoginService {
     // to be implemented
     // console.log('in logout from service');
     const url: string = EnvironmentService.APIpath + 'logout.action';
+    this.isLoggedIn = false;
     return this.httpServ.post(url, null, this.httpOptions).pipe(
       map(res => res as string)
     );
