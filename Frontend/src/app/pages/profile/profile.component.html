@@ -62,6 +62,8 @@
           <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" class="form-control" />
         </div>
 
+        <br>
+
 
         <div class="from-group" *ngIf="!updatable">
           <label>Last Name</label>
@@ -102,9 +104,7 @@
 
 
   </div>
-  <div *ngIf='!userPost || userPost.length == 0'>
+  <div *ngIf='!userPost || userPost.length == 0' align="center">
     This user have not posted anything
   </div>
-
-  <!-- need to have user posts too -->
 </div>

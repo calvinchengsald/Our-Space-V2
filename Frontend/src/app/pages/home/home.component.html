@@ -65,68 +65,71 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Insert post image</h4>
                   </div>
-                  <div class="modal-body">
-                    <input [(ngModel)]='uploadTempImage' type='file' (change)="selectFile($event)" class='' /> or
-                    <input [(ngModel)]='linkTempImage' type='text' class='' />
-                  </div>
+                  <div class="modal-body center" style="margin-top: auto">
+                      <input style="margin-left: 45px" [(ngModel)]='uploadTempImage' type='file' (change)="selectFile($event)" class='' />                       
+                      <p>
+                        OR insert URL 
+                      </p>
+                      <input [(ngModel)]='linkTempImage' type='text' class='insertImgLink' />
+                    </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" (click)='saveImagePost()'>
                       save
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   </div>
+                  </div>
+  
                 </div>
-
               </div>
-            </div>
-
-            <!-- Video Modal -->
-            <div id="postVideoModal" class="modal fade" role="dialog">
-              <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Inset video</h4>
+  
+              <!-- Video Modal -->
+              <div id="postVideoModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+  
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header" style="padding: 0px; padding-right: 5px">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <!-- <h4 class="modal-title">Insert video</h4> -->
+                    </div>
+                    <div class="modal-body">
+                        <input [(ngModel)]='youtubeLink' type='text' class='' placeholder="Share a Youtube video" style="width: 300px;"/>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal" (click)='saveVideoLink()'>
+                        Insert
+                      </button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
                   </div>
-                  <div class="modal-body">
-                      <input [(ngModel)]='youtubeLink' type='text' class='' />
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)='saveVideoLink()'>
-                      insert
-                    </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
+  
                 </div>
-
               </div>
-            </div>
-
-            <!-- <div class='col-3'>Image url: </div>
-            <div class='col-9'>
-              <input [(ngModel)]='newPostImage' type='text' class='' />
-            </div> -->
-            <!-- <div class='col-3'>Youtube url: </div>
-            <div class='col-9'>
-              <input [(ngModel)]='newPostYoutube' type='text' class='' />
-            </div> -->
-            <div class='col-3 offset-9'>
-              <div class='btn btn-primary' (click)='clickPost()'>Post</div>
+  
+              <!-- <div class='col-3'>Image url: </div>
+              <div class='col-9'>
+                <input [(ngModel)]='newPostImage' type='text' class='' />
+              </div> -->
+              <!-- <div class='col-3'>Youtube url: </div>
+              <div class='col-9'>
+                <input [(ngModel)]='newPostYoutube' type='text' class='' />
+              </div> -->
+              <div class='col-3 offset-9'>
+                <div class='btn btn-primary' (click)='clickPost()'>Post</div>
+              </div>
             </div>
           </div>
-        </div>
-      </mat-card>
-
-      <ng-container>
-        <div *ngFor='let temp of homePost'>
-          <mat-card class="row pcontain">
-            <app-post [post]='temp'></app-post>
-          </mat-card>
-        </div>
-
-    </ng-container>
-    
+        </mat-card>
   
-</div>
+        <ng-container>
+          <div *ngFor='let temp of homePost'>
+            <mat-card class="row pcontain">
+              <app-post [post]='temp'></app-post>
+            </mat-card>
+          </div>
+  
+      </ng-container>
+      
+    
+  </div>
