@@ -35,3 +35,7 @@ hr{
 textarea {
     resize: none;
 }
+.img-fit {
+    width: 100%;
+    height: auto;
+}

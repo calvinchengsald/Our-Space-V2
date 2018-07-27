@@ -42,11 +42,18 @@ export class ProfileComponent implements OnInit {
      this.filename = this.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
                   + this.currDate.getMinutes() + file.name;
       console.log('filename = ' + this.filename);
-     this._uploadService.uploadProfilePicture(file, this.filename);
-     this.imgSrc = this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename;
+     console.log(this._uploadService.uploadProfilePicture(file, this.filename,
+      data => {this._profileService.getProfile(this.email).subscribe(data2 => this.setValues(data2)); }));
+    //  this.imgSrc = this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename;
      this._profileService.pictureUpdate(this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename)
-     .subscribe(data => console.log('pic resp = ' + data));
-     this.imgSrc = this.filename;
+     .subscribe(data => {
+      //  console.log('pic resp = ' + data);
+      //  console.log(data);
+      //  console.log(data['Location']);
+      //  this.selectedFiles =
+      
+      });
+    //  this.imgSrc = this.filename;
    }
 
 

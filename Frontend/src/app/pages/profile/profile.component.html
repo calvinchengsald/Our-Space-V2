@@ -16,20 +16,20 @@
   {{showUpdate ? 'Update Info': 'Update Info'}} 
 </button> -->
 
-  <div class="container">
-    <div class="row text-center" >
+  <div class="col-8 offset-2 ">
+    <div class="row text-center " >
       <div class="col-md-12" *ngIf="updatable">
         <h3 class="labelTitle">Update Profile Information</h3>
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-5  profileInput">
-        <img *ngIf="imgSrc" [src]="imgSrc" width="150px" height="150px" />
+      <div class="col-sm-5  profileInput " >
+        <img class='bg-white' *ngIf="imgSrc" [src]="imgSrc" width="150px" height="150px" />
         <br>
 
         <div class="fileButton" *ngIf="updatable">
           <label class="btn btn-default">
-            <input type="file" (change)="selectFile($event)">
+            <input class='text-dark' type="file" (change)="selectFile($event)">
           </label>
 
           <button class="btn btn-success" [disabled]="!selectedFiles" (click)="uploadImage()" *ngIf="updatable">Upload Image</button>

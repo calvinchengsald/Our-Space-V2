@@ -120,6 +120,7 @@ export class PostService {
     const resp = this.httpServ.post(this.url, obj, this.httpOptions ).pipe(
       map(res => res as string)
     );
+    this.getAllPost().subscribe();
 
     return resp;
   }

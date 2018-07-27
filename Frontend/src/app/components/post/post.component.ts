@@ -15,17 +15,19 @@ export class PostComponent implements OnInit {
 
 
   newCommentBody: string;
-  likeLinkDefault = 'https://cms.jotform.com/uploads/help/document/joey/88_facebook_like_button_big.jpeg';
-  likeLinkLiked = 'https://s3.amazonaws.com/our-space/UI/btn-liked.jpeg';
   likedByUserBool = false;
-  likeSrc = this.likeLinkDefault;
+  likeSrc: string;
   likeList: any;
   @Input() post: IPost;
   constructor(private _commentService: CommentService, private _messegeService: MessegeModelService,
       private _postService: PostService, private _loginService: LoginService ) { }
 
   likedByUser(post: IPost, email: string): boolean {
-    if (!this.likeList || this.likeList.length === 0) {return false; }
+    // console.log('called liked By user');
+    if (!this.likeList || this.likeList.length === 0) {
+      this.likedByUserBool = false;
+      return false;
+    }
 
     for (let i = 0; i < this.likeList.length; i++) {
       if (this.likeList[i].email === email) {
@@ -41,16 +43,12 @@ export class PostComponent implements OnInit {
   }
 
   ngAfterContentChecked() {
-    if (this.likedByUser(this.post, this._loginService.email )) {
-      this.likeSrc = this.likeLinkLiked;
-    } else {
-      this.likeSrc = this.likeLinkDefault;
-    }
+    this.likedByUser(this.post, this._loginService.email );
     if  (this.post && this.post.postId !== 0) {
       this.likeList = this._postService.getLikeList(this.post.postId);
       // console.log('like list for comp ' + this.post.body + ' is: ' + this.likeList);
     }
-    // console.log(this.post);
+    console.log(this.post);
   }
 
 
@@ -134,12 +132,20 @@ export class PostComponent implements OnInit {
     //   this.likeSrc = this.likeLinkLiked;
     // }
     this._postService.updatePost(this.post.postId, this._loginService.email).subscribe(data => {
-      this._postService.getPostLikes().subscribe((data2) => {
-        this.likeList = this._postService.getLikeList(this.post.postId);
-        this.likedByUser(this.post, this._loginService.email );
-        console.log(this.likeList);
-      });
+      console.log(data);
+        this._postService.getPostLikes().subscribe((data3) => {
 
+          console.log(data3);
+          this.likeList = this._postService.getLikeList(this.post.postId);
+          this.likedByUser(this.post, this._loginService.email );
+          console.log('value of bool is ' + this.likedByUserBool);
+          console.log(this.likeList);
+          setTimeout(function() { 
+            this.likeList = this._postService.getLikeList(this.post.postId);
+            this.likedByUser(this.post, this._loginService.email );
+          }, 500);
+          // this.newCommentBody = this.newCommentBody + '';
+        });
     });
 
   }

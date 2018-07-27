@@ -15,7 +15,7 @@ export class UploadFileService {
   constructor() { }
 
   // Upload profile picture to amazon s3
-  uploadProfilePicture(file, filename) {
+  uploadProfilePicture(file, filename, callback) {
     const bucket = new S3({
       accessKeyId: env.AWSs3access,
       secretAccessKey: env.AWSs3secret,
@@ -34,7 +34,8 @@ export class UploadFileService {
         return false;
       }
       console.log('Successfully uploaded file', data);
-      return true;
+      callback();
+      return data['Location'];
     });
   }
 
