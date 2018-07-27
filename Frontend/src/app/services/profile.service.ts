@@ -51,7 +51,7 @@ export class ProfileService {
 
   getProfile(emailz: string): Observable<string> {
 
-    console.log('in getprofile method with params ' + emailz );
+    // console.log('in getprofile method with params ' + emailz );
     this.url = EnvironmentService.APIpath + 'getUser.action';
     const obj = {
       email: emailz,
@@ -76,7 +76,7 @@ export class ProfileService {
 
   // send profile picture path to the database
   pictureUpdate(picturez: String): Observable<string> {
-    console.log('uploaded profile picture');
+    // console.log('uploaded profile picture');
     this.url = EnvironmentService.APIpath + 'profilePicture.action';
 
     const obj = {

@@ -23,11 +23,10 @@ export class ResetPageComponent implements OnInit {
   }
 
   clickReset(): void {
-    console.log('clicked register');
+    // console.log('clicked register');
     this._loginService.changePass(this.email).subscribe(
       data => {
-        this._router.navigateByUrl('login'),
-        console.log(data);
+        this._router.navigateByUrl('login');
       });
   }
 }

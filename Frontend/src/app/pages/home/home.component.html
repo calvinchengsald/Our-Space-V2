@@ -68,16 +68,13 @@
                   </div>
                   <div class="modal-body center" style="margin-top: auto">
                       <input style="margin-left: 45px" [(ngModel)]='uploadTempImage' type='file' (change)="selectFile($event)" class='' />                       
-                      <p>
-                        OR insert URL 
-                      </p>
-                      <input [(ngModel)]='linkTempImage' type='text' class='insertImgLink' />
+                      
                     </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" (click)='saveImagePost()'>
                       save
                     </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)='cancelFile()'>Close</button>
                   </div>
                   </div>
   

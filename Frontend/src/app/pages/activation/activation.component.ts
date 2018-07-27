@@ -18,7 +18,7 @@ export class ActivationComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.activationKey = params['activationKey'];
-      console.log(this.activationKey);
+      // console.log(this.activationKey);
       if (this.activationKey) {
         this.activate();
       }
@@ -32,7 +32,7 @@ export class ActivationComponent implements OnInit {
       }),
       withCredentials: true
     };
-    console.log(url);
+    // console.log(url);
     this.http.post(url, {activationKey: this.activationKey}, httpOptions).subscribe(
       data => {
         if (data) {
