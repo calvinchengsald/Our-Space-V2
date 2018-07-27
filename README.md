@@ -21,12 +21,19 @@ All endpoints will return eith a null if server error, or an object with specifi
 
 
 `/api/login`  Login and set session, Credentials in post body.
+
 `/api/register`  Register with credentials in the body. Sends an email
+
 `/api/insertComment`  Inserts a comment with post form in body
+
 `/api/deleteComment`  Delete a comment with desired 
+
 `/api/editComment`  Edit comment with key in post body
+
 `/api/insertPost`  Insert a post with specified body
+
 `/api/editPost`  Edit a post with the specified postId
+
 
 
 ## Build
