@@ -79,6 +79,7 @@ public class User {
 		this.lastName = lastName;
 		this.password = password;
 		this.activated = false;
+		this.profilePicture = "http://our-space.s3.amazonaws.com/ProfilePicture/kevinqkh@gmail.com642112index.png";
 	}
 
 
