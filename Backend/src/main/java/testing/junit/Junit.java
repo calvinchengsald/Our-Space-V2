@@ -2,9 +2,9 @@ package testing.junit;
 
 
 
-import org.junit.Test;
-
-import data.model.User;
+//import org.junit.Test;
+//
+//import data.model.User;
 
 public class Junit {
 //	User user = new User();
