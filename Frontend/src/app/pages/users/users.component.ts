@@ -43,18 +43,39 @@ export class UsersComponent implements OnInit {
 
 
 
-  constructor(private _loginService: LoginService, public router: Router) {  }
+
+  constructor(private _loginService: LoginService, public router: Router) {
+    this.usersList = this._loginService.allUser;
+    console.log('user sdlfjs = ' + this.usersList);
+    this.filteredUsers = this.usersList;
+    console.log('users = ' + this.filteredUsers);
+   }
 
   get loginService() {
     return this._loginService;
   }
 
   ngOnInit() {
-    this._loginService.checkLogin(); // for refreshing on the pae
-    this._loginService.getAllUsers();
-    this.usersList = this._loginService.allUser;
-    this.filteredUsers = this.usersList;
-    console.log('users = ' + this.filteredUsers);
+    this._loginService.checkLogin();
+    this._loginService.getAllUsers().subscribe(data => {
+      console.log(data);
+      if (data) {
+        const userList = [];
+        for (let i = 0; i < data.length; i++) {
+          const tempUser: IUser = {
+            email: data[i]['email'], password: data[i]['password'],
+            first_name: data[i]['firstName'], last_name: data[i]['lastName'], profilePicture: data[i]['profilePicture'],
+            activated: data[i]['activated']
+          };
+          userList.push(tempUser);
+        }
+        this.usersList = userList;
+        this.filteredUsers = userList;
+      } else {
+        this.usersList = [];
+        this.filteredUsers = [];
+      }
+    });
   }
 
   viewUser(input) {

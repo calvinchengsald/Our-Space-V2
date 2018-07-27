@@ -40,3 +40,10 @@ div{
 .pcontain{
     background-color: white;
 }
+.textbox {
+    width: 80%;
+}
+
+.halfbox {
+    width: 40%;
+}

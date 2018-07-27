@@ -1,11 +1,11 @@
-<div class="card-body">
-  <div class="col-sm-2 pcontain">
-      <div *ngIf='post.owner.profilePicture' class='row'>
-          <img class='img-fluid' [src]='post.owner.profilePicture' />
-        </div>
+<div class="">
+  <div class="col-sm-2 pcontain well">
     <div class="row text-left">
       <a routerLink='/profile/{{post.owner.email}}'>{{post.owner.first_name}} {{post.owner.last_name}}</a>
     </div>
+    <div *ngIf='post.owner.profilePicture' class='row'>
+        <img class='img-fluid' [src]='post.owner.profilePicture' />
+      </div>
     
   </div>
 
@@ -59,7 +59,7 @@
       </div>
       <div class='row'>
         <textarea [(ngModel)]='newCommentBody' placeholder='Insert New Comment...' (keyup.enter)="onInsertComment()" class="commentBody"
-        rows='3' width='100%'></textarea>
+        rows='2' width='100%'></textarea>
       </div>
 
     </div>
