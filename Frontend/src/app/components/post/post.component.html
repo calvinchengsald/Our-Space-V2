@@ -3,9 +3,10 @@
     <div class="row text-center">
       <a routerLink='/profile/{{post.owner.email}}'>{{post.owner.first_name}} {{post.owner.last_name}}</a>
     </div>
-    <div class='row'>
-      <img class='img-fluid' [src]='post.owner.profilePicture' />
-    </div>
+    <div *ngIf='post.owner.profilePicture' class='row'>
+        <img class='img-fluid' [src]='post.owner.profilePicture' />
+      </div>
+    
   </div>
 
   <div class="col-sm-10">
