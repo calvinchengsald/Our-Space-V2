@@ -1,6 +1,6 @@
 <div class="">
   <div class="col-sm-2 pcontain well">
-    <div class="row text-left">
+    <div class="row text-center">
       <a routerLink='/profile/{{post.owner.email}}'>{{post.owner.first_name}} {{post.owner.last_name}}</a>
     </div>
     <div *ngIf='post.owner.profilePicture' class='row'>
@@ -37,20 +37,16 @@
       </div>
 
       <div class='row' *ngIf='post.comments'>
-        <hr />
-        <div *ngFor='let comment of post.comments'>
+        <div class='col-12' *ngFor='let comment of post.comments'>
           <div class="row">
-            <div class="col-sm-3">
-              <div class="well">
-                <img *ngIf='comment.user.profilePicture' class="img-circle" [src]='comment.user.profilePicture' width='50' height="50" />
-                <p>
-                  <a routerLink='/profile/{{comment.user.email}}'> {{comment.user.firstName}} {{comment.user.lastName}}</a>
-                </p>
-              </div>
+            <div class="col-sm-2">
+              <!-- <img *ngIf='comment.user.profilePicture' class="img-circle" [src]='comment.user.profilePicture' width='50' height="50" /> -->
+              <img *ngIf='comment.user.profilePicture' class="img-circle img-fit" [src]='comment.user.profilePicture' width='50' height="50" />
+        
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-10">
               <div class="well text-left">
-                {{comment.body}}
+                  <a routerLink='/profile/{{comment.user.email}}'> {{comment.user.firstName}} {{comment.user.lastName}}</a> {{comment.body}}
               </div>
             </div>
           </div>

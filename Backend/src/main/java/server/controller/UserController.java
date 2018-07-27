@@ -197,23 +197,24 @@ public class UserController {
 		HttpSession session = request.getSession(false);
 		if(session != null) {
 			System.out.println("not null");
-			System.out.println(session.getAttribute("user"));
+//			System.out.println(session.getAttribute("user"));
 		}
 		User usr = (User) request.getSession().getAttribute("user");
 		String username = usr.getEmail();
 		String password = obj.getString("password");
-
-		try {
-			password = HashedPassword.getHash(password);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(password != null && !password.equals("")) {
+			try {
+				password = HashedPassword.getHash(password);
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 
 		
-		String first_name = obj.getString("first_name");
-		String last_name = obj.getString("last_name");
-
+		String first_name = (obj.has("first_name"))?obj.getString("first_name"):"";
+		String last_name = (obj.has("last_name"))?obj.getString("last_name"):"";
 		System.out.println("password: " + password);
 		String profilePicture = (obj.has("profilePicture"))?obj.getString("profilePicture"):"";
 
@@ -226,7 +227,7 @@ public class UserController {
 		
 
 		User u = userDao.selectById(username);
-		System.out.println("user = " + u);
+//		System.out.println("user = " + u);
 		
 		// validate email
 		if (u == null) {
@@ -234,9 +235,14 @@ public class UserController {
 		}
 		
 		// update  first name
-		u.setFirstName(first_name);
+		if (!(first_name.equals(""))) {
+			u.setFirstName(first_name);
+		}
 		
 		// update last name
+		if (!(last_name.equals(""))) {
+			u.setLastName(last_name);
+		}
 		u.setLastName(last_name);
 		
 		// update password if not null
@@ -245,10 +251,11 @@ public class UserController {
 			System.out.println("here " + u.getPassword());
 		}
 		
-		System.out.println(u);
+//		System.out.println(u);
 
 		// update database
 		userDao.update(u);	
+		request.getSession(false).setAttribute("user",u);
 		
 		return u;
 	}/* updateUser() */

@@ -56,9 +56,9 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._loginService.checkLogin();
+    this._loginService.checkLogin(); // for refreshing on the pae
     this._loginService.getAllUsers().subscribe(data => {
-      console.log(data);
+
       if (data) {
         const userList = [];
         for (let i = 0; i < data.length; i++) {

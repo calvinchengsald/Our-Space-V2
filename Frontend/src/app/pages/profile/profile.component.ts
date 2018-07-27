@@ -42,11 +42,17 @@ export class ProfileComponent implements OnInit {
      this.filename = this.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
                   + this.currDate.getMinutes() + file.name;
       console.log('filename = ' + this.filename);
-     this._uploadService.uploadProfilePicture(file, this.filename);
-     this.imgSrc = this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename;
+     console.log(this._uploadService.uploadProfilePicture(file, this.filename,
+      data => {this._profileService.getProfile(this.email).subscribe(data2 => this.setValues(data2)); }));
+    //  this.imgSrc = this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename;
      this._profileService.pictureUpdate(this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename)
-     .subscribe(data => console.log('pic resp = ' + data));
-     this.imgSrc = this.filename;
+     .subscribe(data => {
+      //  console.log('pic resp = ' + data);
+      //  console.log(data);
+      //  console.log(data['Location']);
+      //  this.selectedFiles =
+      });
+    //  this.imgSrc = this.filename;
    }
 
 
@@ -88,9 +94,27 @@ export class ProfileComponent implements OnInit {
   }
 
   clickUpdate(): void {
+    // console.log(this.firstName + '/' + this.lastName);
+    // console.log('firstname:' + this.firstName);
+    // console.log('lastname:' + this.lastName);
+    // console.log( (this.firstName === '') + '/' + (this.lastName === '') );
+    // console.log( (this.firstName === null) + '/' + (this.lastName === null) );
+    // console.log( (this.firstName === undefined) + '/' + (this.lastName === undefined) );
+    // console.log( (typeof(this.firstName) === null) + '/' + (typeof(this.firstName) === null) );
+    // console.log( (typeof(this.firstName) === undefined) + '/' + (typeof(this.firstName) === undefined) );
+    if ( (this.firstName === '') || (this.lastName === '') ) {
+      this._messegeService.show = true;
+      this._messegeService.messege = 'Please enter a valid First/Last name';
+      alert('Please enter a valid First/Last name');
+      this._messegeService.error = false;
+      return;
+    }
     console.log('clicked update password');
     this._profileService.postUpdate(this.password, this.firstName, this.lastName).subscribe(
-      data => {console.log(data);
+      data => {
+        console.log(data);
+        this._loginService.firstName = data['firstName'];
+        this._loginService.lastName = data['lastName'];
     });
   }
 
