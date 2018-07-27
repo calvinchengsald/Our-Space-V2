@@ -86,7 +86,7 @@ export class PostService {
   }
 
   newPost(bodyz: string, image: string, youtube: string): Observable<string> {
-    console.log('in new post with ' + bodyz + ' / ' + image + ' / ' + youtube);
+    // console.log('in new post with ' + bodyz + ' / ' + image + ' / ' + youtube);
     this.url = EnvironmentService.APIpath + 'insertPost.action';
     const obj = {
       body: bodyz,

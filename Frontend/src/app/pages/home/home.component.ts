@@ -111,6 +111,11 @@ export class HomeComponent implements OnInit {
       this.currDate = new Date();
       this.newPostImage =  this._loginService.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
                     + this.currDate.getMinutes() + file.name;
+
+      this._uploadService.uploadPostPicture(file, this.newPostImage, data => {
+        // console.log(data);
+        this.newPostImage = this._uploadService.BUCKET_URL + this._uploadService.POST_FOLDER + this.newPostImage;
+      });
     } else {
       this.newPostImage = this.linkTempImage;
     }
@@ -118,15 +123,18 @@ export class HomeComponent implements OnInit {
   }
 
   clickPost(): void {
-    console.log(this.newPostBody);
+    // console.log(this.newPostBody);
     if (this.newPostBody === '') {
       this._messegeService.show = true;
       this._messegeService.messege = 'This post must have a body';
       this._messegeService.error = true;
       return;
     }
+    this.saveImagePost();
+    const file = this.postBodyImageFile.item(0);
     // console.log('clicked post with ' + this.newPostBody + '/' + this.newPostImage + '/' + this.newPostYoutube);
-    this._postService.newPost(this.newPostBody, this.newPostImage, this.newPostYoutube).subscribe(data => {
+    this._postService.newPost(this.newPostBody, this._uploadService.BUCKET_URL + this._uploadService.POST_FOLDER +
+       this.newPostImage, this.newPostYoutube).subscribe(data => {
       // console.log(data);
       if (data && data['postId'] !== 0) {
         this.newPostImage = '';
@@ -142,11 +150,14 @@ export class HomeComponent implements OnInit {
         this._messegeService.error = false;
         PostService.allPostList = [];
       }
+      this.newPostImage = undefined;
 
       // this.homePost = PostService.allPostList;
       // console.log(this.homePost);
     });
 
+    this.newPostImage = undefined;
+    // console.log(this.newPostImage);
   }
 
 

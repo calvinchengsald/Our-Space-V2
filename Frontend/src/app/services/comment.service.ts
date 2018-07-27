@@ -24,7 +24,7 @@ export class CommentService {
 
   insertComment(bodyz: string, postIdz: number): Observable<string> {
 
-    console.log('in insert new comment ' + bodyz + '/' + postIdz);
+    // console.log('in insert new comment ' + bodyz + '/' + postIdz);
     this.url = EnvironmentService.APIpath + 'insertComment.action';
     const obj = {
       postId: postIdz,

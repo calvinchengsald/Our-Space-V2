@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
                   + this.currDate.getMinutes() + file.name;
       // console.log('filename = ' + this.filename);
      this._uploadService.uploadProfilePicture(file, this.filename,
-      data => {this._profileService.getProfile(this.email).subscribe(data2 => this.setValues(data2)); }));
+      data => {this._profileService.getProfile(this.email).subscribe(data2 => this.setValues(data2)); });
     //  this.imgSrc = this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename;
      this._profileService.pictureUpdate(this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename)
      .subscribe(data => {
@@ -109,7 +109,7 @@ export class ProfileComponent implements OnInit {
       this._messegeService.error = false;
       return;
     }
-    console.log('clicked update password');
+    // console.log('clicked update password');
     this._profileService.postUpdate(this.password, this.firstName, this.lastName).subscribe(
       data => {
         // console.log(data);

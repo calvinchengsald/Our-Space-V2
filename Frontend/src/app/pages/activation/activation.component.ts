@@ -32,7 +32,7 @@ export class ActivationComponent implements OnInit {
       }),
       withCredentials: true
     };
-    console.log(url);
+    // console.log(url);
     this.http.post(url, {activationKey: this.activationKey}, httpOptions).subscribe(
       data => {
         if (data) {

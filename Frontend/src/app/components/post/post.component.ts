@@ -132,7 +132,7 @@ export class PostComponent implements OnInit {
     //   this.likeSrc = this.likeLinkLiked;
     // }
     this._postService.updatePost(this.post.postId, this._loginService.email).subscribe(data => {
-      console.log(data);
+      // console.log(data);
         this._postService.getPostLikes().subscribe((data3) => {
 
           // console.log(data3);
@@ -140,9 +140,11 @@ export class PostComponent implements OnInit {
           this.likedByUser(this.post, this._loginService.email );
           // console.log('value of bool is ' + this.likedByUserBool);
           // console.log(this.likeList);
-          setTimeout(function() { 
-            this.likeList = this._postService.getLikeList(this.post.postId);
-            this.likedByUser(this.post, this._loginService.email );
+          setTimeout(function() {
+            if (this._postService) {
+              this.likeList = this._postService.getLikeList(this.post.postId);
+            }
+            // this.likedByUser(this.post, this._loginService.email );
           }, 500);
           // this.newCommentBody = this.newCommentBody + '';
         });
