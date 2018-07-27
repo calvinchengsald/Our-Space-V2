@@ -51,7 +51,6 @@ export class ProfileComponent implements OnInit {
       //  console.log(data);
       //  console.log(data['Location']);
       //  this.selectedFiles =
-      
       });
     //  this.imgSrc = this.filename;
    }
