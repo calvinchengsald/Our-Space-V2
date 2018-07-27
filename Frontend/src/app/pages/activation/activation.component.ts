@@ -18,7 +18,7 @@ export class ActivationComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.activationKey = params['activationKey'];
-      console.log(this.activationKey);
+      // console.log(this.activationKey);
       if (this.activationKey) {
         this.activate();
       }

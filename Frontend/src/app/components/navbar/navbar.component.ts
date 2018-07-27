@@ -42,11 +42,11 @@ export class NavbarComponent implements OnInit {
 
 
   clickLogout(): void {
-    console.log('we clicked logout');
+    // console.log('we clicked logout');
     // need to do a req, but for now just set vars client side
     this._loginService.logout().subscribe(  // code inside of subscribe not executing
       res => {
-        console.log('logged out');
+        // console.log('logged out');
       }
     );
     this._loginService.isLoggedIn = false;

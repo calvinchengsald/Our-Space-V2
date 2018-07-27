@@ -22,9 +22,9 @@ export class RegisterService {
 
   postRegister(usernamez: string, passwordz: string, con_passwordz: string, first_namez: string, last_namez: string): Observable<string> {
 
-    console.log('in postRegister method with params ' + usernamez + ',' + passwordz + ',' + first_namez + ',' + last_namez);
+    // console.log('in postRegister method with params ' + usernamez + ',' + passwordz + ',' + first_namez + ',' + last_namez);
     if (passwordz === con_passwordz) {
-      console.log('passwords match');
+      // console.log('passwords match');
       this.url = EnvironmentService.APIpath + 'register.action';
       const obj = {
         username: usernamez,
@@ -36,7 +36,7 @@ export class RegisterService {
         map(res => res as string)
       );
     } else {
-      console.log('Passwords do not match');
+      // console.log('Passwords do not match');
     }
   }
 }

@@ -133,7 +133,7 @@ export class PostService {
     );
     result.subscribe(data => {
       this.likeData = data;
-      console.log(data);
+      // console.log(data);
     });
     return result;
   }

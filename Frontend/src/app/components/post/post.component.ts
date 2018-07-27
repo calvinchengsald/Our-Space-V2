@@ -48,12 +48,12 @@ export class PostComponent implements OnInit {
       this.likeList = this._postService.getLikeList(this.post.postId);
       // console.log('like list for comp ' + this.post.body + ' is: ' + this.likeList);
     }
-    console.log(this.post);
+    // console.log(this.post);
   }
 
 
   onInsertComment() {
-    console.log(this.newCommentBody);
+    // console.log(this.newCommentBody);
     if (this.newCommentBody.trim() === '') {
       this._messegeService.show = true;
       this._messegeService.messege = 'This comment must have a body';
@@ -61,10 +61,10 @@ export class PostComponent implements OnInit {
       return;
     }
     this._commentService.insertComment(this.newCommentBody, this.post.postId).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       if (data && data['commentId'] !== 0) {
         this._postService.getPost(this.post.postId).subscribe(dataEle => {
-          console.log('data2' + dataEle);
+          // console.log('data2' + dataEle);
           if (dataEle && dataEle['postId'] !== 0) {
             const l = [];
             // if (dataEle['likedUsers']) {
@@ -114,7 +114,7 @@ export class PostComponent implements OnInit {
   // }
 
   clickLike(): void {
-    console.log('i click like');
+    // console.log('i click like');
     if (!this._loginService.isLoggedIn) {
       this._messegeService.show = true;
       this._messegeService.messege = 'Please log in for this action';
@@ -135,11 +135,11 @@ export class PostComponent implements OnInit {
       console.log(data);
         this._postService.getPostLikes().subscribe((data3) => {
 
-          console.log(data3);
+          // console.log(data3);
           this.likeList = this._postService.getLikeList(this.post.postId);
           this.likedByUser(this.post, this._loginService.email );
-          console.log('value of bool is ' + this.likedByUserBool);
-          console.log(this.likeList);
+          // console.log('value of bool is ' + this.likedByUserBool);
+          // console.log(this.likeList);
           setTimeout(function() { 
             this.likeList = this._postService.getLikeList(this.post.postId);
             this.likedByUser(this.post, this._loginService.email );

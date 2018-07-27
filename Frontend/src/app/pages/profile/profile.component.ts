@@ -22,6 +22,7 @@ export class ProfileComponent implements OnInit {
   showUpdate = false;
   userPost: IPost[];
   password: string;
+  password2: string;
   imgSrc: string;
   selectedFiles: FileList;
   currDate: Date;
@@ -41,8 +42,8 @@ export class ProfileComponent implements OnInit {
      this.currDate = new Date();
      this.filename = this.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
                   + this.currDate.getMinutes() + file.name;
-      console.log('filename = ' + this.filename);
-     console.log(this._uploadService.uploadProfilePicture(file, this.filename,
+      // console.log('filename = ' + this.filename);
+     this._uploadService.uploadProfilePicture(file, this.filename,
       data => {this._profileService.getProfile(this.email).subscribe(data2 => this.setValues(data2)); }));
     //  this.imgSrc = this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename;
      this._profileService.pictureUpdate(this._uploadService.BUCKET_URL + this._uploadService.PROFILE_FOLDER + this.filename)
@@ -50,8 +51,6 @@ export class ProfileComponent implements OnInit {
       //  console.log('pic resp = ' + data);
       //  console.log(data);
       //  console.log(data['Location']);
-      //  this.selectedFiles =
-      
       });
     //  this.imgSrc = this.filename;
    }
@@ -66,18 +65,18 @@ export class ProfileComponent implements OnInit {
   }
 
   setValues(user: string) {
-    console.log(user);
+    // console.log(user);
     if (!user || !user['firstName']) {
       this.firstName = '';
       return;
     }
     this.firstName = user['firstName'];
-    console.log(this.firstName);
+    // console.log(this.firstName);
     this.lastName = user['lastName'];
     this.email = user['email'];
     this.password = user['password'];
     this.imgSrc = user['profilePicture'];
-    console.log('img src:' + this.imgSrc);
+    // console.log('img src:' + this.imgSrc);
     if (this.email === this._loginService.email) {
       this.updatable = true;
     } else {
@@ -86,7 +85,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('we clicked profile');
+    // console.log('we clicked profile');
     this._loginService.checkLogin();
     this.email = this.route.snapshot.paramMap.get('email').trim();
     this._profileService.getProfile(this.email).subscribe(data => this.setValues(data));
@@ -113,9 +112,15 @@ export class ProfileComponent implements OnInit {
     console.log('clicked update password');
     this._profileService.postUpdate(this.password, this.firstName, this.lastName).subscribe(
       data => {
-        console.log(data);
-        this._loginService.firstName = data['firstName'];
-        this._loginService.lastName = data['lastName'];
+        // console.log(data);
+        this._messegeService.show = true;
+        this._messegeService.messege = 'Profile Updated';
+        this._messegeService.error = false;
+        this.password = '';
+        this.password2 = '';
+        // console.log('done');
+        // this._loginService.firstName = data['firstName'];
+        // this._loginService.lastName = data['lastName'];
     });
   }
 
@@ -125,7 +130,7 @@ export class ProfileComponent implements OnInit {
 
   getAllUserPost(userEmail: string): void {
     this._postService.getAllUserPost(userEmail).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       if (data[0] && data[0]['postId'] !== 0) {
 
         const postList = [];
@@ -162,7 +167,7 @@ export class ProfileComponent implements OnInit {
         PostService.allPostUser = [];
       }
       this.userPost = PostService.allPostUser;
-      console.log(this.userPost);
+      // console.log(this.userPost);
     });
   }
 

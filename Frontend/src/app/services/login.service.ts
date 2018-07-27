@@ -33,7 +33,7 @@ export class LoginService {
 
   logout(): Observable<any> {
     // to be implemented
-    console.log('in logout from service');
+    // console.log('in logout from service');
     const url: string = EnvironmentService.APIpath + 'logout.action';
     return this.httpServ.post(url, null, this.httpOptions).pipe(
       map(res => res as string)
@@ -45,7 +45,7 @@ export class LoginService {
     const obs = this.httpServ.post(url, null, this.httpOptions).pipe(
       map(res => res as string));
     obs.subscribe(data => {
-      console.log(data);
+      // console.log(data);
       if (!data) {
         this.isLoggedIn = false;
         // this._MessegeModelService.error = false;
@@ -66,7 +66,7 @@ export class LoginService {
         this.lastName = data['lastName'];
         this.email = data['email'];
         this.profileImage = data['profilePicture'];
-        console.log('logged in1 ');
+        // console.log('logged in1 ');
         this.isLoggedIn = true;
       }
     });
@@ -75,7 +75,7 @@ export class LoginService {
 
 
   getLogin(emailz: string, passwordz: string) {
-    console.log('in getlogin method with params ' + emailz + '/' + passwordz);
+    // console.log('in getlogin method with params ' + emailz + '/' + passwordz);
     const url: string = EnvironmentService.APIpath + 'login.action';
     const obj = {
       email: emailz,
@@ -89,7 +89,7 @@ export class LoginService {
         this._MessegeModelService.error = true;
         this._MessegeModelService.show = true;
         this._MessegeModelService.messege = data['email'];
-        console.log('in pass');
+        // console.log('in pass');
       } else if (data['email']) {
         this._MessegeModelService.error = false;
         this._MessegeModelService.show = false;
@@ -97,7 +97,7 @@ export class LoginService {
         this.firstName = data['firstName'];
         this.lastName = data['lastName'];
         this.email = data['email'];
-        console.log('logged in ');
+        // console.log('logged in ');
         this.isLoggedIn = true;
       }
     });
@@ -109,7 +109,7 @@ export class LoginService {
     const obs = this.httpServ.post(url, null, this.httpOptions).pipe(
       map(res => res as string));
     obs.subscribe(data => {
-      console.log(data);
+      // console.log(data);
       if (data) {
         const userList = [];
         for (let i = 0; i < data.length; i++) {

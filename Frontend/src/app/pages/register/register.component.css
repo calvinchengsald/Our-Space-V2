@@ -14,3 +14,7 @@ width: 100%;
   margin-top: 5%;
   width: 50%;
 }
+
+.bg-white {
+  background: white;
+}

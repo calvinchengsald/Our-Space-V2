@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this._loginService.checkLogin().subscribe(data => {
       if (data) {
-        console.log('getting all posts');
+        // console.log('getting all posts');
         this.getAllPost();
       }
     });
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     // console.log(env.AWSs3access);
     // console.log(env.AWSs3secret);
     this._postService.getAllPost().subscribe(data => {
-      console.log(data);
+      // console.log(data);
       if (data[0] && data[0]['postId'] !== 0) {
 
         const postList = [];
@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
         PostService.allPostList = [];
       }
       this.homePost = PostService.allPostList;
-      console.log(this.homePost);
+      // console.log(this.homePost);
     });
     this._postService.getPostLikes();
   }
@@ -102,7 +102,7 @@ export class HomeComponent implements OnInit {
   saveVideoLink(): void {
     const temp = this.youtubeLink.split('=');
     this.newPostYoutube = 'http://youtube.com/embed/' +  temp[1];
-    console.log('video link' + this.newPostYoutube.split('='));
+    // console.log('video link' + this.newPostYoutube.split('='));
   }
 
   saveImagePost(): void {
@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
     } else {
       this.newPostImage = this.linkTempImage;
     }
-    console.log('img = ' + this.newPostImage);
+    // console.log('img = ' + this.newPostImage);
   }
 
   clickPost(): void {
@@ -125,9 +125,9 @@ export class HomeComponent implements OnInit {
       this._messegeService.error = true;
       return;
     }
-    console.log('clicked post with ' + this.newPostBody + '/' + this.newPostImage + '/' + this.newPostYoutube);
+    // console.log('clicked post with ' + this.newPostBody + '/' + this.newPostImage + '/' + this.newPostYoutube);
     this._postService.newPost(this.newPostBody, this.newPostImage, this.newPostYoutube).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       if (data && data['postId'] !== 0) {
         this.newPostImage = '';
         this.newPostBody = '';
