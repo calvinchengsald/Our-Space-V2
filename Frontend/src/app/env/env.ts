@@ -1,5 +1,5 @@
 export const env = {
-    AWSs3access: ' ',
-    AWSs3secret: ' /DP',
+    AWSs3access: '',
+    AWSs3secret: '',
 };
 
