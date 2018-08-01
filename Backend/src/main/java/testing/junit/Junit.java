@@ -2,16 +2,11 @@ package testing.junit;
 
 
 
-<<<<<<< HEAD
-//import org.junit.Test;
-//
-//import data.model.User;
 
-=======
+
 // import org.junit.Test;
 
 // import data.model.User;
->>>>>>> 6dcaa41df729e643fda05bf53248a57eb5165233
 
 public class Junit {
 //	User user = new User();
