@@ -109,28 +109,29 @@ export class HomeComponent implements OnInit {
     if (this.postBodyImageFile !== undefined) {
       const file = this.postBodyImageFile.item(0);
       this.currDate = new Date();
-      this.newPostImage =  this._loginService.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
+      const hg =  this._loginService.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
                     + this.currDate.getMinutes() + file.name;
 
-      this._uploadService.uploadPostPicture(file, this.newPostImage, data => {
-        // console.log(data);
-        this.newPostImage = this._uploadService.BUCKET_URL + this._uploadService.POST_FOLDER + this.newPostImage;
+      this._uploadService.uploadPostPicture(file, hg, data => {
+        setTimeout(() => {}, 1000);
+        this.newPostImage = this._uploadService.BUCKET_URL + this._uploadService.POST_FOLDER + hg;
       });
     } else {
       this.newPostImage = this.linkTempImage;
     }
+
     // console.log('img = ' + this.newPostImage);
   }
   saveImagePost2(callbackz): void {
     if (this.postBodyImageFile !== undefined) {
       const file = this.postBodyImageFile.item(0);
       this.currDate = new Date();
-      this.newPostImage =  this._loginService.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
+      const hg =  this._loginService.email + this.currDate.getMonth() + this.currDate.getDay() + this.currDate.getHours()
                     + this.currDate.getMinutes() + file.name;
 
-      this._uploadService.uploadPostPicture(file, this.newPostImage, data => {
+      this._uploadService.uploadPostPicture(file, hg, data => {
         // console.log(data);
-        this.newPostImage = this._uploadService.BUCKET_URL + this._uploadService.POST_FOLDER + this.newPostImage;
+        this.newPostImage = this._uploadService.BUCKET_URL + this._uploadService.POST_FOLDER + hg;
         callbackz();
       });
     } else {

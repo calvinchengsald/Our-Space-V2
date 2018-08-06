@@ -55,7 +55,7 @@ export class UploadFileService {
       Body: file
     };
 
-    bucket.upload(params, function(err, data) {
+    const vl = bucket.upload(params, function(err, data) {
       if (err) {
         // console.log ('there was an error uploading your file: ' + err);
         return false;
@@ -64,5 +64,6 @@ export class UploadFileService {
       callback();
       return true;
     });
+    return vl;
   }
 }

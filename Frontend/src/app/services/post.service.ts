@@ -31,15 +31,18 @@ export class PostService {
   getLikeList(postId: number): any {
     // console.log('getting like list of postid: ' + postId);
     const listOfLikes = [];
-    for (let i = 0; i < this.likeData.length; i++ ) {
-      // console.log(this.likeData[i]);
-      // console.log(this.likeData[i]['id']['postId']);
-      // console.log(this.likeData[i]['id']['postId'] == postId);
-      // console.log(this.likeData[i]['id']['postId'] === postId);
-      // console.log('comparinging inside: ' + this.likeData[i]['id']['postId']+'/'+postId +':' +(this.likeData[i]['postId'] == postId) );
-      if (this.likeData[i]['id']['postId'] === postId) {
-        listOfLikes.push(this.likeData[i]['id']);
+    if (this.likeData !== undefined) {
+      for (let i = 0; i < this.likeData.length; i++ ) {
+        // console.log(this.likeData[i]);
+        // console.log(this.likeData[i]['id']['postId']);
+        // console.log(this.likeData[i]['id']['postId'] == postId);
+        // console.log(this.likeData[i]['id']['postId'] === postId);
+        // console.log('comparinging inside: ' + this.likeData[i]['id']['postId']+'/'+postId +':' +(this.likeData[i]['postId'] == postId) );
+        if (this.likeData[i]['id']['postId'] === postId) {
+          listOfLikes.push(this.likeData[i]['id']);
+        }
       }
+
     }
     return listOfLikes;
   }
