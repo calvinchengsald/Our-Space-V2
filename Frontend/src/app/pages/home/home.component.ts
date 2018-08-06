@@ -152,7 +152,7 @@ export class HomeComponent implements OnInit {
     this.saveImagePost2( () => {
       // console.log('i still got executed');
     // console.log('clicked post with ' + this.newPostBody + '/' + this.newPostImage + '/' + this.newPostYoutube);
-    this._postService.newPost(this.newPostBody, 
+    this._postService.newPost(this.newPostBody,
        this.newPostImage, this.newPostYoutube).subscribe(data => {
       // console.log(data);
       if (data && data['postId'] !== 0) {
